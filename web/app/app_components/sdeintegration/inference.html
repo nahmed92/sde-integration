@@ -1,2 +1,48 @@
-<div class="h1">SDE Integration</div>
-<div class="h3">Not Implemented</div>
+<small>
+  System's Inferred Values from User Input on <b>{{ parameterName }}</b> value: <b>{{ selectedValue }}</b>
+</small>
+
+<div growl inline="true" style="width: 60%"></div>
+<table class="table table-striped table-condensed" style="width: 60%">
+  <th>
+    <small>Parameter</small>
+  </th>
+  <th>
+    <small>Extracted</small>
+  </th>
+  <th>
+    <small>Inferred</small>
+  </th>
+  <th class="nowrap">
+    <small>
+      <a tooltip="Accept All" class="btn btn-default btn-xs" ng-click="acceptAllInferredValues()">
+        <i class="fa fa-check text-success clickable"></i>
+      </a>
+      <a tooltip="Reject All" class="btn btn-default btn-xs" ng-click="rejectAllInferredValues()">
+        <i class="fa fa-close text-danger clickable"></i>
+      </a>
+    </small>
+  </th>
+
+  <tr ng-class="{'warning': (infer.manuallyExtractedValue && infer.inferredValue !== infer.manuallyExtractedValue)}" ng-repeat="infer in inferredValues">
+    <td class="col-md-3">
+      <small>{{ infer.parameterName }}</small>
+    </td>
+    <td class="col-md-4">
+      <small>
+        <span ng-if="infer.manuallyExtractedValue" read-more words="false" ng-model="infer.manuallyExtractedValue" length="255"></span>
+      </small>
+    </td>
+    <td class="col-md-4">
+      <small>
+        <span ng-if="infer.inferredValue" read-more words="false" ng-model="infer.inferredValue" length="255"></span>
+      </small>
+    </td>
+    <td class="nowrap col-md-1">
+      <small>
+        <i tooltip="Accept Inference" ng-click="acceptInference(infer, true)" class="fa fa-check fa-lg text-success clickable"></i>
+        <i tooltip="Reject Inference" ng-click="rejectInference(infer, true)" class="fa fa-close fa-lg text-danger clickable"></i>
+      </small>
+    </td>
+  </tr>
+</table>
