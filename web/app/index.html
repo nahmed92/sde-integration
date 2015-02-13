@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" ng-app="app">
+<html lang="en">
 <!--<![endif]-->
 
 <head>
@@ -23,100 +23,2882 @@
   <!-- build:css({.tmp,app}) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
-  <style type="text/css">
-  /*.splash { display: none; }*/
-
-  .splash {
-    display: block !important;
-    color: #fff;
-    font-size: 16px;
-    line-height: 21px;
-    font-weight: 300;
-    background-color: #d35400;
-    text-align: center;
-    position: fixed !important;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  /* taken from spinKit */
-
-  .spinner {
-    margin: 100px auto 0;
-    width: 70px;
-    text-align: center;
-  }
-  .spinner > div {
-    width: 18px;
-    height: 18px;
-    background-color: #fff;
-    border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
-    animation: bouncedelay 1.4s infinite ease-in-out;
-    /* Prevent first frame from flickering when animation starts */
-
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
-  .spinner .bounce1 {
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-  }
-  .spinner .bounce2 {
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
-  }
-  @-webkit-keyframes bouncedelay {
-    0%, 80%, 100% {
-      -webkit-transform: scale(0.0)
-    }
-    40% {
-      -webkit-transform: scale(1.0)
-    }
-  }
-  @keyframes bouncedelay {
-    0%, 80%, 100% {
-      transform: scale(0.0);
-      -webkit-transform: scale(0.0);
-    }
-    40% {
-      transform: scale(1.0);
-      -webkit-transform: scale(1.0);
-    }
-  }
-  .hide {
-    opacity: 0;
-    display: none;
-    z-index: -1;
-    -moz-transition: opacity 0.5s ease;
-    -o-transition: opacity 0.5s ease;
-    -webkit-transition: opacity 0.5s ease;
-    transition: opacity 0.5s ease;
-  }
-  </style>
 </head>
 
 <body>
-  <!--[if lt IE 7]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-  <div class="splash" ng-class="{hide:true}">
-    <div class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
+  <div ng-app="app">
+    <div id="inference-container" ng-controller="InferenceController" attributeId="2226680" attributeValue="SP3" engine="f01ea16f-0dd5-4aa6-a7ab-6a2bcbafc4a1">
+      <div ng-include="'/app_components/sdeintegration/inference.html'"></div>
     </div>
-    Loading SDE Integration Web Interface...
   </div>
 
-  <div ng-include="'/app_components/common/header.tpl.html'" class="fx-fade-normal fx-speed-900"></div>
-  <div ui-view class="container-fluid fx-slide-in" style="padding: 0 15px;" autoscroll="false">
+  <div>
+    <table id="especs_template_header_72" width="100%">
+      <tbody>
+        <tr>
+          <td>
+            <div class="header">
+              <div class="header_heading">
+                <div class="header_icon">
+                  <img src="images/editspecs/header_icon_etilize.gif">
+                </div>
+                <a href="javascript: showHelp(72,0)">
+                  <div class="header_label">Processor &amp; Chipset</div>
+                </a>
+                <div class="hide_button" onclick="toggleHeader(this, 'header_content_72');">&nbsp;</div>
+              </div>
+
+              <div class="header_content" id="header_content_72">
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111114967" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111114967)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111114967)">Processor
+                        Manufacturer</a>
+                    </div>
+
+                    <div id="features_container_111114967" style="float: left">
+                      <span id="features_container_111114967_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fPReq">
+                        <img class="fOK" src="images/editspecs/dot_orange.png" alt="Publish Required Parameter" title="Publish Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSearch">
+                        <img class="fOK" src="images/editspecs/dot_pink.png" alt="Searchable Parameter" title="Searchable Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_darkblue.png" alt="One Line Desc Parameter" title="One Line Desc Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_cyan.png" alt="Basic Info Or Mapped Basic Info Parameter" title="Basic Info Or Mapped Basic Info Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <!-- <img src="images/editspecs/dot_darkblue.png" /> OLD -->
+                    <div style="float: left">
+                      <sub> &nbsp;(Best Buy – Required) </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111114967" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111114967);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111114967" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111114967" style="clear: both;">
+                    <table id="attribute_repeatable_111114967" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111114967_0" class="view attribTr" setno="0" attid="111114967" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul style="display: none;">
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111114967_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111114967_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111114967_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+                <span class="pold_btn" onclick="showPartOfOld('attribute_repeatable_111114967_0');" style="cursor: pointer;"><img src="images/editspecs/part_of_old.png" ></span>
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fPReq fSearch fOld fOld" attid="" title="Required | Publish Req. | Searchable | OLD | Basic Info" alt="Required | Publish Req. | Searchable | OLD | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="Intel" style="position: relative; width: 200px;" id="pp_111114967_2230349_0" name="pp_111114967_2230349_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="true" unit="" isold="true" title="Manufacturer: Processor Manufacturer [2230349] (Coded)" parameter-id="2230349" parameter-name="Processor Manufacturer">
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="2230349" >-Search-</option> -->
+                              <option value="WonderMedia" title="">WonderMedia</option>
+                              <option value="Teradici" title="">Teradici</option>
+                              <option value="IBM" title="">IBM</option>
+                              <option value="Samsung" title="">Samsung</option>
+                              <option value="Apple" title="">Apple</option>
+                              <option value="Rockchip" title="">Rockchip</option>
+                              <option value="AMD" title="">AMD</option>
+                              <option value="ARM" title="">ARM</option>
+                              <option value="Ingenic" title="">Ingenic</option>
+                              <option value="Intel" selected="selected" title="">Intel</option>
+                              <option value="Motorola" title="">Motorola</option>
+                              <option value="NVIDIA" title="">NVIDIA</option>
+                              <option value="Qualcomm" title="">Qualcomm</option>
+                              <option value="Transmeta" title="">Transmeta</option>
+                              <option value="VIA" title="">VIA</option>
+                              <option value="Freescale" title="">Freescale</option>
+                              <option value="-1" val="2230349">-Add New-
+                              </option>
+                              <option value="-2" val="2230349" attid="111114967">-Request New-</option>
+
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_12374" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(12374)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,12374)">Processor
+                        Type</a>
+                    </div>
+
+                    <div id="features_container_12374" style="float: left">
+                      <span id="features_container_12374_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fPReq">
+                        <img class="fOK" src="images/editspecs/dot_orange.png" alt="Publish Required Parameter" title="Publish Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSeat">
+                        <img class="fOK" src="images/editspecs/dot_yellow.png" alt="SeAt Parameter" title="SeAt Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSearch">
+                        <img class="fOK" src="images/editspecs/dot_pink.png" alt="Searchable Parameter" title="Searchable Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fXU">
+                        <img class="fOK" src="images/editspecs/dot_green.png" alt="XUpsell Parameter" title="XUpsell Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_darkblue.png" alt="One Line Desc Parameter" title="One Line Desc Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_cyan.png" alt="Basic Info Or Mapped Basic Info Parameter" title="Basic Info Or Mapped Basic Info Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <!-- <img src="images/editspecs/dot_darkblue.png" /> OLD -->
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_12374" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(12374);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_12374" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_12374" style="clear: both;">
+                    <table id="attribute_repeatable_12374" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_12374_0" class="view attribTr" setno="0" attid="12374" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul style="display: none;">
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_12374_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_12374_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_12374_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+                <span class="pold_btn" onclick="showPartOfOld('attribute_repeatable_12374_0');" style="cursor: pointer;"><img src="images/editspecs/part_of_old.png" ></span>
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fPReq fSeat fSearch fXU fOld fOld" attid="" title="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info" alt="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="Core 2 Duo" style="position: relative; width: 200px;" id="pp_12374_2230387_0" name="pp_12374_2230387_0" class="ppc ecreset req" ecode="2" oldvalue="Core 2 Duo" setno="0" old="true" unit="" isold="true" title="Type: Processor Type [2230387] (Coded)" parameter-id="2230387" parameter-name="Processor Type">
+
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="2230387" >-Search-</option> -->
+                              <option value="Tegra K1" title="">Tegra K1
+                              </option>
+                              <option value="Tegra 4" title="">Tegra 4
+                              </option>
+                              <option value="FX-Series" title="">FX-Series</option>
+                              <option value="Tera2321" title="">Tera2321</option>
+                              <option value="A-Series" title="">A-Series</option>
+                              <option value="ARM11" title="" disabled="">ARM11</option>
+                              <option value="ARM9" title="">ARM9</option>
+                              <option value="Athlon" title="">Athlon</option>
+                              <option value="Athlon 64" title="">Athlon 64
+                              </option>
+                              <option value="Athlon 64 X2" title="" disabled="">Athlon 64 X2</option>
+                              <option value="Athlon II" title="">Athlon II
+                              </option>
+                              <option value="Athlon II Neo" title="">Athlon II Neo</option>
+                              <option value="Athlon II X2" title="">Athlon II X2</option>
+                              <option value="Athlon Neo" title="">Athlon Neo
+                              </option>
+                              <option value="Athlon Neo X2" title="">Athlon Neo X2</option>
+                              <option value="Athlon X2" title="">Athlon X2
+                              </option>
+                              <option value="Athlon XP" title="">Athlon XP
+                              </option>
+                              <option value="Athlon XP-M" title="">Athlon XP-M
+                              </option>
+                              <option value="Atom" title="">Atom</option>
+                              <option value="C-Series" title="">C-Series</option>
+                              <option value="C7-M" title="">C7-M</option>
+                              <option value="C7-M ULV" title="">C7-M ULV
+                              </option>
+                              <option value="Celeron" title="">Celeron</option>
+                              <option value="Celeron D" title="">Celeron D
+                              </option>
+                              <option value="Celeron Dual-Core" title="">Celeron Dual-Core
+                              </option>
+                              <option value="Celeron M" title="">Celeron M
+                              </option>
+                              <option value="Core 2 Duo" selected="selected" title="">Core 2 Duo</option>
+                              <option value="Core 2 Extreme" title="">Core 2 Extreme</option>
+                              <option value="Core 2 Quad" title="">Core 2 Quad</option>
+                              <option value="Core 2 Solo" title="">Core 2 Solo</option>
+                              <option value="Core Duo" title="">Core Duo
+                              </option>
+                              <option value="Core i3" title="">Core i3
+                              </option>
+                              <option value="Core i5" title="">Core i5
+                              </option>
+                              <option value="Core i7" title="">Core i7
+                              </option>
+                              <option value="Core i7 Extreme" title="">Core i7 Extreme</option>
+                              <option value="Core Solo" title="">Core Solo
+                              </option>
+                              <option value="Cortex A9" title="">Cortex A9
+                              </option>
+                              <option value="Crusoe" title="">Crusoe</option>
+                              <option value="Duron" title="">Duron</option>
+                              <option value="E-Series" title="">E-Series</option>
+                              <option value="Eden" title="">Eden</option>
+                              <option value="Efficeon" title="">Efficeon</option>
+                              <option value="Exynos" title="">Exynos</option>
+                              <option value="Exynos 5" title="">Exynos 5
+                              </option>
+                              <option value="G-Series" title="">G-Series</option>
+                              <option value="Geode" title="">Geode</option>
+                              <option value="Geode NX" title="">Geode NX
+                              </option>
+                              <option value="i.MX" title="">i.MX</option>
+                              <option value="Mobile Athlon 64" title="">Mobile Athlon 64</option>
+                              <option value="Mobile Athlon XP-M" title="">Mobile Athlon XP-M</option>
+                              <option value="Mobile Celeron" title="">Mobile Celeron
+                              </option>
+                              <option value="Mobile Pentium 4" title="">Mobile Pentium 4</option>
+                              <option value="Mobile Pentium 4-M" title="">Mobile Pentium 4-M</option>
+                              <option value="Mobile Pentium III-M" title="">Mobile Pentium III-M</option>
+                              <option value="Mobile Sempron" title="">Mobile Sempron
+                              </option>
+                              <option value="Mobile Sempron XP-M" title="">Mobile Sempron XP-M</option>
+                              <option value="Mobile Turion 64" title="">Mobile Turion 64</option>
+                              <option value="Nano" title="">Nano</option>
+                              <option value="Pentium" title="">Pentium</option>
+                              <option value="Pentium 4" title="">Pentium 4
+                              </option>
+                              <option value="Pentium D" title="">Pentium D
+                              </option>
+                              <option value="Pentium Dual-core" title="">Pentium Dual-core
+                              </option>
+                              <option value="Pentium II" title="">Pentium II
+                              </option>
+                              <option value="Pentium III" title="">Pentium III
+                              </option>
+                              <option value="Pentium M" title="">Pentium M
+                              </option>
+                              <option value="Phenom II" title="">Phenom II
+                              </option>
+                              <option value="Phenom II Black" title="">Phenom II Black</option>
+                              <option value="Phenom II X2" title="">Phenom II X2</option>
+                              <option value="Phenom II X3" title="">Phenom II X3</option>
+                              <option value="Phenom II X4" title="">Phenom II X4</option>
+                              <option value="PowerPC G3" title="">PowerPC G3
+                              </option>
+                              <option value="PowerPC G4" title="">PowerPC G4
+                              </option>
+                              <option value="Sempron" title="">Sempron</option>
+                              <option value="Snapdragon" title="">Snapdragon</option>
+                              <option value="Tegra" title="">Tegra</option>
+                              <option value="Turion 64" title="">Turion 64
+                              </option>
+                              <option value="Turion 64 X2" title="">Turion 64 X2</option>
+                              <option value="Turion II" title="">Turion II
+                              </option>
+                              <option value="Turion II Neo" title="">Turion II Neo</option>
+                              <option value="Turion II Ultra" title="">Turion II Ultra</option>
+                              <option value="Turion II X2" title="">Turion II X2</option>
+                              <option value="Turion Neo X2" title="">Turion Neo X2</option>
+                              <option value="Turion Ultra" title="">Turion Ultra
+                              </option>
+                              <option value="Turion X2" title="">Turion X2
+                              </option>
+                              <option value="Turion X2 Ultra" title="">Turion X2 Ultra</option>
+                              <option value="V Series" title="">V Series
+                              </option>
+                              <option value="XBurst" title="">XBurst</option>
+                              <option value="-1" val="2230387">-Add New-
+                              </option>
+                              <option value="-2" val="2230387" attid="12374">-Request New-</option>
+
+                            </select>
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_11113786" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(11113786)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,11113786)">Processor
+                        Model</a>
+                    </div>
+
+                    <div id="features_container_11113786" style="float: left">
+                      <span id="features_container_11113786_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSeat">
+                        <img class="fOK" src="images/editspecs/dot_yellow.png" alt="SeAt Parameter" title="SeAt Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSearch">
+                        <img class="fOK" src="images/editspecs/dot_pink.png" alt="Searchable Parameter" title="Searchable Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_darkblue.png" alt="One Line Desc Parameter" title="One Line Desc Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_cyan.png" alt="Basic Info Or Mapped Basic Info Parameter" title="Basic Info Or Mapped Basic Info Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <!-- <img src="images/editspecs/dot_darkblue.png" /> OLD -->
+                    <div style="float: left">
+                      <sub> &nbsp;(Best Buy – Required) </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_11113786" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(11113786);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_11113786" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_11113786" style="clear: both;">
+                    <table id="attribute_repeatable_11113786" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_11113786_0" class="view attribTr" setno="0" attid="11113786" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_11113786_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_11113786_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_11113786_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+                <span class="pold_btn" onclick="showPartOfOld('attribute_repeatable_11113786_0');" style="cursor: pointer;"><img src="images/editspecs/part_of_old.png" ></span>
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fSeat fSearch fOld fOld" attid="" title="Required | SeAt | Searchable | OLD | Basic Info" alt="Required | SeAt | Searchable | OLD | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="T5550" onchange="showInferenceOverlay(this)" style="position: relative; width: 200px;" id="pp_11113786_2230522_0" name="pp_11113786_2230522_0" class="ppc ecreset req" ecode="2" oldvalue="T5550" setno="0" old="true" unit="" isold="true" title="Identifier/Model: Processor Model [2230522] (Coded)" parameter-id="2230522" parameter-name="Processor Model">
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="2230522" >-Search-</option> -->
+                              <option value="i5-5200U" title="">i5-5200U</option>
+                              <option value="i3-4010M" title="">i3-4010M</option>
+                              <option value="i7-4712HQ" title="">i7-4712HQ</option>
+                              <option value="i7-4860HQ" title="">i7-4860HQ</option>
+                              <option value="i7-4810MQ" title="">i7-4810MQ</option>
+                              <option value="i5-4340M" title="">i5-4340M</option>
+                              <option value="i7-4910MQ" title="">i7-4910MQ</option>
+                              <option value="E1 Micro-6200T" title="">E1 Micro-6200T
+                              </option>
+                              <option value="CD570M-A1" title="">CD570M-A1</option>
+                              <option value="N2807" title="">N2807</option>
+                              <option value="A10 Pro-7350B" title="">A10 Pro-7350B
+                              </option>
+                              <option value="A8 Pro-7150B" title="">A8 Pro-7150B
+                              </option>
+                              <option value="A8-6410" title="">A8-6410</option>
+                              <option value="i7-4940MX" title="">i7-4940MX</option>
+                              <option value="i7-4710MQ" title="">i7-4710MQ</option>
+                              <option value="5800" title="">5800</option>
+                              <option value="i3-4100M" title="">i3-4100M</option>
+                              <option value="i7-4700QM" title="">i7-4700QM</option>
+                              <option value="i5-4310U" title="">i5-4310U</option>
+                              <option value="N2940" title="">N2940</option>
+                              <option value="i7-5500U" title="">i7-5500U</option>
+                              <option value="Z3735F" title="">Z3735F</option>
+                              <option value="A4 Micro-6400T" title="">A4 Micro-6400T
+                              </option>
+                              <option value="3560M" title="">3560M</option>
+                              <option value="i3-4025U" title="">i3-4025U</option>
+                              <option value="RK3168" title="">RK3168</option>
+                              <option value="i5-530M" title="">i5-530M</option>
+                              <option value="i3-4158U" title="">i3-4158U</option>
+                              <option value="i5-4210H" title="">i5-4210H</option>
+                              <option value="i5-4310M" title="">i5-4310M</option>
+                              <option value="i5-4220Y" title="">i5-4220Y</option>
+                              <option value="A6 Pro-7050B" title="">A6 Pro-7050B
+                              </option>
+                              <option value="i7-4610M" title="">i7-4610M</option>
+                              <option value="FX-7500" title="">FX-7500</option>
+                              <option value="N3540" title="">N3540</option>
+                              <option value="N2840" title="">N2840</option>
+                              <option value="i7-4710HQ" title="">i7-4710HQ</option>
+                              <option value="i5-4258U" title="">i5-4258U</option>
+                              <option value="2980U" title="">2980U</option>
+                              <option value="i3-4012Y" title="">i3-4012Y</option>
+                              <option value="i7-4712MQ" title="">i7-4712MQ</option>
+                              <option value="A8-7100" title="">A8-7100</option>
+                              <option value="A6-6310" title="">A6-6310</option>
+                              <option value="i5-4210U" title="">i5-4210U</option>
+                              <option value="N2930" title="">N2930</option>
+                              <option value="N3530" title="">N3530</option>
+                              <option value="5420" title="">5420</option>
+                              <option value="i5-4210M" title="">i5-4210M</option>
+                              <option value="i7-4510U" title="">i7-4510U</option>
+                              <option value="N2830" title="">N2830</option>
+                              <option value="N2815" title="">N2815</option>
+                              <option value="i7-4550U" title="">i7-4550U</option>
+                              <option value="E2-3000" title="">E2-3000</option>
+                              <option value="E1-6010" title="">E1-6010</option>
+                              <option value="i7-4702QM" title="">i7-4702QM</option>
+                              <option value="Z3770" title="">Z3770</option>
+                              <option value="A4-6210" title="">A4-6210</option>
+                              <option value="A10-7300" title="">A10-7300</option>
+                              <option value="i3-4030U" title="">i3-4030U</option>
+                              <option value="E2-6110" title="">E2-6110</option>
+                              <option value="A6-5200M" title="">A6-5200M</option>
+                              <option value="i5-4350U" title="">i5-4350U</option>
+                              <option value="i7-4930MX" title="">i7-4930MX</option>
+                              <option value="N2820" title="">N2820</option>
+                              <option value="1000M" title="">1000M</option>
+                              <option value="1005M" title="">1005M</option>
+                              <option value="1007U" title="">1007U</option>
+                              <option value="1017U" title="">1017U</option>
+                              <option value="1019Y" title="">1019Y</option>
+                              <option value="1037U" title="">1037U</option>
+                              <option value="1400+" title="">1400+</option>
+                              <option value="1500+" title="">1500+</option>
+                              <option value="1600+" title="">1600+</option>
+                              <option value="1750" title="">1750</option>
+                              <option value="1800+" title="">1800+</option>
+                              <option value="2000+" title="">2000+</option>
+                              <option value="2020M" title="">2020M</option>
+                              <option value="2030M" title="">2030M</option>
+                              <option value="2117U" title="">2117U</option>
+                              <option value="2127U" title="">2127U</option>
+                              <option value="2129Y" title="">2129Y</option>
+                              <option value="220" title="">220</option>
+                              <option value="2200+" title="">2200+</option>
+                              <option value="2217" title="">2217</option>
+                              <option value="2217U" title="">2217U</option>
+                              <option value="2400+" title="">2400+</option>
+                              <option value="250" title="">250</option>
+                              <option value="2500+" title="">2500+</option>
+                              <option value="2600+" title="">2600+</option>
+                              <option value="2650e" title="">2650e</option>
+                              <option value="2700+" title="">2700+</option>
+                              <option value="2800+" title="">2800+</option>
+                              <option value="2950M" title="">2950M</option>
+                              <option value="2955U" title="">2955U</option>
+                              <option value="2957U" title="">2957U</option>
+                              <option value="2981U" title="">2981U</option>
+                              <option value="3000+" title="">3000+</option>
+                              <option value="310" title="">310</option>
+                              <option value="3100+" title="">3100+</option>
+                              <option value="320" title="">320</option>
+                              <option value="3200+" title="">3200+</option>
+                              <option value="325" title="">325</option>
+                              <option value="330" title="">330</option>
+                              <option value="3300+" title="">3300+</option>
+                              <option value="335" title="">335</option>
+                              <option value="340" title="">340</option>
+                              <option value="3400+" title="">3400+</option>
+                              <option value="345" title="">345</option>
+                              <option value="350" title="">350</option>
+                              <option value="3500+" title="">3500+</option>
+                              <option value="350J" title="">350J</option>
+                              <option value="351" title="">351</option>
+                              <option value="353" title="">353</option>
+                              <option value="355" title="">355</option>
+                              <option value="3550M" title="">3550M</option>
+                              <option value="3556U" title="">3556U</option>
+                              <option value="3558U" title="">3558U</option>
+                              <option value="360" title="">360</option>
+                              <option value="3600+" title="">3600+</option>
+                              <option value="360J" title="">360J</option>
+                              <option value="370" title="">370</option>
+                              <option value="3700+" title="">3700+</option>
+                              <option value="373" title="">373</option>
+                              <option value="380" title="">380</option>
+                              <option value="3800+" title="">3800+</option>
+                              <option value="390" title="">390</option>
+                              <option value="4000+" title="">4000+</option>
+                              <option value="410" title="">410</option>
+                              <option value="410A" title="">410A</option>
+                              <option value="420" title="">420</option>
+                              <option value="4200+" title="">4200+</option>
+                              <option value="423" title="">423</option>
+                              <option value="430" title="">430</option>
+                              <option value="440" title="">440</option>
+                              <option value="4400+" title="">4400+</option>
+                              <option value="450" title="">450</option>
+                              <option value="4600+" title="">4600+</option>
+                              <option value="5" title="">5</option>
+                              <option value="515" title="">515</option>
+                              <option value="518" title="">518</option>
+                              <option value="520" title="">520</option>
+                              <option value="5200+" title="">5200+</option>
+                              <option value="524" title="">524</option>
+                              <option value="5250" title="">5250</option>
+                              <option value="530" title="">530</option>
+                              <option value="532" title="">532</option>
+                              <option value="538" title="">538</option>
+                              <option value="540" title="">540</option>
+                              <option value="548" title="">548</option>
+                              <option value="550" title="">550</option>
+                              <option value="552" title="">552</option>
+                              <option value="560" title="">560</option>
+                              <option value="570" title="">570</option>
+                              <option value="575" title="">575</option>
+                              <option value="585" title="">585</option>
+                              <option value="620" title="">620</option>
+                              <option value="630" title="">630</option>
+                              <option value="64" title="">64</option>
+                              <option value="640" title="">640</option>
+                              <option value="650" title="">650</option>
+                              <option value="705" title="">705</option>
+                              <option value="710" title="">710</option>
+                              <option value="713" title="">713</option>
+                              <option value="715" title="">715</option>
+                              <option value="715A" title="">715A</option>
+                              <option value="718" title="">718</option>
+                              <option value="7200" title="">7200</option>
+                              <option value="723" title="">723</option>
+                              <option value="725" title="">725</option>
+                              <option value="725A" title="">725A</option>
+                              <option value="730" title="">730</option>
+                              <option value="733" title="">733</option>
+                              <option value="735" title="">735</option>
+                              <option value="735A" title="">735A</option>
+                              <option value="738" title="">738</option>
+                              <option value="740" title="">740</option>
+                              <option value="7410" title="">7410</option>
+                              <option value="743" title="">743</option>
+                              <option value="745" title="">745</option>
+                              <option value="7455" title="">7455</option>
+                              <option value="745A" title="">745A</option>
+                              <option value="750" title="">750</option>
+                              <option value="753" title="">753</option>
+                              <option value="755" title="">755</option>
+                              <option value="756" title="">756</option>
+                              <option value="758" title="">758</option>
+                              <option value="760" title="">760</option>
+                              <option value="760A" title="">760A</option>
+                              <option value="765" title="">765</option>
+                              <option value="770" title="">770</option>
+                              <option value="772" title="">772</option>
+                              <option value="773" title="">773</option>
+                              <option value="778" title="">778</option>
+                              <option value="780" title="">780</option>
+                              <option value="788" title="">788</option>
+                              <option value="820" title="">820</option>
+                              <option value="847" title="">847</option>
+                              <option value="857" title="">857</option>
+                              <option value="867" title="">867</option>
+                              <option value="877" title="">877</option>
+                              <option value="8850" title="">8850</option>
+                              <option value="887" title="">887</option>
+                              <option value="900" title="">900</option>
+                              <option value="925" title="">925</option>
+                              <option value="957" title="">957</option>
+                              <option value="967" title="">967</option>
+                              <option value="977" title="">977</option>
+                              <option value="987" title="">987</option>
+                              <option value="997" title="">997</option>
+                              <option value="A10-4600M" title="">A10-4600M</option>
+                              <option value="A10-4655M" title="">A10-4655M</option>
+                              <option value="A10-5745M" title="">A10-5745M</option>
+                              <option value="A10-5750M" title="">A10-5750M</option>
+                              <option value="A10-5757M" title="">A10-5757M</option>
+                              <option value="A110" title="">A110</option>
+                              <option value="A4-1200" title="">A4-1200</option>
+                              <option value="A4-1250" title="">A4-1250</option>
+                              <option value="A4-3300M" title="">A4-3300M</option>
+                              <option value="A4-3305M" title="">A4-3305M</option>
+                              <option value="A4-3310MX" title="">A4-3310MX</option>
+                              <option value="A4-3320M" title="">A4-3320M</option>
+                              <option value="A4-3330MX" title="">A4-3330MX</option>
+                              <option value="A4-4300M" title="">A4-4300M</option>
+                              <option value="A4-4355M" title="">A4-4355M</option>
+                              <option value="A4-5000" title="">A4-5000</option>
+                              <option value="A4-5000M" title="">A4-5000M</option>
+                              <option value="A4-5150M" title="">A4-5150M</option>
+                              <option value="A6-1450" title="">A6-1450</option>
+                              <option value="A6-3400M" title="">A6-3400M</option>
+                              <option value="A6-3405M" title="">A6-3405M</option>
+                              <option value="A6-3410MX" title="">A6-3410MX</option>
+                              <option value="A6-3420M" title="">A6-3420M</option>
+                              <option value="A6-3420MQ" title="">A6-3420MQ</option>
+                              <option value="A6-3430MX" title="">A6-3430MX</option>
+                              <option value="A6-3440M" title="">A6-3440M</option>
+                              <option value="A6-4400M" title="">A6-4400M</option>
+                              <option value="A6-4440M" title="">A6-4440M</option>
+                              <option value="A6-4455M" title="">A6-4455M</option>
+                              <option value="A6-5200" title="">A6-5200</option>
+                              <option value="A6-5345M" title="">A6-5345M</option>
+                              <option value="A6-5350M" title="">A6-5350M</option>
+                              <option value="A6-5357M" title="">A6-5357M</option>
+                              <option value="A8-3500M" title="">A8-3500M</option>
+                              <option value="A8-3510MX" title="">A8-3510MX</option>
+                              <option value="A8-3520M" title="">A8-3520M</option>
+                              <option value="A8-3530MX" title="">A8-3530MX</option>
+                              <option value="A8-4500M" title="">A8-4500M</option>
+                              <option value="A8-4555" title="">A8-4555</option>
+                              <option value="A8-4555M" title="">A8-4555M</option>
+                              <option value="A8-5545M" title="">A8-5545M</option>
+                              <option value="A8-5550M" title="">A8-5550M</option>
+                              <option value="A8-5557M" title="">A8-5557M</option>
+                              <option value="ARM926EJ-S" title="">ARM926EJ-S</option>
+                              <option value="B730" title="">B730</option>
+                              <option value="B800" title="">B800</option>
+                              <option value="B810" title="">B810</option>
+                              <option value="B815" title="">B815</option>
+                              <option value="B820" title="">B820</option>
+                              <option value="B820M" title="">B820M</option>
+                              <option value="B830" title="">B830</option>
+                              <option value="B840" title="">B840</option>
+                              <option value="B847" title="">B847</option>
+                              <option value="B867" title="">B867</option>
+                              <option value="B870" title="">B870</option>
+                              <option value="B887" title="">B887</option>
+                              <option value="B940" title="">B940</option>
+                              <option value="B940M" title="">B940M</option>
+                              <option value="B950" title="">B950</option>
+                              <option value="B960" title="">B960</option>
+                              <option value="B960M" title="">B960M</option>
+                              <option value="B970" title="">B970</option>
+                              <option value="B980" title="">B980</option>
+                              <option value="B987" title="">B987</option>
+                              <option value="B997" title="">B997</option>
+                              <option value="C-30" title="">C-30</option>
+                              <option value="C-50" title="">C-50</option>
+                              <option value="C-60" title="">C-60</option>
+                              <option value="C-70" title="">C-70</option>
+                              <option value="Cortex A9" title="">Cortex A9
+                              </option>
+                              <option value="D2700" title="">D2700</option>
+                              <option value="D425" title="">D425</option>
+                              <option value="D510" title="">D510</option>
+                              <option value="D525" title="">D525</option>
+                              <option value="E-240" title="">E-240</option>
+                              <option value="E-300" title="">E-300</option>
+                              <option value="E-350" title="">E-350</option>
+                              <option value="E-450" title="">E-450</option>
+                              <option value="E1-1200" title="">E1-1200</option>
+                              <option value="E1-1500" title="">E1-1500</option>
+                              <option value="E1-2100" title="">E1-2100</option>
+                              <option value="E1-2500" title="">E1-2500</option>
+                              <option value="E1400" title="">E1400</option>
+                              <option value="E2-1800" title="">E2-1800</option>
+                              <option value="E2-2000" title="">E2-2000</option>
+                              <option value="E2-3000M" title="">E2-3000M</option>
+                              <option value="E2-3800" title="">E2-3800</option>
+                              <option value="E2140" title="">E2140</option>
+                              <option value="E2160" title="">E2160</option>
+                              <option value="E4300" title="">E4300</option>
+                              <option value="E4400" title="">E4400</option>
+                              <option value="E6300" title="">E6300</option>
+                              <option value="E6320" title="">E6320</option>
+                              <option value="E6400" title="">E6400</option>
+                              <option value="E6420" title="">E6420</option>
+                              <option value="E6600" title="">E6600</option>
+                              <option value="E6650" title="">E6650</option>
+                              <option value="E7200" title="">E7200</option>
+                              <option value="E8400" title="">E8400</option>
+                              <option value="E8500" title="">E8500</option>
+                              <option value="G2020" title="">G2020</option>
+                              <option value="G645T" title="">G645T</option>
+                              <option value="i.MX515" title="">i.MX515</option>
+                              <option value="i3-2120M" title="">i3-2120M</option>
+                              <option value="i3-2308M" title="">i3-2308M</option>
+                              <option value="i3-2310M" title="">i3-2310M</option>
+                              <option value="i3-2312M" title="">i3-2312M</option>
+                              <option value="i3-2328M" title="">i3-2328M</option>
+                              <option value="i3-2330M" title="">i3-2330M</option>
+                              <option value="i3-2340M" title="">i3-2340M</option>
+                              <option value="i3-2348M" title="">i3-2348M</option>
+                              <option value="i3-2350M" title="">i3-2350M</option>
+                              <option value="i3-2357M" title="">i3-2357M</option>
+                              <option value="i3-2365M" title="">i3-2365M</option>
+                              <option value="i3-2365U" title="">i3-2365U</option>
+                              <option value="i3-2367M" title="">i3-2367M</option>
+                              <option value="i3-2370M" title="">i3-2370M</option>
+                              <option value="i3-2375M" title="">i3-2375M</option>
+                              <option value="i3-2377M" title="">i3-2377M</option>
+                              <option value="i3-2377U" title="">i3-2377U</option>
+                              <option value="i3-3110M" title="">i3-3110M</option>
+                              <option value="i3-3120M" title="">i3-3120M</option>
+                              <option value="i3-3130M" title="">i3-3130M</option>
+                              <option value="i3-3210" title="">i3-3210</option>
+                              <option value="i3-3210M" title="">i3-3210M</option>
+                              <option value="i3-3217M" title="">i3-3217M</option>
+                              <option value="i3-3217U" title="">i3-3217U</option>
+                              <option value="i3-3217UM" title="">i3-3217UM</option>
+                              <option value="i3-3220" title="">i3-3220</option>
+                              <option value="i3-3227U" title="">i3-3227U</option>
+                              <option value="i3-3229Y" title="">i3-3229Y</option>
+                              <option value="i3-330M" title="">i3-330M</option>
+                              <option value="i3-330UM" title="">i3-330UM</option>
+                              <option value="i3-350M" title="">i3-350M</option>
+                              <option value="i3-370M" title="">i3-370M</option>
+                              <option value="i3-380M" title="">i3-380M</option>
+                              <option value="i3-380UM" title="">i3-380UM</option>
+                              <option value="i3-390M" title="">i3-390M</option>
+                              <option value="i3-4000M" title="">i3-4000M</option>
+                              <option value="i3-4000MQ" title="">i3-4000MQ</option>
+                              <option value="i3-4005U" title="">i3-4005U</option>
+                              <option value="i3-4010U" title="">i3-4010U</option>
+                              <option value="i3-4010Y" title="">i3-4010Y</option>
+                              <option value="i3-4020Y" title="">i3-4020Y</option>
+                              <option value="i5-2310" title="">i5-2310</option>
+                              <option value="i5-2400" title="">i5-2400</option>
+                              <option value="i5-2410M" title="">i5-2410M</option>
+                              <option value="i5-2430M" title="">i5-2430M</option>
+                              <option value="i5-2435M" title="">i5-2435M</option>
+                              <option value="i5-2450M" title="">i5-2450M</option>
+                              <option value="i5-2457M" title="">i5-2457M</option>
+                              <option value="i5-2467M" title="">i5-2467M</option>
+                              <option value="i5-2467QM" title="">i5-2467QM</option>
+                              <option value="i5-2520M" title="">i5-2520M</option>
+                              <option value="i5-2537M" title="">i5-2537M</option>
+                              <option value="i5-2540M" title="">i5-2540M</option>
+                              <option value="i5-2557M" title="">i5-2557M</option>
+                              <option value="i5-3210M" title="">i5-3210M</option>
+                              <option value="i5-3210MP" title="">i5-3210MP</option>
+                              <option value="i5-3230M" title="">i5-3230M</option>
+                              <option value="i5-3230QM" title="">i5-3230QM</option>
+                              <option value="i5-3310M" title="">i5-3310M</option>
+                              <option value="i5-3317M" title="">i5-3317M</option>
+                              <option value="i5-3317U" title="">i5-3317U</option>
+                              <option value="i5-3317UM" title="">i5-3317UM</option>
+                              <option value="i5-3320" title="">i5-3320</option>
+                              <option value="i5-3320M" title="">i5-3320M</option>
+                              <option value="i5-3327U" title="">i5-3327U</option>
+                              <option value="i5-3337U" title="">i5-3337U</option>
+                              <option value="i5-3337UM" title="">i5-3337UM</option>
+                              <option value="i5-3339Y" title="">i5-3339Y</option>
+                              <option value="i5-3340" title="">i5-3340</option>
+                              <option value="i5-3340M" title="">i5-3340M</option>
+                              <option value="i5-3360" title="">i5-3360</option>
+                              <option value="i5-3360M" title="">i5-3360M</option>
+                              <option value="i5-3370U" title="">i5-3370U</option>
+                              <option value="i5-3380M" title="">i5-3380M</option>
+                              <option value="i5-3427U" title="">i5-3427U</option>
+                              <option value="i5-3437U" title="">i5-3437U</option>
+                              <option value="i5-3450" title="">i5-3450</option>
+                              <option value="i5-4200H" title="">i5-4200H</option>
+                              <option value="i5-4200M" title="">i5-4200M</option>
+                              <option value="i5-4200U" title="">i5-4200U</option>
+                              <option value="i5-4210Y" title="">i5-4210Y</option>
+                              <option value="i5-4300M" title="">i5-4300M</option>
+                              <option value="i5-4300U" title="">i5-4300U</option>
+                              <option value="i5-430M" title="">i5-430M</option>
+                              <option value="i5-430UM" title="">i5-430UM</option>
+                              <option value="i5-4330M" title="">i5-4330M</option>
+                              <option value="i5-450M" title="">i5-450M</option>
+                              <option value="i5-460M" title="">i5-460M</option>
+                              <option value="i5-470UM" title="">i5-470UM</option>
+                              <option value="i5-480M" title="">i5-480M</option>
+                              <option value="i5-520M" title="">i5-520M</option>
+                              <option value="i5-520UM" title="">i5-520UM</option>
+                              <option value="i5-540M" title="">i5-540M</option>
+                              <option value="i5-540UM" title="">i5-540UM</option>
+                              <option value="i5-560M" title="">i5-560M</option>
+                              <option value="i5-560UM" title="">i5-560UM</option>
+                              <option value="i5-580M" title="">i5-580M</option>
+                              <option value="i7-2600" title="">i7-2600</option>
+                              <option value="i7-2610UM" title="">i7-2610UM</option>
+                              <option value="i7-2617M" title="">i7-2617M</option>
+                              <option value="i7-2617UM" title="">i7-2617UM</option>
+                              <option value="i7-2620M" title="">i7-2620M</option>
+                              <option value="i7-2620QM" title="">i7-2620QM</option>
+                              <option value="i7-2630QM" title="">i7-2630QM</option>
+                              <option value="i7-2635QM" title="">i7-2635QM</option>
+                              <option value="i7-2637M" title="">i7-2637M</option>
+                              <option value="i7-2640M" title="">i7-2640M</option>
+                              <option value="i7-2649M" title="">i7-2649M</option>
+                              <option value="i7-2655LE" title="">i7-2655LE</option>
+                              <option value="i7-2657M" title="">i7-2657M</option>
+                              <option value="i7-2667QM" title="">i7-2667QM</option>
+                              <option value="i7-2670QM" title="">i7-2670QM</option>
+                              <option value="i7-2675QM" title="">i7-2675QM</option>
+                              <option value="i7-2677M" title="">i7-2677M</option>
+                              <option value="i7-2710QM" title="">i7-2710QM</option>
+                              <option value="i7-2720QM" title="">i7-2720QM</option>
+                              <option value="i7-2760QM" title="">i7-2760QM</option>
+                              <option value="i7-2820QM" title="">i7-2820QM</option>
+                              <option value="i7-2860QM" title="">i7-2860QM</option>
+                              <option value="i7-2920XM" title="">i7-2920XM</option>
+                              <option value="i7-2960XM" title="">i7-2960XM</option>
+                              <option value="i7-3210M" title="">i7-3210M</option>
+                              <option value="i7-3517M" title="">i7-3517M</option>
+                              <option value="i7-3517U" title="">i7-3517U</option>
+                              <option value="i7-3517UE" title="">i7-3517UE</option>
+                              <option value="i7-3517UM" title="">i7-3517UM</option>
+                              <option value="i7-3520M" title="">i7-3520M</option>
+                              <option value="i7-3537U" title="">i7-3537U</option>
+                              <option value="i7-3540M" title="">i7-3540M</option>
+                              <option value="i7-3540QM" title="">i7-3540QM</option>
+                              <option value="i7-3610M" title="">i7-3610M</option>
+                              <option value="i7-3610QM" title="">i7-3610QM</option>
+                              <option value="i7-3612QM" title="">i7-3612QM</option>
+                              <option value="i7-3615QM" title="">i7-3615QM</option>
+                              <option value="i7-3630M" title="">i7-3630M</option>
+                              <option value="i7-3630QM" title="">i7-3630QM</option>
+                              <option value="i7-3632QM" title="">i7-3632QM</option>
+                              <option value="i7-3635QM" title="">i7-3635QM</option>
+                              <option value="i7-3667U" title="">i7-3667U</option>
+                              <option value="i7-3687U" title="">i7-3687U</option>
+                              <option value="i7-3720M" title="">i7-3720M</option>
+                              <option value="i7-3720QM" title="">i7-3720QM</option>
+                              <option value="i7-3740QM" title="">i7-3740QM</option>
+                              <option value="i7-3820" title="">i7-3820</option>
+                              <option value="i7-3820QM" title="">i7-3820QM</option>
+                              <option value="i7-3830QM" title="">i7-3830QM</option>
+                              <option value="i7-3840QM" title="">i7-3840QM</option>
+                              <option value="i7-3920XM" title="">i7-3920XM</option>
+                              <option value="i7-3940XM" title="">i7-3940XM</option>
+                              <option value="i7-4500MQ" title="">i7-4500MQ</option>
+                              <option value="i7-4500U" title="">i7-4500U</option>
+                              <option value="i7-4558U" title="">i7-4558U</option>
+                              <option value="i7-4600M" title="">i7-4600M</option>
+                              <option value="i7-4600U" title="">i7-4600U</option>
+                              <option value="i7-4650U" title="">i7-4650U</option>
+                              <option value="i7-4700" title="">i7-4700</option>
+                              <option value="i7-4700HQ" title="">i7-4700HQ</option>
+                              <option value="i7-4700MQ" title="">i7-4700MQ</option>
+                              <option value="i7-4702HQ" title="">i7-4702HQ</option>
+                              <option value="i7-4702MQ" title="">i7-4702MQ</option>
+                              <option value="i7-4800MQ" title="">i7-4800MQ</option>
+                              <option value="i7-4900MQ" title="">i7-4900MQ</option>
+                              <option value="i7-620LM" title="">i7-620LM</option>
+                              <option value="i7-620M" title="">i7-620M</option>
+                              <option value="i7-620UM" title="">i7-620UM</option>
+                              <option value="i7-640LM" title="">i7-640LM</option>
+                              <option value="i7-640M" title="">i7-640M</option>
+                              <option value="i7-640UM" title="">i7-640UM</option>
+                              <option value="i7-660UM" title="">i7-660UM</option>
+                              <option value="i7-680UM" title="">i7-680UM</option>
+                              <option value="i7-720QM" title="">i7-720QM</option>
+                              <option value="i7-740QM" title="">i7-740QM</option>
+                              <option value="i7-820QM" title="">i7-820QM</option>
+                              <option value="i7-840QM" title="">i7-840QM</option>
+                              <option value="i7-860" title="">i7-860</option>
+                              <option value="i7-920XM" title="">i7-920XM</option>
+                              <option value="i7-940XM" title="">i7-940XM</option>
+                              <option value="i7-975" title="">i7-975</option>
+                              <option value="JZ4730" title="">JZ4730</option>
+                              <option value="K125" title="">K125</option>
+                              <option value="K145" title="">K145</option>
+                              <option value="K325" title="">K325</option>
+                              <option value="K345" title="">K345</option>
+                              <option value="K625" title="">K625</option>
+                              <option value="K685" title="">K685</option>
+                              <option value="L110" title="">L110</option>
+                              <option value="L2300" title="">L2300</option>
+                              <option value="L2400" title="">L2400</option>
+                              <option value="L2500" title="">L2500</option>
+                              <option value="L310" title="">L310</option>
+                              <option value="L325" title="">L325</option>
+                              <option value="L335" title="">L335</option>
+                              <option value="L510" title="">L510</option>
+                              <option value="L625" title="">L625</option>
+                              <option value="L7100" title="">L7100</option>
+                              <option value="L7200" title="">L7200</option>
+                              <option value="L7300" title="">L7300</option>
+                              <option value="L7400" title="">L7400</option>
+                              <option value="L7500" title="">L7500</option>
+                              <option value="L7700" title="">L7700</option>
+                              <option value="L7800" title="">L7800</option>
+                              <option value="LV2400" title="">LV2400</option>
+                              <option value="LV2700" title="">LV2700</option>
+                              <option value="LV7200" title="">LV7200</option>
+                              <option value="LV7500" title="">LV7500</option>
+                              <option value="LX800" title="">LX800</option>
+                              <option value="M100" title="">M100</option>
+                              <option value="M120" title="">M120</option>
+                              <option value="M300" title="">M300</option>
+                              <option value="M320" title="">M320</option>
+                              <option value="M340" title="">M340</option>
+                              <option value="M500" title="">M500</option>
+                              <option value="M520" title="">M520</option>
+                              <option value="M540" title="">M540</option>
+                              <option value="M600" title="">M600</option>
+                              <option value="M620" title="">M620</option>
+                              <option value="M640" title="">M640</option>
+                              <option value="M900" title="">M900</option>
+                              <option value="MK-36" title="">MK-36</option>
+                              <option value="MK-38" title="">MK-38</option>
+                              <option value="ML-28" title="">ML-28</option>
+                              <option value="ML-30" title="">ML-30</option>
+                              <option value="ML-32" title="">ML-32</option>
+                              <option value="ML-34" title="">ML-34</option>
+                              <option value="ML-37" title="">ML-37</option>
+                              <option value="ML-40" title="">ML-40</option>
+                              <option value="MT-28" title="">MT-28</option>
+                              <option value="MT-30" title="">MT-30</option>
+                              <option value="MT-32" title="">MT-32</option>
+                              <option value="MT-34" title="">MT-34</option>
+                              <option value="MT-36" title="">MT-36</option>
+                              <option value="MT-37" title="">MT-37</option>
+                              <option value="MT-40" title="">MT-40</option>
+                              <option value="MT-50" title="">MT-50</option>
+                              <option value="MV-40" title="">MV-40</option>
+                              <option value="N2100" title="">N2100</option>
+                              <option value="N2600" title="">N2600</option>
+                              <option value="N270" title="">N270</option>
+                              <option value="N280" title="">N280</option>
+                              <option value="N2800" title="">N2800</option>
+                              <option value="N2805" title="">N2805</option>
+                              <option value="N2806" title="">N2806</option>
+                              <option value="N2810" title="">N2810</option>
+                              <option value="N2910" title="">N2910</option>
+                              <option value="N2920" title="">N2920</option>
+                              <option value="N330" title="">N330</option>
+                              <option value="N350" title="">N350</option>
+                              <option value="N3510" title="">N3510</option>
+                              <option value="N3520" title="">N3520</option>
+                              <option value="N370" title="">N370</option>
+                              <option value="N425" title="">N425</option>
+                              <option value="N435" title="">N435</option>
+                              <option value="N450" title="">N450</option>
+                              <option value="N455" title="">N455</option>
+                              <option value="N470" title="">N470</option>
+                              <option value="N475" title="">N475</option>
+                              <option value="N525" title="">N525</option>
+                              <option value="N530" title="">N530</option>
+                              <option value="N550" title="">N550</option>
+                              <option value="N570" title="">N570</option>
+                              <option value="N620" title="">N620</option>
+                              <option value="N640" title="">N640</option>
+                              <option value="N660" title="">N660</option>
+                              <option value="N830" title="">N830</option>
+                              <option value="N850" title="">N850</option>
+                              <option value="N870" title="">N870</option>
+                              <option value="N930" title="">N930</option>
+                              <option value="N950" title="">N950</option>
+                              <option value="N970" title="">N970</option>
+                              <option value="P320" title="">P320</option>
+                              <option value="P340" title="">P340</option>
+                              <option value="P360" title="">P360</option>
+                              <option value="P4500" title="">P4500</option>
+                              <option value="P4600" title="">P4600</option>
+                              <option value="P520" title="">P520</option>
+                              <option value="P540" title="">P540</option>
+                              <option value="P560" title="">P560</option>
+                              <option value="P5800" title="">P5800</option>
+                              <option value="P6000" title="">P6000</option>
+                              <option value="P6100" title="">P6100</option>
+                              <option value="P6200" title="">P6200</option>
+                              <option value="P6300" title="">P6300</option>
+                              <option value="P6400" title="">P6400</option>
+                              <option value="P650" title="">P650</option>
+                              <option value="P6570" title="">P6570</option>
+                              <option value="P6670" title="">P6670</option>
+                              <option value="P7350" title="">P7350</option>
+                              <option value="P7370" title="">P7370</option>
+                              <option value="P7450" title="">P7450</option>
+                              <option value="P7550" title="">P7550</option>
+                              <option value="P7570" title="">P7570</option>
+                              <option value="P820" title="">P820</option>
+                              <option value="P840" title="">P840</option>
+                              <option value="P8400" title="">P8400</option>
+                              <option value="P860" title="">P860</option>
+                              <option value="P8600" title="">P8600</option>
+                              <option value="P8700" title="">P8700</option>
+                              <option value="P8800" title="">P8800</option>
+                              <option value="P920" title="">P920</option>
+                              <option value="P940" title="">P940</option>
+                              <option value="P9400" title="">P9400</option>
+                              <option value="P9500" title="">P9500</option>
+                              <option value="P9550" title="">P9550</option>
+                              <option value="P960" title="">P960</option>
+                              <option value="P9600" title="">P9600</option>
+                              <option value="P970" title="">P970</option>
+                              <option value="P9700" title="">P9700</option>
+                              <option value="Q9000" title="">Q9000</option>
+                              <option value="Q9100" title="">Q9100</option>
+                              <option value="Q9450" title="">Q9450</option>
+                              <option value="Q9550" title="">Q9550</option>
+                              <option value="QI-46" title="">QI-46</option>
+                              <option value="QL-46" title="">QL-46</option>
+                              <option value="QL-60" title="">QL-60</option>
+                              <option value="QL-62" title="">QL-62</option>
+                              <option value="QL-64" title="">QL-64</option>
+                              <option value="QL-65" title="">QL-65</option>
+                              <option value="QL-66" title="">QL-66</option>
+                              <option value="QL-67" title="">QL-67</option>
+                              <option value="QSD8250" title="">QSD8250</option>
+                              <option value="QX9300" title="">QX9300</option>
+                              <option value="RK3188" title="">RK3188</option>
+                              <option value="RM-70" title="">RM-70</option>
+                              <option value="RM-72" title="">RM-72</option>
+                              <option value="RM-74" title="">RM-74</option>
+                              <option value="RM-75" title="">RM-75</option>
+                              <option value="RM-76" title="">RM-76</option>
+                              <option value="RM-77" title="">RM-77</option>
+                              <option value="RM-82" title="">RM-82</option>
+                              <option value="SI-40" title="">SI-40</option>
+                              <option value="SI-42" title="">SI-42</option>
+                              <option value="SL67Z" title="">SL67Z</option>
+                              <option value="SL6FN" title="">SL6FN</option>
+                              <option value="SL7100" title="">SL7100</option>
+                              <option value="SL7300" title="">SL7300</option>
+                              <option value="SL9300" title="">SL9300</option>
+                              <option value="SL9400" title="">SL9400</option>
+                              <option value="SL9600" title="">SL9600</option>
+                              <option value="SP7500" title="">SP7500</option>
+                              <option value="SP7700" title="">SP7700</option>
+                              <option value="SP9300" title="">SP9300</option>
+                              <option value="SP9400" title="">SP9400</option>
+                              <option value="SP9600" title="">SP9600</option>
+                              <option value="SU2300" title="">SU2300</option>
+                              <option value="SU2700" title="">SU2700</option>
+                              <option value="SU3500" title="">SU3500</option>
+                              <option value="SU4100" title="">SU4100</option>
+                              <option value="SU5400" title="">SU5400</option>
+                              <option value="SU7300" title="">SU7300</option>
+                              <option value="SU7300B" title="">SU7300B</option>
+                              <option value="SU9300" title="">SU9300</option>
+                              <option value="SU9400" title="">SU9400</option>
+                              <option value="SU9600" title="">SU9600</option>
+                              <option value="T1300" title="">T1300</option>
+                              <option value="T1350" title="">T1350</option>
+                              <option value="T1400" title="">T1400</option>
+                              <option value="T1500" title="">T1500</option>
+                              <option value="T1600" title="">T1600</option>
+                              <option value="T1700" title="">T1700</option>
+                              <option value="T20" title="">T20</option>
+                              <option value="T2050" title="">T2050</option>
+                              <option value="T2060" title="">T2060</option>
+                              <option value="T2080" title="">T2080</option>
+                              <option value="T2120" title="">T2120</option>
+                              <option value="T2130" title="">T2130</option>
+                              <option value="T2250" title="">T2250</option>
+                              <option value="T2300" title="">T2300</option>
+                              <option value="T2300E" title="">T2300E</option>
+                              <option value="T2310" title="">T2310</option>
+                              <option value="T2330" title="">T2330</option>
+                              <option value="T2350" title="">T2350</option>
+                              <option value="T2370" title="">T2370</option>
+                              <option value="T2390" title="">T2390</option>
+                              <option value="T2400" title="">T2400</option>
+                              <option value="T2400E" title="">T2400E</option>
+                              <option value="T2410" title="">T2410</option>
+                              <option value="T2450" title="">T2450</option>
+                              <option value="T2500" title="">T2500</option>
+                              <option value="T2550" title="">T2550</option>
+                              <option value="T2600" title="">T2600</option>
+                              <option value="T2700" title="">T2700</option>
+                              <option value="T3000" title="">T3000</option>
+                              <option value="T3100" title="">T3100</option>
+                              <option value="T3200" title="">T3200</option>
+                              <option value="T3300" title="">T3300</option>
+                              <option value="T3400" title="">T3400</option>
+                              <option value="T3500" title="">T3500</option>
+                              <option value="T4200" title="">T4200</option>
+                              <option value="T4300" title="">T4300</option>
+                              <option value="T4400" title="">T4400</option>
+                              <option value="T4500" title="">T4500</option>
+                              <option value="T5200" title="">T5200</option>
+                              <option value="T5250" title="">T5250</option>
+                              <option value="T5270" title="">T5270</option>
+                              <option value="T5300" title="">T5300</option>
+                              <option value="T5410" title="">T5410</option>
+                              <option value="T5450" title="">T5450</option>
+                              <option value="T5470" title="">T5470</option>
+                              <option value="T5500" title="">T5500</option>
+                              <option value="T5500E" title="">T5500E</option>
+                              <option value="T5550" selected="selected" title="">T5550</option>
+                              <option value="T5600" title="">T5600</option>
+                              <option value="T5670" title="">T5670</option>
+                              <option value="T56N" title="">T56N</option>
+                              <option value="T5720" title="">T5720</option>
+                              <option value="T5750" title="">T5750</option>
+                              <option value="T5780" title="">T5780</option>
+                              <option value="T5800" title="">T5800</option>
+                              <option value="T5850" title="">T5850</option>
+                              <option value="T5870" title="">T5870</option>
+                              <option value="T5900" title="">T5900</option>
+                              <option value="T6100" title="">T6100</option>
+                              <option value="T6400" title="">T6400</option>
+                              <option value="T6500" title="">T6500</option>
+                              <option value="T6570" title="">T6570</option>
+                              <option value="T6600" title="">T6600</option>
+                              <option value="T6670" title="">T6670</option>
+                              <option value="T6750" title="">T6750</option>
+                              <option value="T7100" title="">T7100</option>
+                              <option value="T7100P" title="">T7100P</option>
+                              <option value="T7200" title="">T7200</option>
+                              <option value="T7250" title="">T7250</option>
+                              <option value="T7300" title="">T7300</option>
+                              <option value="T7300P" title="">T7300P</option>
+                              <option value="T7350" title="">T7350</option>
+                              <option value="T7370" title="">T7370</option>
+                              <option value="T7400" title="">T7400</option>
+                              <option value="T7450" title="">T7450</option>
+                              <option value="T7500" title="">T7500</option>
+                              <option value="T7500P" title="">T7500P</option>
+                              <option value="T7570" title="">T7570</option>
+                              <option value="T7600" title="">T7600</option>
+                              <option value="T7700" title="">T7700</option>
+                              <option value="T7750" title="">T7750</option>
+                              <option value="T7800" title="">T7800</option>
+                              <option value="T8100" title="">T8100</option>
+                              <option value="T8300" title="">T8300</option>
+                              <option value="T8400" title="">T8400</option>
+                              <option value="T8600" title="">T8600</option>
+                              <option value="T8700" title="">T8700</option>
+                              <option value="T9100" title="">T9100</option>
+                              <option value="T9300" title="">T9300</option>
+                              <option value="T9325" title="">T9325</option>
+                              <option value="T9400" title="">T9400</option>
+                              <option value="T9500" title="">T9500</option>
+                              <option value="T9550" title="">T9550</option>
+                              <option value="T9600" title="">T9600</option>
+                              <option value="T9800" title="">T9800</option>
+                              <option value="T9900" title="">T9900</option>
+                              <option value="TF-36" title="">TF-36</option>
+                              <option value="TF20" title="">TF20</option>
+                              <option value="TJ-43" title="">TJ-43</option>
+                              <option value="TK-42" title="">TK-42</option>
+                              <option value="TK-53" title="">TK-53</option>
+                              <option value="TK-55" title="">TK-55</option>
+                              <option value="TK-55A" title="">TK-55A</option>
+                              <option value="TK-57" title="">TK-57</option>
+                              <option value="TL-50" title="">TL-50</option>
+                              <option value="TL-52" title="">TL-52</option>
+                              <option value="TL-55" title="">TL-55</option>
+                              <option value="TL-56" title="">TL-56</option>
+                              <option value="TL-58" title="">TL-58</option>
+                              <option value="TL-60" title="">TL-60</option>
+                              <option value="TL-62" title="">TL-62</option>
+                              <option value="TL-64" title="">TL-64</option>
+                              <option value="TL-66" title="">TL-66</option>
+                              <option value="TL-68" title="">TL-68</option>
+                              <option value="TM5500" title="">TM5500</option>
+                              <option value="TM5800" title="">TM5800</option>
+                              <option value="TM8600" title="">TM8600</option>
+                              <option value="TM8800" title="">TM8800</option>
+                              <option value="U1300" title="">U1300</option>
+                              <option value="U1400" title="">U1400</option>
+                              <option value="U1500" title="">U1500</option>
+                              <option value="U2100" title="">U2100</option>
+                              <option value="U2200" title="">U2200</option>
+                              <option value="U2250" title="">U2250</option>
+                              <option value="U2400" title="">U2400</option>
+                              <option value="U2500" title="">U2500</option>
+                              <option value="U3400" title="">U3400</option>
+                              <option value="U3600" title="">U3600</option>
+                              <option value="U5400" title="">U5400</option>
+                              <option value="U5600" title="">U5600</option>
+                              <option value="U7500" title="">U7500</option>
+                              <option value="U7600" title="">U7600</option>
+                              <option value="U7700" title="">U7700</option>
+                              <option value="U9400" title="">U9400</option>
+                              <option value="ULV1400" title="">ULV1400</option>
+                              <option value="V105" title="">V105</option>
+                              <option value="V120" title="">V120</option>
+                              <option value="V140" title="">V140</option>
+                              <option value="V160" title="">V160</option>
+                              <option value="V3515" title="">V3515</option>
+                              <option value="X6800" title="">X6800</option>
+                              <option value="X7800" title="">X7800</option>
+                              <option value="X9000" title="">X9000</option>
+                              <option value="X9100" title="">X9100</option>
+                              <option value="X920" title="">X920</option>
+                              <option value="X940" title="">X940</option>
+                              <option value="Z2760" title="">Z2760</option>
+                              <option value="Z520" title="">Z520</option>
+                              <option value="Z520B" title="">Z520B</option>
+                              <option value="Z530" title="">Z530</option>
+                              <option value="Z540" title="">Z540</option>
+                              <option value="Z550" title="">Z550</option>
+                              <option value="Z560" title="">Z560</option>
+                              <option value="Z670" title="">Z670</option>
+                              <option value="ZM-80" title="">ZM-80</option>
+                              <option value="ZM-82" title="">ZM-82</option>
+                              <option value="ZM-84" title="">ZM-84</option>
+                              <option value="ZM-85" title="">ZM-85</option>
+                              <option value="ZM-86" title="">ZM-86</option>
+                              <option value="ZM-87" title="">ZM-87</option>
+                              <option value="-1" val="2230522">-Add New-
+                              </option>
+                              <option value="-2" val="2230522" attid="11113786">-Request New-</option>
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_12368" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(12368)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,12368)">Processor
+                        Speed</a>
+                    </div>
+
+                    <div id="features_container_12368" style="float: left">
+                      <span id="features_container_12368_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fPReq">
+                        <img class="fOK" src="images/editspecs/dot_orange.png" alt="Publish Required Parameter" title="Publish Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSeat">
+                        <img class="fOK" src="images/editspecs/dot_yellow.png" alt="SeAt Parameter" title="SeAt Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fSearch">
+                        <img class="fOK" src="images/editspecs/dot_pink.png" alt="Searchable Parameter" title="Searchable Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fXU">
+                        <img class="fOK" src="images/editspecs/dot_green.png" alt="XUpsell Parameter" title="XUpsell Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_darkblue.png" alt="One Line Desc Parameter" title="One Line Desc Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_cyan.png" alt="Basic Info Or Mapped Basic Info Parameter" title="Basic Info Or Mapped Basic Info Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <!-- <img src="images/editspecs/dot_darkblue.png" /> OLD -->
+                    <div style="float: left">
+                      <sub> &nbsp;(Best Buy – Required) </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_12368" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(12368);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_12368" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_12368" style="clear: both;">
+                    <table id="attribute_repeatable_12368" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_12368_0" class="view attribTr" setno="0" attid="12368" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_12368_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_12368_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_12368_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+                <span class="pold_btn" onclick="showPartOfOld('attribute_repeatable_12368_0');" style="cursor: pointer;"><img src="images/editspecs/part_of_old.png" ></span>
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fPReq fSeat fSearch fXU fOld fOld" attid="" title="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info" alt="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info">
+
+
+
+                            <!-- For Number & Float Datatype -->
+                            <input value="1.83" id="pp_12368_2229779_0" name="pp_12368_2229779_0" class="ppn ecreset  req" ecode="2" oldvalue="1.83" setno="0" old="true" unit="GHz" isold="true" title="Clock Speed: Processor Speed [2229779] (Float)" type="text" parameter-id="2229779" parameter-name="Processor Speed">
+                            <select value="MHz" id="DROPDOWN_pp_12368_2229779_0" name="DROPDOWN_pp_12368_2229779_0" class="ppu ecreset  req" oldvalue="GHz" inputid="pp_12368_2229779_0" isold="true">
+                              <option value="">-Select-</option>
+
+                              <option value="MHz" selected="selected">MHz</option>
+
+                              <option value="GHz">GHz</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111120375" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111120375)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111120375)">Maximum
+                        Turbo Speed</a>
+                    </div>
+
+                    <div id="features_container_111120375" style="float: left">
+                      <span id="features_container_111120375_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111120375" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111120375);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111120375" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111120375" style="clear: both;">
+                    <table id="attribute_repeatable_111120375" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111120375_0" class="view attribTr" setno="0" attid="111120375" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111120375_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111120375_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111120375_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Number & Float Datatype -->
+                            <input onblur="showInferenceOverlay(this)" value="" id="pp_111120375_2239228_0" name="pp_111120375_2239228_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Maximum Turbo Speed [2239228] (Float)" type="text" parameter-id="2239228" parameter-name="Maximum Turbo Speed">
+                            <select onblur="showInferenceOverlay(this)" value="" id="DROPDOWN_pp_111120375_2239228_0" name="DROPDOWN_pp_111120375_2239228_0" class="ppu ecreset " oldvalue="" inputid="pp_111120375_2239228_0" isold="false" parameter-id="2239228" parameter-name="Maximum Turbo Speed">
+
+                              <option value="GHz">GHz</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_111120846" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111120846)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111120846)">Burst
+                        Frequency</a>
+                    </div>
+
+                    <div id="features_container_111120846" style="float: left">
+                      <span id="features_container_111120846_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111120846" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111120846);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111120846" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111120846" style="clear: both;">
+                    <table id="attribute_repeatable_111120846" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111120846_0" class="view attribTr" setno="0" attid="111120846" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111120846_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111120846_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111120846_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Number & Float Datatype -->
+                            <input onblur="showInferenceOverlay(this)" value="2.00" id="pp_111120846_2239521_0" name="pp_111120846_2239521_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Frequency: Burst Frequency [2239521] (Float)" type="text" parameter-id="2239521" parameter-name="Burst Frequency">
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111114646" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111114646)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111114646)">Processor
+                        Core</a>
+                    </div>
+
+                    <div id="features_container_111114646" style="float: left">
+                      <span id="features_container_111114646_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                      <span id="spanfeatures" class="fOld">
+                        <img class="fOK" src="images/editspecs/dot_cyan.png" alt="Basic Info Or Mapped Basic Info Parameter" title="Basic Info Or Mapped Basic Info Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111114646" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111114646);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111114646" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111114646" style="clear: both;">
+                    <table id="attribute_repeatable_111114646" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111114646_0" class="view attribTr" setno="0" attid="111114646" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111114646_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111114646_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111114646_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="Dual-core (2 Core)" style="position: relative; width: 200px;" id="pp_111114646_2229571_0" name="pp_111114646_2229571_0" class="ppc ecreset req" ecode="2" oldvalue="Dual-core (2 Core)" setno="0" old="true" unit="" isold="false" title="Core: Processor Core [2229571] (Coded)" parameter-id="2238689" parameter-name="Processor Core">
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="2229571" >-Search-</option> -->
+                              <option value="Octa-core (8 Core)" title="">Octa-core (8 Core)</option>
+                              <option value="Single-core (1 Core)" title="">Single-core (1 Core)</option>
+                              <option value="Dual-core (2 Core)" title="">Dual-core (2 Core)</option>
+                              <option value="Quad-core (4 Core)" title="">Quad-core (4 Core)</option>
+                              <option value="Triple-core (3 Core)" title="">Triple-core (3 Core)</option>
+                              <option value="-1" val="2229571">-Add New-
+                              </option>
+                              <option value="-2" val="2229571" attid="111114646">-Request New-</option>
+
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_1102" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(1102)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,1102)">Cache</a>
+                    </div>
+
+                    <div id="features_container_1102" style="float: left">
+                      <span id="features_container_1102_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> &nbsp;(Best Buy – Required) </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_1102" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(1102);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_1102" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_1102" style="clear: both;">
+                    <table id="attribute_repeatable_1102" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_1102_0" class="view attribTr" setno="0" attid="1102" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_1102_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_1102_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_1102_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Number & Float Datatype -->
+                            <input value="2" id="pp_1102_2235765_0" name="pp_1102_2235765_0" class="ppn ecreset  req" ecode="2" oldvalue="2" setno="0" old="false" unit="MB" isold="false" title="Maximum Capacity: Cache [2235765] (Float)" type="text">
+                            <select value="MB" id="DROPDOWN_pp_1102_2235765_0" name="DROPDOWN_pp_1102_2235765_0" class="ppu ecreset  req" oldvalue="MB" inputid="pp_1102_2235765_0" isold="false" parameter-id="2235765" parameter-name="Cache">
+                              <option value="">-Select-</option>
+
+                              <option value="KB">KB</option>
+
+                              <option value="MB" selected="selected">MB</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_186" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(186)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,186)">Bus
+                        Speed</a>
+                    </div>
+
+                    <div id="features_container_186" style="float: left">
+                      <span id="features_container_186_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_186" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(186);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_186" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_186" style="clear: both;">
+                    <table id="attribute_repeatable_186" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_186_0" class="view attribTr" setno="0" attid="186" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_186_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_186_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_186_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Number & Float Datatype -->
+                            <input value="667" id="pp_186_2247_0" name="pp_186_2247_0" class="ppn ecreset  req" ecode="2" oldvalue="667" setno="0" old="false" unit="MHz" isold="false" title="Speed: Bus Speed [2247] (Float)" type="text">
+                            <select value="MHz" id="DROPDOWN_pp_186_2247_0" name="DROPDOWN_pp_186_2247_0" class="ppu ecreset  req" oldvalue="MHz" inputid="pp_186_2247_0" isold="false" parameter-id="2247" parameter-name="Bus Speed">
+
+                              <option value="MHz" selected="selected">MHz</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_111115651" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111115651)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111115651)">HyperTransport
+                        Speed</a>
+                    </div>
+
+                    <div id="features_container_111115651" style="float: left">
+                      <span id="features_container_111115651_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111115651" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111115651);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111115651" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111115651" style="clear: both;">
+                    <table id="attribute_repeatable_111115651" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111115651_0" class="view attribTr" setno="0" attid="111115651" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111115651_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111115651_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111115651_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Number & Float Datatype -->
+                            <input value="" id="pp_111115651_2234658_0" name="pp_111115651_2234658_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: HyperTransport Speed [2234658] (Float)" type="text">
+                            <select value="" id="DROPDOWN_pp_111115651_2234658_0" name="DROPDOWN_pp_111115651_2234658_0" class="ppu ecreset " oldvalue="" inputid="pp_111115651_2234658_0" isold="false" parameter-id="2234658" parameter-name="HyperTransport Speed">
+
+                              <option value="MHz">MHz</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111115414" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111115414)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111115414)">QuickPath
+                        Interconnect</a>
+                    </div>
+
+                    <div id="features_container_111115414" style="float: left">
+                      <span id="features_container_111115414_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111115414" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111115414);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111115414" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111115414" style="clear: both;">
+                    <table id="attribute_repeatable_111115414" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111115414_0" class="view attribTr" setno="0" attid="111115414" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111115414_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111115414_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111115414_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Number & Float Datatype -->
+                            <input onblur="showInferenceOverlay(this)" value="" id="pp_111115414_2234338_0" name="pp_111115414_2234338_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: QuickPath Interconnect [2234338] (Float)" type="text" parameter-id="2234338" parameter-name="QuickPath Interconnect">
+                            <select onblur="showInferenceOverlay(this)" value="" id="DROPDOWN_pp_111115414_2234338_0" name="DROPDOWN_pp_111115414_2234338_0" class="ppu ecreset " oldvalue="" inputid="pp_111115414_2234338_0" isold="false" parameter-id="2234338" parameter-name="QuickPath Interconnect">
+                              <option value="" selected="selected">-Select-</option>
+
+                              <option value="GT/s">GT/s</option>
+
+                              <option value="MT/s">MT/s</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_111116648" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111116648)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111116648)">Direct
+                        Media Interface</a>
+                    </div>
+
+                    <div id="features_container_111116648" style="float: left">
+                      <span id="features_container_111116648_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111116648" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111116648);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111116648" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111116648" style="clear: both;">
+                    <table id="attribute_repeatable_111116648" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111116648_0" class="view attribTr" setno="0" attid="111116648" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111116648_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111116648_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111116648_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Number & Float Datatype -->
+                            <input value="" id="pp_111116648_2235879_0" name="pp_111116648_2235879_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Direct Media Interface [2235879] (Float)" type="text">
+                            <select value="" id="DROPDOWN_pp_111116648_2235879_0" name="DROPDOWN_pp_111116648_2235879_0" class="ppu ecreset " oldvalue="" inputid="pp_111116648_2235879_0" isold="false" parameter-id="2235879" parameter-name="Direct Media Interface">
+                              <option value="" selected="selected">-Select-</option>
+
+                              <option value="MT/s">MT/s</option>
+
+                              <option value="GT/s">GT/s</option>
+                            </select>
+
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111114964" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111114964)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111114964)">64-bit
+                        Processing</a>
+                    </div>
+
+                    <div id="features_container_111114964" style="float: left">
+                      <span id="features_container_111114964_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111114964" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111114964);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111114964" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111114964" style="clear: both;">
+                    <table id="attribute_repeatable_111114964" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111114964_0" class="view attribTr" setno="0" attid="111114964" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111114964_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111114964_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111114964_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="Yes" style="position: relative; width: 200px;" id="pp_111114964_2230345_0" name="pp_111114964_2230345_0" class="ppc ecreset req" ecode="2" oldvalue="Yes" setno="0" old="false" unit="" isold="false" title="Status: 64-bit Processing [2230345] (Coded)" parameter-id="2230345" parameter-name="64-bit Processing">
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="2230345" >-Search-</option> -->
+                              <option value="Yes" selected="selected" title="">Yes</option>
+                              <option value="No" title="">No</option>
+                              <option value="-1" val="2230345">-Add New-
+                              </option>
+                              <option value="-2" val="2230345" attid="111114964">-Request New-</option>
+
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_111115648" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111115648)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111115648)">Hyper-Threading</a>
+                    </div>
+
+                    <div id="features_container_111115648" style="float: left">
+                      <span id="features_container_111115648_length"></span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111115648" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111115648);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111115648" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111115648" style="clear: both;">
+                    <table id="attribute_repeatable_111115648" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111115648_0" class="view attribTr" setno="0" attid="111115648" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111115648_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111115648_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111115648_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- For Coded Datatype -->
+                            <select value="" style="position: relative; width: 200px;" id="pp_111115648_2234654_0" name="pp_111115648_2234654_0" class="ppc ecreset" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: Hyper-Threading [2234654] (Coded)" parameter-id="2234654" parameter-name="Hyper-Threading">
+                              <option value="" selected="selected">-Select-</option>
+                              <!--                            <option value="-1" val="2234654" >-Search-</option> -->
+                              <option value="Yes" title="">Yes</option>
+                              <option value="No" title="">No</option>
+                              <option value="-1" val="2234654">-Add New-
+                              </option>
+                              <option value="-2" val="2234654" attid="111115648">-Request New-</option>
+
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111115650" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111115650)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111115650)">vPro
+                        Technology</a>
+                    </div>
+
+                    <div id="features_container_111115650" style="float: left">
+                      <span id="features_container_111115650_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111115650" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111115650);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111115650" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111115650" style="clear: both;">
+                    <table id="attribute_repeatable_111115650" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111115650_0" class="view attribTr" setno="0" attid="111115650" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111115650_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111115650_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111115650_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="" style="position: relative; width: 200px;" id="pp_111115650_2234655_0" name="pp_111115650_2234655_0" class="ppc ecreset req" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: vPro Technology [2234655] (Coded)" parameter-id="2234655" parameter-name="vPro Technology">
+                              <option value="" selected="selected">-Select-</option>
+                              <!--                            <option value="-1" val="2234655" >-Search-</option> -->
+                              <option value="Yes" title="">Yes</option>
+                              <option value="No" title="">No</option>
+                              <option value="-1" val="2234655">-Add New-
+                              </option>
+                              <option value="-2" val="2234655" attid="111115650">-Request New-</option>
+
+                            </select>
+
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_even">
+                  <div class="attribute_heading" id="att_heading_111114983" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111114983)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111114983)">Chipset
+                        Manufacturer</a>
+                    </div>
+
+                    <div id="features_container_111114983" style="float: left">
+                      <span id="features_container_111114983_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111114983" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111114983);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111114983" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111114983" style="clear: both;">
+                    <table id="attribute_repeatable_111114983" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111114983_0" class="view attribTr" setno="0" attid="111114983" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111114983_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111114983_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111114983_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Coded Datatype -->
+                            <select value="Intel" style="position: relative; width: 200px;" id="pp_111114983_21728_0" name="pp_111114983_21728_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="false" unit="" isold="false" title="Manufacturer: Chipset Manufacturer [21728] (Coded)" parameter-id="21728" parameter-name="Chipset Manufacturer">
+                              <option value="">-Select-</option>
+                              <!--                            <option value="-1" val="21728" >-Search-</option> -->
+                              <option value="ALi" title="">ALi</option>
+                              <option value="AMD" title="">AMD</option>
+                              <option value="ATI" title="">ATI</option>
+                              <option value="Intel" selected="selected" title="">Intel</option>
+                              <option value="NVIDIA" title="">NVIDIA</option>
+                              <option value="SiS" title="">SiS</option>
+                              <option value="Trident" title="">Trident</option>
+                              <option value="VIA" title="">VIA</option>
+                              <option value="Qualcomm" title="">Qualcomm</option>
+                              <option value="-1" val="21728">-Add New-
+                              </option>
+                              <option value="-2" val="21728" attid="111114983">-Request New-</option>
+
+                            </select>
+
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="attribute_odd">
+                  <div class="attribute_heading" id="att_heading_111114984" style="height: 100%">
+                    <div class="attribute_icon" style="visibility: hidden;">
+                      <img src="images/editspecs/controlpanel.gif">
+                    </div>
+                    <div class="attribute_icon" onclick="showExceptionCodesForAttribute(111114984)">
+                      <img src="images/editspecs/pencil.gif" title="Mark Exception Codes">
+                    </div>
+
+                    <div class="attribute_name">
+                      <a href="javascript: showHelp(0,111114984)">Chipset
+                        Model</a>
+                    </div>
+
+                    <div id="features_container_111114984" style="float: left">
+                      <span id="features_container_111114984_length"></span>
+                      <span id="spanfeatures" class="fReq">
+                        <img class="fOK" src="images/editspecs/dot_red.png" alt="Required Parameter" title="Required Parameter">
+                        <img class="fGray" src="images/editspecs/dot_gray.png" style="display: none;">
+                      </span>
+                    </div>
+
+                    <div style="float: left">
+                      <sub> </sub>
+                    </div>
+
+                    <div style="float: left">
+                      &nbsp;&nbsp;<a id="attribute_source_link_111114984" name="attribute_source_links" href="javascript:toggleAttributeSourceArea(111114984);">No
+                        Attribute Source</a>
+                    </div>
+                    <div style="float: left">
+                      <textarea id="attribute_source_111114984" name="attribute_source" rows="1" cols="10" class="NOTanEditor" style="display: none"></textarea>
+                    </div>
+                  </div>
+                  <div id="div_set_111114984" style="clear: both;">
+                    <table id="attribute_repeatable_111114984" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+                      <tbody>
+                        <tr id="attribute_repeatable_111114984_0" class="view attribTr" setno="0" attid="111114984" setnoorg="0" repeatableattr="0">
+                          <td style="width: 25px; overflow: visible;">
+                            <div class="cPanel dohover" style="margin-right: 5px;">
+                              <ul>
+                                <li>
+                                  <img src="images/editspecs/controlpanel.gif" class="doclickpanel" style="cursor: pointer;" border="0">
+                                  <ul>
+                                    <li>
+                                      <div style="background: url(images/ editspecs/ blue_bg.gif '); height: 23px;">
+                                        <span class="ecode_btn" onclick="showExceptionCodes('attribute_repeatable_111114984_0');" style="cursor: pointer;">
+                                          <img src="images/editspecs/mark_exception_codes.gif">
+                                        </span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--        <span class="rep_set_icon control_panel_btn" onclick="$('control_panel_111114984_0').toggle();" style="cursor: pointer;"><img src="images/editspecs/controlpanel.gif" ></span>
+        <span class="control_panel" id="control_panel_111114984_0" style="display: none; white-space: nowrap; background-color: position: relative; left: 1px; z-index: 10000;">
+        </span>
+ -->
+                          </td>
+                          <td>
+                            <div style="text-align: right;"></div>
+                          </td>
+
+
+
+
+                          <td style="white-space: nowrap; background-color: #EEFFBF;">
+                            <!-- Need to handle the graphic for the recently saved parameter -->
+
+                            <!-- EDITABLE PARAMETERS -->
+                            <!-- every editable input field has the 'ecreset' class, which is used to bind an onchange function to the input fields,
+        so that whenever the value of a field is changed, its exception code gets removed
+        This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
+        -->
+                            <!-- FIXME: do we need pub-req here too ? -->
+                            <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
+                            <!-- For Text Datatype -->
+                            <!-- name and id is the same and is of the format pp_attrId_paramId_setNo -->
+                            <!-- DONOT REMOVE THE pp CLASS.. if you need to add more classes, put a space after pp and add your class -->
+                            <input value="<ul><li>G751 is</li><li> an unbeatable</li> gaming laptop  <li>thanks to its 4th-gen Intel? Core? i7 processor and NVIDIA? GeForce?GTX graphics, with TurboMaster technology for stable GPU overclocking and ROG AudioWizard-enhanced audio for immersive gaming. Its intelligent dual-fan cooling system keeps everything cool even in the heat of battle, and special keys let you access Steam or share memorable gaming moments with the world!<li></ul>" id="pp_111114984_22268_0" name="pp_111114984_22268_0" value="GM965 Express" class="pp ecreset  req" ecode="2" oldvalue="GM965 Express" setno="0" old="false" unit="" isold="false" title="Model: Chipset Model [22268] (Text)" type="text" parameter-id="22268" parameter-name="Chipset Model">
+                          </td>
+                          <td width="100%">&nbsp;</td>
+                          <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
   </div>
-  <div ng-include="'/app_components/common/footer.tpl.html'" class="fx-fade-normal fx-speed-900"></div>
 
   <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -150,6 +2932,8 @@
   <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
   <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
   <script src="bower_components/angular-busy/dist/angular-busy.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/read-more/js/directives/readmore.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -160,11 +2944,8 @@
   <script src="scripts/constants.js"></script>
   <script src="scripts/utils.js"></script>
 
-  <script src="app_components/common/footer.js"></script>
-  <script src="app_components/common/pageHeaderDirective.js"></script>
-
   <script src="app_components/sdeintegration/inferenceController.js"></script>
-  <script src="app_components/sdeintegration/inferenceRoutes.js"></script>
+  <script src="app_components/sdeintegration/inferenceOverlay.js"></script>
   <script src="app_components/sdeintegration/inferenceService.js"></script>
   <script src="app_components/sdeintegration/inference.js"></script>
 
