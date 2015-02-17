@@ -1,4 +1,3 @@
 {
-  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8600'%>",
-  "inferenceUrl": "<%=grunt.option('app.inferenceUrl') || 'http://inference.etilizepak.com/api'%>"
+  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8600'%>"
 }

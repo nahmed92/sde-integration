@@ -38,6 +38,11 @@ module.exports = function(config) {
             'app/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
             'app/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js',
             'app/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js',
+            'app/bower_components/angular-sanitize/angular-sanitize.js',
+            'app/bower_components/read-more/js/directives/readmore.js',
+            'app/bower_components/angular-translate/angular-translate.js',
+            'app/bower_components/angular-dialog-service/dist/dialogs.min.js',
+            'app/bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js',
             'app/scripts/*.js',
             'app/app_components/**/*.js',
             'test/unit/**/*.js',
@@ -46,7 +51,7 @@ module.exports = function(config) {
             ],
 
     // list of files / patterns to exclude
-    exclude: [],
+    exclude: ['app/app_components/**/test.js'],
 
     // web server port
     port: 8080,
@@ -66,7 +71,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome'],
+    browsers: ['Safari'],
 
     //
     preprocessors: {

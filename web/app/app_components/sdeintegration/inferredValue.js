@@ -14,13 +14,14 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
       this.displayValue = this.inferredValue;
       this.extractedDisplayValue = this.extractedValue;
 
+      var exceptionCode;
       // Always check first for hasExceptionCode, because if exception code exits, the targetValue and targetUnit will always be undefined
       if (this.hasExceptionCode) {
-        var objRef = this;
-        inferenceService.findByExceptionCodeId(this.inferredValue.replace('_EX_', '')).then(function(exceptionCode) {
-          objRef.displayValue = exceptionCode.name;
-          objRef.targetEcode = exceptionCode.id;
-        });
+        exceptionCode = inferenceService.findByExceptionCodeId(this.inferredValue.replace('_EX_', ''));
+        if (exceptionCode) {
+          this.displayValue = exceptionCode.name;
+          this.targetEcode = exceptionCode.id;
+        }
       } else if (this.hasUnit) {
         this.extractedDisplayValue = this.extractedValue + ' ' + this.unitValue;
         this.targetValue = this.inferredValue.substring(0, this.inferredValue.lastIndexOf(' ')); // The value upto last space is value
@@ -31,10 +32,18 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
 
       // Displaying exception code if manually extracted
       if (this.extractedEcode > 2) {
-        inferenceService.findByExceptionCodeId(this.extractedEcode).then(function(exceptionCode) {
-          objRef.extractedDisplayValue = exceptionCode.name;
-        });
+        exceptionCode = inferenceService.findByExceptionCodeId(this.extractedEcode);
+        if (exceptionCode) {
+          this.extractedDisplayValue = exceptionCode.name;
+        }
       }
+    },
+
+    isSameAsExtracted: function() {
+      if (this.hasExceptionCode) {
+        return this.targetEcode === this.extractedEcode;
+      }
+      return this.displayValue === this.extractedDisplayValue;
     }
   });
 

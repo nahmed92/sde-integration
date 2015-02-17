@@ -10,7 +10,7 @@ app.factory('inferenceService', function(Restangular, BaseService, Inference, AP
     },
 
     findInferencedValuesByParameterIdAndValue: function(data, engineId) {
-      return this.future(this.Restangular.allUrl(this.route, APP_CONFIG.inferenceUrl + '/engines/' + engineId).customGET('infer', data));
+      return this.future(this.Restangular.allUrl(this.route, APP_CONFIG.baseUrl + '/engines/' + engineId).customGET('infer', data));
     },
 
     findActiveExceptionCodes: function() {
@@ -39,17 +39,13 @@ app.factory('inferenceService', function(Restangular, BaseService, Inference, AP
         'id': '11',
         'name': 'Yes'
       }];
-      return $q.when(exceptionCodes);
+      return exceptionCodes;
     },
 
     findByExceptionCodeId: function(id) {
-      var deffered = $q.defer();
-      this.findActiveExceptionCodes().then(function(exceptionCodes) {
-        deffered.resolve(_.find(exceptionCodes, function(exceptionCode) {
-          return exceptionCode.id == id; // jshint ignore:line
-        }));
+      return _.find(this.findActiveExceptionCodes(), function(exceptionCode) {
+        return exceptionCode.id == id; // jshint ignore:line
       });
-      return deffered.promise;
     }
   });
 

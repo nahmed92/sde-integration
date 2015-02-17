@@ -505,7 +505,7 @@ module.exports = function(grunt) {
             projectName: '<%=pkg.name%>',
             projectVersion: '<%=pkg.version%>',
             sources: ['app'].join(','),
-            exclusions: ['app/bower_components/**', 'app/scripts/config.js'].join(','),
+            exclusions: ['app/bower_components/**', 'app/app_components/**/test.js', 'app/scripts/config.js'].join(','),
             language: 'js',
             sourceEncoding: 'UTF-8',
             analysis: {
