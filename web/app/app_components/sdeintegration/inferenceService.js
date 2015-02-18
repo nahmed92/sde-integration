@@ -46,7 +46,7 @@ app.factory('inferenceService', function(Restangular, BaseService, Inference, AP
       var deffered = $q.defer();
       this.findActiveExceptionCodes().then(function(exceptionCodes) {
         deffered.resolve(_.find(exceptionCodes, function(exceptionCode) {
-          return exceptionCode.id === id;
+          return exceptionCode.id == id; // jshint ignore:line
         }));
       });
       return deffered.promise;

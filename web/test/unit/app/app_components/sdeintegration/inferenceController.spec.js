@@ -50,7 +50,7 @@ describe('Controller: InferenceContoller', function() {
     expect($scope.model).toBeDefined();
   });
 
-  it('should find inferred values for an item(parameterId|parameterValue)', function() {
+  xit('should find inferred values for an item(parameterId|parameterValue)', function() {
     var paramId = 2226680;
     var paramValue = 'SP3';
 
@@ -69,7 +69,7 @@ describe('Controller: InferenceContoller', function() {
     expect($scope.inferredValues[6].inferredValue).toBe('Dell');
   });
 
-  it('should accept inferred value and extract it', function() {
+  xit('should accept inferred value and extract it', function() {
     $scope.inferredValues = [{
       'inferredValue': '2.5 GHz',
       'isUnitGroupAttached': false,
@@ -98,7 +98,7 @@ describe('Controller: InferenceContoller', function() {
     expect(angularGrowl.success).toHaveBeenCalledWith('Inferred Value Extracted');
   });
 
-  it('should reject the inferred value', function() {
+  xit('should reject the inferred value', function() {
     $scope.inferredValues = [{
       'inferredValue': '2.5 GHz',
       'isUnitGroupAttached': false,

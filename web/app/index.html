@@ -18,19 +18,63 @@
   <link rel="stylesheet" href="bower_components/angular-growl-v2/build/angular-growl.css" />
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
+  <link rel="stylesheet" href="bower_components/webui-popover/dist/jquery.webui-popover.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,app}) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
+
+  <script type="text/javascript">
+  // This is a mock for the unsavedParameter instance of ChangedParameterClass which exists in editspecs
+
+  console.log('Unsaved Param angular ', unsavedParam);
+
+  if (unsavedParam == undefined) {
+    console.log('## UNSAVED PARAMS MOCK BEING CREATED ##');
+    var unsavedParam = {
+      addInferredParameter: function(param1, param2) {
+        console.log('addInferredParameter called with param', param1);
+      }
+    };
+
+    function getInputObject(elm) {
+      elm = angular.element(elm);
+
+      var input = elm.hasClass('ppu') ? $('#' + elm.attr('inputId')) : elm;
+      var unit = elm.hasClass('ppn') ? $("#DROPDOWN_" + elm.id) : ((elm.attr('inputId') != null) ? elm : undefined);
+      var obj;
+
+      if (input.attr('parameter-id') != null) {
+        var obj = {
+          parameterId: input.attr('parameter-id'),
+          parameterName: input.attr('parameter-name'),
+          hasUnit: unit != null,
+          isNumber: input.hasClass('ppn'),
+          value: input.val(),
+          ecode: input.attr('ecode')
+        };
+
+        if (unit != null) {
+          obj.unitValue = input.attr('unit');
+        }
+        console.log(obj);
+      }
+      return obj;
+    }
+  }
+  </script>
 </head>
 
 <body>
+
   <div ng-app="app">
-    <div id="inference-container" ng-controller="InferenceController" attributeId="2226680" attributeValue="SP3" engine="f01ea16f-0dd5-4aa6-a7ab-6a2bcbafc4a1">
-      <div ng-include="'/app_components/sdeintegration/inference.html'"></div>
+    <div style="display:none">
+      <div id="inference-container" ng-controller="InferenceController" engine-id="f01ea16f-0dd5-4aa6-a7ab-6a2bcbafc4a1">
+      </div>
     </div>
   </div>
+  <hr>
 
   <div>
     <table id="especs_template_header_72" width="100%">
@@ -149,7 +193,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fPReq fSearch fOld fOld" attid="" title="Required | Publish Req. | Searchable | OLD | Basic Info" alt="Required | Publish Req. | Searchable | OLD | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="Intel" style="position: relative; width: 200px;" id="pp_111114967_2230349_0" name="pp_111114967_2230349_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="true" unit="" isold="true" title="Manufacturer: Processor Manufacturer [2230349] (Coded)" parameter-id="2230349" parameter-name="Processor Manufacturer">
+                            <select onchange="getInference(this)" value="Intel" style="position: relative; width: 200px;" id="pp_111114967_2230349_0" name="pp_111114967_2230349_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="true" unit="" isold="true" title="Manufacturer: Processor Manufacturer [2230349] (Coded)" parameter-id="2230349" parameter-name="Processor Manufacturer">
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="2230349" >-Search-</option> -->
                               <option value="WonderMedia" title="">WonderMedia</option>
@@ -297,7 +341,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fPReq fSeat fSearch fXU fOld fOld" attid="" title="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info" alt="Required | Publish Req. | SeAt | Searchable | XUpsell | OLD | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="Core 2 Duo" style="position: relative; width: 200px;" id="pp_12374_2230387_0" name="pp_12374_2230387_0" class="ppc ecreset req" ecode="2" oldvalue="Core 2 Duo" setno="0" old="true" unit="" isold="true" title="Type: Processor Type [2230387] (Coded)" parameter-id="2230387" parameter-name="Processor Type">
+                            <select onchange="getInference(this)" value="Core 2 Duo" style="position: relative; width: 200px;" id="pp_12374_2230387_0" name="pp_12374_2230387_0" class="ppc ecreset req" ecode="2" oldvalue="Core 2 Duo" setno="0" old="true" unit="" isold="true" title="Type: Processor Type [2230387] (Coded)" parameter-id="2230387" parameter-name="Processor Type">
 
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="2230387" >-Search-</option> -->
@@ -546,7 +590,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fSeat fSearch fOld fOld" attid="" title="Required | SeAt | Searchable | OLD | Basic Info" alt="Required | SeAt | Searchable | OLD | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="T5550" onchange="showInferenceOverlay(this)" style="position: relative; width: 200px;" id="pp_11113786_2230522_0" name="pp_11113786_2230522_0" class="ppc ecreset req" ecode="2" oldvalue="T5550" setno="0" old="true" unit="" isold="true" title="Identifier/Model: Processor Model [2230522] (Coded)" parameter-id="2230522" parameter-name="Processor Model">
+                            <select onchange="getInference(this)" value="T5550" onchange="getInference(this)" style="position: relative; width: 200px;" id="pp_11113786_2230522_0" name="pp_11113786_2230522_0" class="ppc ecreset req" ecode="2" oldvalue="T5550" setno="0" old="true" unit="" isold="true" title="Identifier/Model: Processor Model [2230522] (Coded)" parameter-id="2230522" parameter-name="Processor Model">
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="2230522" >-Search-</option> -->
                               <option value="i5-5200U" title="">i5-5200U</option>
@@ -1511,14 +1555,20 @@
 
 
                             <!-- For Number & Float Datatype -->
-                            <input value="1.83" id="pp_12368_2229779_0" name="pp_12368_2229779_0" class="ppn ecreset  req" ecode="2" oldvalue="1.83" setno="0" old="true" unit="GHz" isold="true" title="Clock Speed: Processor Speed [2229779] (Float)" type="text" parameter-id="2229779" parameter-name="Processor Speed">
-                            <select value="MHz" id="DROPDOWN_pp_12368_2229779_0" name="DROPDOWN_pp_12368_2229779_0" class="ppu ecreset  req" oldvalue="GHz" inputid="pp_12368_2229779_0" isold="true">
+                            <input onblur="getInference(this)" value="1.83" id="pp_12368_2229779_0" name="pp_12368_2229779_0" class="ppn ecreset  req" ecode="2" oldvalue="1.83" setno="0" old="true" unit="GHz" isold="true" title="Clock Speed: Processor Speed [2229779] (Float)" type="text" parameter-id="2229779" parameter-name="Processor Speed">
+                            <select onchange="getInference(this)" value="MHz" id="DROPDOWN_pp_12368_2229779_0" name="DROPDOWN_pp_12368_2229779_0" class="ppu ecreset  req" oldvalue="GHz" inputid="pp_12368_2229779_0" isold="true">
                               <option value="">-Select-</option>
 
                               <option value="MHz" selected="selected">MHz</option>
 
                               <option value="GHz">GHz</option>
                             </select>
+
+                            Testing parameter
+                            <input onblur="getInference(this)" value="" id="pp_12368_2234426_0" name="pp_12368_2234426_0" class="ppn ecreset  req" ecode="2" oldvalue="" setno="0" old="true" isold="true" title="Testing Parameter" type="text" parameter-id="2234426" parameter-name="Testing Parameter"></input>
+
+                            Testing parameter
+                            <input onblur="getInference(this)" value="" id="pp_12368_2234425_0" name="pp_12368_2234425_0" class="ppn ecreset  req" ecode="2" oldvalue="" setno="0" old="true" isold="true" title="Testing Parameter 2" type="text" parameter-id="2234425" parameter-name="Testing Parameter 2"></input>
 
 
 
@@ -1613,8 +1663,8 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Number & Float Datatype -->
-                            <input onblur="showInferenceOverlay(this)" value="" id="pp_111120375_2239228_0" name="pp_111120375_2239228_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Maximum Turbo Speed [2239228] (Float)" type="text" parameter-id="2239228" parameter-name="Maximum Turbo Speed">
-                            <select onblur="showInferenceOverlay(this)" value="" id="DROPDOWN_pp_111120375_2239228_0" name="DROPDOWN_pp_111120375_2239228_0" class="ppu ecreset " oldvalue="" inputid="pp_111120375_2239228_0" isold="false" parameter-id="2239228" parameter-name="Maximum Turbo Speed">
+                            <input onblur="getInference(this)" value="" id="pp_111120375_2239228_0" name="pp_111120375_2239228_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Maximum Turbo Speed [2239228] (Float)" type="text" parameter-id="2239228" parameter-name="Maximum Turbo Speed">
+                            <select onchange="getInference(this)" value="" id="DROPDOWN_pp_111120375_2239228_0" name="DROPDOWN_pp_111120375_2239228_0" class="ppu ecreset " oldvalue="" inputid="pp_111120375_2239228_0" isold="false">
 
                               <option value="GHz">GHz</option>
                             </select>
@@ -1712,7 +1762,7 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Number & Float Datatype -->
-                            <input onblur="showInferenceOverlay(this)" value="2.00" id="pp_111120846_2239521_0" name="pp_111120846_2239521_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Frequency: Burst Frequency [2239521] (Float)" type="text" parameter-id="2239521" parameter-name="Burst Frequency">
+                            <input onblur="getInference(this)" value="2.00" id="pp_111120846_2239521_0" name="pp_111120846_2239521_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Frequency: Burst Frequency [2239521] (Float)" type="text" parameter-id="2239521" parameter-name="Burst Frequency">
                           </td>
                           <td width="100%">&nbsp;</td>
                           <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
@@ -1814,7 +1864,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="Dual-core (2 Core)" style="position: relative; width: 200px;" id="pp_111114646_2229571_0" name="pp_111114646_2229571_0" class="ppc ecreset req" ecode="2" oldvalue="Dual-core (2 Core)" setno="0" old="true" unit="" isold="false" title="Core: Processor Core [2229571] (Coded)" parameter-id="2238689" parameter-name="Processor Core">
+                            <select onchange="getInference(this)" value="Dual-core (2 Core)" style="position: relative; width: 200px;" id="pp_111114646_2229571_0" name="pp_111114646_2229571_0" class="ppc ecreset req" ecode="2" oldvalue="Dual-core (2 Core)" setno="0" old="true" unit="" isold="false" title="Core: Processor Core [2229571] (Coded)" parameter-id="2238689" parameter-name="Processor Core">
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="2229571" >-Search-</option> -->
                               <option value="Octa-core (8 Core)" title="">Octa-core (8 Core)</option>
@@ -1924,8 +1974,8 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Number & Float Datatype -->
-                            <input value="2" id="pp_1102_2235765_0" name="pp_1102_2235765_0" class="ppn ecreset  req" ecode="2" oldvalue="2" setno="0" old="false" unit="MB" isold="false" title="Maximum Capacity: Cache [2235765] (Float)" type="text">
-                            <select value="MB" id="DROPDOWN_pp_1102_2235765_0" name="DROPDOWN_pp_1102_2235765_0" class="ppu ecreset  req" oldvalue="MB" inputid="pp_1102_2235765_0" isold="false" parameter-id="2235765" parameter-name="Cache">
+                            <input onblur="getInference(this)" value="2" id="pp_1102_2235765_0" name="pp_1102_2235765_0" class="ppn ecreset  req" ecode="2" oldvalue="2" setno="0" old="false" unit="MB" isold="false" title="Maximum Capacity: Cache [2235765] (Float)" type="text">
+                            <select onchange="getInference(this)" value="MB" id="DROPDOWN_pp_1102_2235765_0" name="DROPDOWN_pp_1102_2235765_0" class="ppu ecreset  req" oldvalue="MB" inputid="pp_1102_2235765_0" isold="false">
                               <option value="">-Select-</option>
 
                               <option value="KB">KB</option>
@@ -2032,8 +2082,8 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Number & Float Datatype -->
-                            <input value="667" id="pp_186_2247_0" name="pp_186_2247_0" class="ppn ecreset  req" ecode="2" oldvalue="667" setno="0" old="false" unit="MHz" isold="false" title="Speed: Bus Speed [2247] (Float)" type="text">
-                            <select value="MHz" id="DROPDOWN_pp_186_2247_0" name="DROPDOWN_pp_186_2247_0" class="ppu ecreset  req" oldvalue="MHz" inputid="pp_186_2247_0" isold="false" parameter-id="2247" parameter-name="Bus Speed">
+                            <input onblur="getInference(this)" value="667" id="pp_186_2247_0" name="pp_186_2247_0" class="ppn ecreset  req" ecode="2" oldvalue="667" setno="0" old="false" unit="MHz" isold="false" title="Speed: Bus Speed [2247] (Float)" type="text">
+                            <select onchange="getInference(this)" value="MHz" id="DROPDOWN_pp_186_2247_0" name="DROPDOWN_pp_186_2247_0" class="ppu ecreset  req" oldvalue="MHz" inputid="pp_186_2247_0" isold="false">
 
                               <option value="MHz" selected="selected">MHz</option>
                             </select>
@@ -2131,8 +2181,8 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Number & Float Datatype -->
-                            <input value="" id="pp_111115651_2234658_0" name="pp_111115651_2234658_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: HyperTransport Speed [2234658] (Float)" type="text">
-                            <select value="" id="DROPDOWN_pp_111115651_2234658_0" name="DROPDOWN_pp_111115651_2234658_0" class="ppu ecreset " oldvalue="" inputid="pp_111115651_2234658_0" isold="false" parameter-id="2234658" parameter-name="HyperTransport Speed">
+                            <input onblur="getInference(this)" value="" id="pp_111115651_2234658_0" name="pp_111115651_2234658_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: HyperTransport Speed [2234658] (Float)" type="text">
+                            <select onchange="getInference(this)" value="" id="DROPDOWN_pp_111115651_2234658_0" name="DROPDOWN_pp_111115651_2234658_0" class="ppu ecreset " oldvalue="" inputid="pp_111115651_2234658_0" isold="false">
 
                               <option value="MHz">MHz</option>
                             </select>
@@ -2230,8 +2280,8 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Number & Float Datatype -->
-                            <input onblur="showInferenceOverlay(this)" value="" id="pp_111115414_2234338_0" name="pp_111115414_2234338_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: QuickPath Interconnect [2234338] (Float)" type="text" parameter-id="2234338" parameter-name="QuickPath Interconnect">
-                            <select onblur="showInferenceOverlay(this)" value="" id="DROPDOWN_pp_111115414_2234338_0" name="DROPDOWN_pp_111115414_2234338_0" class="ppu ecreset " oldvalue="" inputid="pp_111115414_2234338_0" isold="false" parameter-id="2234338" parameter-name="QuickPath Interconnect">
+                            <input onblur="getInference(this)" value="" id="pp_111115414_2234338_0" name="pp_111115414_2234338_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: QuickPath Interconnect [2234338] (Float)" type="text" parameter-id="2234338" parameter-name="QuickPath Interconnect">
+                            <select onblur="getInference(this)" value="" id="DROPDOWN_pp_111115414_2234338_0" name="DROPDOWN_pp_111115414_2234338_0" class="ppu ecreset " oldvalue="" inputid="pp_111115414_2234338_0" isold="false">
                               <option value="" selected="selected">-Select-</option>
 
                               <option value="GT/s">GT/s</option>
@@ -2332,8 +2382,8 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Number & Float Datatype -->
-                            <input value="" id="pp_111116648_2235879_0" name="pp_111116648_2235879_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Direct Media Interface [2235879] (Float)" type="text">
-                            <select value="" id="DROPDOWN_pp_111116648_2235879_0" name="DROPDOWN_pp_111116648_2235879_0" class="ppu ecreset " oldvalue="" inputid="pp_111116648_2235879_0" isold="false" parameter-id="2235879" parameter-name="Direct Media Interface">
+                            <input onblur="getInference(this)" value="" id="pp_111116648_2235879_0" name="pp_111116648_2235879_0" class="ppn ecreset " ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Speed: Direct Media Interface [2235879] (Float)" type="text">
+                            <select onchange="getInference(this)" value="" id="DROPDOWN_pp_111116648_2235879_0" name="DROPDOWN_pp_111116648_2235879_0" class="ppu ecreset " oldvalue="" inputid="pp_111116648_2235879_0" isold="false">
                               <option value="" selected="selected">-Select-</option>
 
                               <option value="MT/s">MT/s</option>
@@ -2440,7 +2490,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="Yes" style="position: relative; width: 200px;" id="pp_111114964_2230345_0" name="pp_111114964_2230345_0" class="ppc ecreset req" ecode="2" oldvalue="Yes" setno="0" old="false" unit="" isold="false" title="Status: 64-bit Processing [2230345] (Coded)" parameter-id="2230345" parameter-name="64-bit Processing">
+                            <select onchange="getInference(this)" value="Yes" style="position: relative; width: 200px;" id="pp_111114964_2230345_0" name="pp_111114964_2230345_0" class="ppc ecreset req" ecode="2" oldvalue="Yes" setno="0" old="false" unit="" isold="false" title="Status: 64-bit Processing [2230345] (Coded)" parameter-id="2230345" parameter-name="64-bit Processing">
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="2230345" >-Search-</option> -->
                               <option value="Yes" selected="selected" title="">Yes</option>
@@ -2541,7 +2591,7 @@
         This class is also used by empty specs, mark exceptiokn codes, adn other methods requoiring to access eall editable parameters
         -->
                             <!-- For Coded Datatype -->
-                            <select value="" style="position: relative; width: 200px;" id="pp_111115648_2234654_0" name="pp_111115648_2234654_0" class="ppc ecreset" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: Hyper-Threading [2234654] (Coded)" parameter-id="2234654" parameter-name="Hyper-Threading">
+                            <select onchange="getInference(this)" value="" style="position: relative; width: 200px;" id="pp_111115648_2234654_0" name="pp_111115648_2234654_0" class="ppc ecreset" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: Hyper-Threading [2234654] (Coded)" parameter-id="2234654" parameter-name="Hyper-Threading">
                               <option value="" selected="selected">-Select-</option>
                               <!--                            <option value="-1" val="2234654" >-Search-</option> -->
                               <option value="Yes" title="">Yes</option>
@@ -2649,7 +2699,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="" style="position: relative; width: 200px;" id="pp_111115650_2234655_0" name="pp_111115650_2234655_0" class="ppc ecreset req" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: vPro Technology [2234655] (Coded)" parameter-id="2234655" parameter-name="vPro Technology">
+                            <select onchange="getInference(this)" value="" style="position: relative; width: 200px;" id="pp_111115650_2234655_0" name="pp_111115650_2234655_0" class="ppc ecreset req" ecode="0" oldvalue="" setno="0" old="false" unit="" isold="false" title="Status: vPro Technology [2234655] (Coded)" parameter-id="2234655" parameter-name="vPro Technology">
                               <option value="" selected="selected">-Select-</option>
                               <!--                            <option value="-1" val="2234655" >-Search-</option> -->
                               <option value="Yes" title="">Yes</option>
@@ -2758,7 +2808,7 @@
                             <!-- FIXME: do we need pub-req here too ? -->
                             <img src="images/editspecs/dot_gray.png" class="features_bullet fReq fOld" attid="" title="Required | Basic Info" alt="Required | Basic Info">
                             <!-- For Coded Datatype -->
-                            <select value="Intel" style="position: relative; width: 200px;" id="pp_111114983_21728_0" name="pp_111114983_21728_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="false" unit="" isold="false" title="Manufacturer: Chipset Manufacturer [21728] (Coded)" parameter-id="21728" parameter-name="Chipset Manufacturer">
+                            <select onchange="getInference(this)" value="Intel" style="position: relative; width: 200px;" id="pp_111114983_21728_0" name="pp_111114983_21728_0" class="ppc ecreset req" ecode="2" oldvalue="Intel" setno="0" old="false" unit="" isold="false" title="Manufacturer: Chipset Manufacturer [21728] (Coded)" parameter-id="21728" parameter-name="Chipset Manufacturer">
                               <option value="">-Select-</option>
                               <!--                            <option value="-1" val="21728" >-Search-</option> -->
                               <option value="ALi" title="">ALi</option>
@@ -2875,7 +2925,7 @@
                             <!-- For Text Datatype -->
                             <!-- name and id is the same and is of the format pp_attrId_paramId_setNo -->
                             <!-- DONOT REMOVE THE pp CLASS.. if you need to add more classes, put a space after pp and add your class -->
-                            <input value="<ul><li>G751 is</li><li> an unbeatable</li> gaming laptop  <li>thanks to its 4th-gen Intel? Core? i7 processor and NVIDIA? GeForce?GTX graphics, with TurboMaster technology for stable GPU overclocking and ROG AudioWizard-enhanced audio for immersive gaming. Its intelligent dual-fan cooling system keeps everything cool even in the heat of battle, and special keys let you access Steam or share memorable gaming moments with the world!<li></ul>" id="pp_111114984_22268_0" name="pp_111114984_22268_0" value="GM965 Express" class="pp ecreset  req" ecode="2" oldvalue="GM965 Express" setno="0" old="false" unit="" isold="false" title="Model: Chipset Model [22268] (Text)" type="text" parameter-id="22268" parameter-name="Chipset Model">
+                            <input onblur="getInference(this)" value="<ul><li>G751 is</li><li> an unbeatable</li> gaming laptop  <li>thanks to its 4th-gen Intel? Core? i7 processor and NVIDIA? GeForce?GTX graphics, with TurboMaster technology for stable GPU overclocking and ROG AudioWizard-enhanced audio for immersive gaming. Its intelligent dual-fan cooling system keeps everything cool even in the heat of battle, and special keys let you access Steam or share memorable gaming moments with the world!<li></ul>" id="pp_111114984_22268_0" name="pp_111114984_22268_0" value="GM965 Express" class="pp ecreset  req" ecode="2" oldvalue="GM965 Express" setno="0" old="false" unit="" isold="false" title="Model: Chipset Model [22268] (Text)" type="text" parameter-id="22268" parameter-name="Chipset Model">
                           </td>
                           <td width="100%">&nbsp;</td>
                           <!-- This is needed to prevent other tds from expanding and disturbing the alignment -->
@@ -2934,10 +2984,12 @@
   <script src="bower_components/angular-busy/dist/angular-busy.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/read-more/js/directives/readmore.js"></script>
+  <script src="bower_components/webui-popover/dist/jquery.webui-popover.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
   <script src="scripts/app.js"></script>
   <script src="scripts/config.js"></script>
   <script src="scripts/configRestangular.js"></script>
@@ -2948,6 +3000,7 @@
   <script src="app_components/sdeintegration/inferenceOverlay.js"></script>
   <script src="app_components/sdeintegration/inferenceService.js"></script>
   <script src="app_components/sdeintegration/inference.js"></script>
+  <script src="app_components/sdeintegration/inferredValue.js"></script>
 
   <script src="app_components/context/context.js"></script>
   <script src="app_components/service/baseService.js"></script>

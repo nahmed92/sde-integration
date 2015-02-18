@@ -1,10 +1,10 @@
 // Main CSS file for SDE Integration. All the CSS rules will be written in this file and should correspond to SASS syntax
 
-$icon-font-path: '/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
+$icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
 
 @import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
 
-$fa-font-path: '/bower_components/font-awesome/fonts';
+$fa-font-path: '../bower_components/font-awesome/fonts';
 
 @import 'font-awesome/scss/font-awesome';
 
@@ -13,15 +13,15 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 @import 'compass/css3/shared';
 @import 'compass/css3/transform';
 
+.nowrap {
+   white-space: nowrap;
+}
+
+.clickable {
+   cursor: pointer;
+ }
+
 #inference-container {
-  .nowrap {
-     white-space: nowrap;
-  }
-
-  .clickable {
-     cursor: pointer;
-   }
-
    table tr td p {
      margin: 0;
    }

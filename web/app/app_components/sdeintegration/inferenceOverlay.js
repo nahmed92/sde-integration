@@ -1,24 +1,18 @@
 'use strict';
 
 /*jshint unused:false*/
-function showInferenceOverlay(elem) {
-  var jqElement = angular.element(elem);
-  var paramId = jqElement.attr('parameter-id');
-  var selectedValue = jqElement.val();
+function getInference(obj) {
 
-  var scope = angular.element('#inference-container').scope();
-  scope.parameterName = jqElement.attr('parameter-name');
-  scope.selectedValue = selectedValue;
-
-  // If class ppu is associated with the element it means the parameter has
-  // a unit group attached. We'll get the element's preceding sibling's value
-  // first and then concatenate it with selected value
-  if (jqElement.hasClass('ppu')) {
-    selectedValue = parseFloat(jqElement.prev().val()) + ' ' + selectedValue;
-    scope.selectedValue = selectedValue;
-  } else if (jqElement.hasClass('ppn')) {
-    selectedValue = parseFloat(selectedValue);
+  // If parameter has unit value, we concatenate the unit value, after normalizing numeric values
+  var normalizedValue = obj.value;
+  if (obj.hasUnit) {
+    normalizedValue = parseFloat(obj.value) + ' ' + obj.unitValue;
+  } else if (obj.isNumber) {
+    normalizedValue = parseFloat(obj.value);
   }
 
-  scope.findValues(paramId, selectedValue);
+  var scope = angular.element('#inference-container').scope();
+  scope.parameterName = obj.parameterName;
+  scope.selectedValue = normalizedValue;
+  scope.findValues(obj.parameterId, normalizedValue);
 }
