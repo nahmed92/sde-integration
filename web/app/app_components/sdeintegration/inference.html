@@ -1,48 +1,38 @@
-<small>
+<div style="color: #222; text-align:center; padding: 15px 10px;">
   System's Inferred Values from User Input on <b>{{ parameterName }}</b> value: <b>{{ selectedValue }}</b>
-</small>
+</div>
+<div growl inline="true"></div>
 
-<div growl inline="true" style="width: 60%"></div>
-<table class="table table-striped table-condensed" style="width: 60%">
+<table class="table table-striped table-condensed">
+  <th>Parameter</th>
+  <th>Extracted</th>
+  <th>Inferred</th>
   <th>
-    <small>Parameter</small>
-  </th>
-  <th>
-    <small>Extracted</small>
-  </th>
-  <th>
-    <small>Inferred</small>
-  </th>
-  <th class="nowrap">
-    <small>
+    <div class="nowrap">
       <a tooltip="Accept All" class="btn btn-default btn-xs" ng-click="acceptAllInferredValues()">
         <i class="fa fa-check text-success clickable"></i>
       </a>
       <a tooltip="Reject All" class="btn btn-default btn-xs" ng-click="rejectAllInferredValues()">
         <i class="fa fa-close text-danger clickable"></i>
       </a>
-    </small>
+    </div>
   </th>
 
-  <tr ng-class="{'warning': (infer.manuallyExtractedValue && infer.inferredValue !== infer.manuallyExtractedValue)}" ng-repeat="infer in inferredValues">
+  <tr ng-class="{'warning': (infer.extractedValue && infer.inferredValue != infer.extractedValue)}" ng-repeat="infer in inferredValues">
     <td class="col-md-3">
-      <small>{{ infer.parameterName }}</small>
+      {{ infer.parameterName }}
     </td>
     <td class="col-md-4">
-      <small>
-        <span ng-if="infer.manuallyExtractedValue" read-more words="false" ng-model="infer.manuallyExtractedValue" length="255"></span>
-      </small>
+      &nbsp;
+      <span ng-if="infer.extractedDisplayValue" ng-class="{'text-muted': infer.extractedEcode > 2}" read-more words="false" ng-model="infer.extractedDisplayValue" length="255"></span>
     </td>
     <td class="col-md-4">
-      <small>
-        <span ng-if="infer.inferredValue" read-more words="false" ng-model="infer.inferredValue" length="255"></span>
-      </small>
+      &nbsp;
+      <span ng-if="infer.displayValue" ng-class="{'text-muted': infer.targetEcode > 2}" read-more words="false" ng-model="infer.displayValue" length="255"></span>
     </td>
     <td class="nowrap col-md-1">
-      <small>
-        <i tooltip="Accept Inference" ng-click="acceptInference(infer, true)" class="fa fa-check fa-lg text-success clickable"></i>
-        <i tooltip="Reject Inference" ng-click="rejectInference(infer, true)" class="fa fa-close fa-lg text-danger clickable"></i>
-      </small>
+      <i tooltip="Accept Inference" ng-click="acceptInference(infer, true)" class="fa fa-check fa-lg text-success clickable"></i>
+      <i tooltip="Reject Inference" ng-click="rejectInference(infer, true)" class="fa fa-close fa-lg text-danger clickable"></i>
     </td>
   </tr>
 </table>
