@@ -56,6 +56,10 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
           console.log('Skipping inference as parameter does not exist on page', paramId);
         }
       });
+
+      // sort by parameter order
+      $scope.inferredValues = $scope.sort($scope.inferredValues);
+
       $scope.showMessage = $scope.inferredValues.length === 0;
     }, function() {
       $scope.showMessage = true;
@@ -113,6 +117,12 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
 
   $scope.isEmpty = function(str) {
     return str === undefined || str === null || str.trim() === '';
+  };
+
+  $scope.sort = function(values) {
+    return _.sortBy(values, function(val) {
+      return $window.parent.parameterSortOrder.indexOf(val.parameterId);
+    });
   };
 
   init();
