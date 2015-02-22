@@ -49,7 +49,7 @@ module.exports = function(grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server']
+        tasks: ['scsslint', 'compass:server']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -124,6 +124,18 @@ module.exports = function(grunt) {
         },
         src: ['test/unit{,*/}*.js']
       }
+    },
+
+    scsslint: {
+      allFiles: [
+        '<%= yeoman.app %>/styles/main.scss'
+      ],
+      options: {
+        bundleExec: false,
+        config: '.scss-lint.yml',
+        reporterOutput: null,
+        colorizeOutput: true
+      },
     },
 
     // Empties folders to start fresh
@@ -412,7 +424,14 @@ module.exports = function(grunt) {
           spaceInParen: false,
           unescapeStrings: false,
           wrapLineLength: 0
-        }
+        },
+        // this should be enabled when 1.5.5 version of js-beautify is released
+        // css: {
+        //  fileTypes: [".scss"],
+        //  indentSize: 2,
+        //  newline_between_rules: true,
+        //  end_with_newline: true
+        //}
       }
     },
 
@@ -598,12 +617,14 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'beautify',
     'newer:jshint',
+    'scsslint',
     'test',
     'build'
   ]);
 
   grunt.registerTask('ci', [
     'newer:jshint',
+    'scsslint',
     'test-ci',
     'shell:merge',
     'build'

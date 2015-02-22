@@ -1,13 +1,8 @@
 // Main CSS file for SDE Integration. All the CSS rules will be written in this file and should correspond to SASS syntax
-
 $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
-
 @import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
-
 $fa-font-path: '../bower_components/font-awesome/fonts';
-
 @import 'font-awesome/scss/font-awesome';
-
 @import 'compass/css3/images';
 @import 'compass/utilities/general/hacks';
 @import 'compass/css3/shared';
@@ -18,30 +13,30 @@ $fa-font-path: '../bower_components/font-awesome/fonts';
 }
 
 p {
-  margin: 0;
   display: inline;
+  margin: 0;
 }
 
 .total-records {
-  position: relative;
-  display:inline-block;
-  margin: 0 10px;
-  padding: 3px 15px;
-  color: #777;
-  background-color:#F8F8F8;
-  border: 1px solid #DDD;
-  border-bottom: none;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-bottom: 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  font-size:11px;
+  color: #777;
+  display: inline-block;
+  font-size: 11px;
   line-height: 1.42;
+  margin: 0 10px;
+  padding: 3px 15px;
+  position: relative;
   white-space: nowrap;
+
+  div {
+    line-height: 35px;
+  }
 }
 
-.total-records div {
-  line-height:35px;
-}
-
-caption.table-caption {
- border-bottom: 2px solid #DDD;
+.table-caption {
+  border-bottom: 2px solid #ddd;
 }
