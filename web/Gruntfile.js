@@ -31,7 +31,21 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       instrument: 'instrument',
-      e2edata: grunt.option('e2edata') || process.env.TMPDIR + '<%=pkg.name%>'
+      e2edata: grunt.option('e2edata') || process.env.TMPDIR + '<%=pkg.name%>',
+      config: grunt.file.readJSON('.tmp/deploy.json')
+    },
+
+    processhtml: {
+      options: {
+        data: {
+          baseHref: '<%= yeoman.config.baseHref %>'
+        }
+      },
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/index.html': ['<%= yeoman.app %>/index.html']
+        }
+      }
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -267,8 +281,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Allow the use of non-minsafe AngularJS files. Automatically makes it
-    // minsafe compatible so Uglify does not destroy the ng references
     ngAnnotate: {
       dist: {
         files: [{
@@ -607,6 +619,7 @@ module.exports = function(grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'processhtml:dist',
     'cdnify',
     'cssmin',
     'uglify',

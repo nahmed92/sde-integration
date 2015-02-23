@@ -1,3 +1,4 @@
 {
-  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8600'%>"
+  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8600'%>",
+  "baseHref": "<%=grunt.option('app.baseHref') || '/'%>"
 }

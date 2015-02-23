@@ -12,6 +12,12 @@
   <title>Inference</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
+  <!-- build:template
+  <base href="<%= baseHref %>">
+  /build -->
+  <!-- build:remove -->
+  <base href="/">
+  <!-- /build -->
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
@@ -25,8 +31,6 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
   <style type="text/css">
-  /*.splash { display: none; }*/
-  
   .splash {
     display: block !important;
     color: #fff;
@@ -114,7 +118,7 @@
     Loading Inference...
   </div>
 
-  <div ng-include="'/app_components/common/header.tpl.html'"></div>
+  <div ng-include="'app_components/common/header.tpl.html'"></div>
   <div ui-view class="container-fluid" style="padding: 0 15px;" autoscroll="false"></div>
 
   <!--[if lt IE 9]>
