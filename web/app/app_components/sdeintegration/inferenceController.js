@@ -2,12 +2,13 @@
 
 var app = angular.module('inference', ['inference.service', 'inferredValue.model', 'inference.routes', 'ui.bootstrap', 'app.config', 'readMore', 'sdeutils', 'underscore', 'ngSanitize', 'dialogs.main', 'dialogs.default-translations']);
 
-app.controller('InferenceController', function($scope, inferenceService, _, $window, $location, InferredValue, dialogs) {
+app.controller('InferenceController', function($scope, inferenceService, _, $window, $location, $log, InferredValue, dialogs) {
 
   $scope.inferredValues = [];
   $scope.parameterName = '';
   $scope.parameterValue = '';
   $scope.showMessage = false;
+  $scope.processed = false;
 
   function init() {
     $scope.model = {
@@ -49,11 +50,11 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
             $scope.model.inferredCount++;
           } else {
             $scope.model.alreadyExtracted++;
-            console.log('Skipping inference as it is same as extracted value', paramId);
+            $log.info('Skipping inference as it is same as extracted value', paramId);
           }
         } else {
           $scope.model.skipped++;
-          console.log('Skipping inference as parameter does not exist on page', paramId);
+          $log.info('Skipping inference as parameter does not exist on page', paramId);
         }
       });
 
@@ -61,8 +62,10 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       $scope.inferredValues = $scope.sort($scope.inferredValues);
 
       $scope.showMessage = $scope.inferredValues.length === 0;
+      $scope.processed = true;
     }, function() {
       $scope.showMessage = true;
+      $scope.processed = true;
     });
   };
 
@@ -101,11 +104,10 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       size: 'sm'
     });
     dlg.result.then(function() {
+      $log.info('Rejecting all values');
       angular.forEach($scope.inferredValues, function(inference) {
         $scope.rejectInference(inference);
       });
-    }, function() {
-      console.log('Rejecting all values');
     });
   };
 
