@@ -8,6 +8,10 @@ $fa-font-path: '../bower_components/font-awesome/fonts';
 @import 'compass/css3/shared';
 @import 'compass/css3/transform';
 
+$total-records-background-color: #f8f8f8;
+$total-records-color: #777;
+$total-caption-border: #ddd;
+
 .nowrap {
   white-space: nowrap;
 }
@@ -18,12 +22,12 @@ p {
 }
 
 .total-records {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  background-color: $total-records-background-color;
+  border: 1px solid $total-caption-border;
   border-bottom: 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  color: #777;
+  color: $total-records-color;
   display: inline-block;
   font-size: 11px;
   line-height: 1.42;
@@ -38,5 +42,5 @@ p {
 }
 
 .table-caption {
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid $total-caption-border;
 }

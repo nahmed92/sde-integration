@@ -24,8 +24,8 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
         }
       } else if (this.hasUnit) {
         this.extractedDisplayValue = this.extractedValue + ' ' + this.unitValue;
-        this.targetValue = this.inferredValue.substring(0, this.inferredValue.lastIndexOf(' ')); // The value upto last space is value
-        this.targetUnit = this.inferredValue.substring(this.inferredValue.lastIndexOf(' ') + 1); // The remaining string after last space is unit
+        this.targetValue = this.inferredValue.substring(0, this.inferredValue.indexOf(' ')); // The value upto first space is value
+        this.targetUnit = this.inferredValue.substring(this.inferredValue.indexOf(' ') + 1); // The remaining string after first space is unit
       } else {
         this.targetValue = this.inferredValue;
       }
