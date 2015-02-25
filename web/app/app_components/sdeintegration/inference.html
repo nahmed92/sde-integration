@@ -1,73 +1,74 @@
-<h5>Inferred Values for {{parameterName}}: {{parameterValue}}</h5>
-<table ng-show="inferredValues.length > 0" class="table table-striped table-condensed fx-fade-up">
-  <thead>
-    <tr>
-      <th>
-        #
-      </th>
-      <th>
-        Parameter
-      </th>
-      <th>
-        Extracted
-      </th>
-      <th>
-        Inferred
-      </th>
-      <th class="nowrap">
-        <a tooltip="Accept All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: inferredValues.length === 0}" ng-click="acceptAllInferredValues()">
-          <i class="fa fa-check text-success"></i>
-        </a>
-        <a tooltip="Reject All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: inferredValues.length === 0}" ng-click="rejectAllInferredValues()">
-          <i class="fa fa-close text-danger"></i>
-        </a>
-      </th>
-    </tr>
-  </thead>
-  <caption class="table-caption">
-    <div class="total-records pull-left">
-      <span class="text-success">Accepted: <b class="ng-binding">{{model.acceptedCount}}</b>
-      </span>
-      &nbsp;|&nbsp;
-      <span class="text-danger">Rejected: <b class="ng-binding">{{model.rejectedCount}}</b>
-      </span>
-    </div>
-    <div class="total-records pull-right">
-      <span>Total: <b>{{model.inferredCount}}</b>
-      </span>
-    </div>
-  </caption>
-  <tbody>
-    <tr class="fx-fade-normal fx-speed-500 fx-easing-quad" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat="infer in inferredValues">
-      <th scope="row">{{ $index + 1 }}</th>
-      <td class="col-md-3">
-        {{ infer.parameterName }}
-      </td>
-      <td class="col-md-4">
-        <i ng-if="infer.extractedEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
-        <span ng-if="!isEmpty(infer.extractedDisplayValue)" read-more words="false" ng-model="infer.extractedDisplayValue" length="255"></span>
-        <span ng-if="isEmpty(infer.extractedDisplayValue)">&nbsp;</span>
-      </td>
-      <td class="col-md-4">
-        <i ng-if="infer.targetEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
-        <span ng-if="!isEmpty(infer.displayValue)" read-more words="false" ng-model="infer.displayValue" length="255"></span>
-        <span ng-if="isEmpty(infer.displayValue)">&nbsp;</span>
-      </td>
-      <td class="nowrap">
-        <a href="" ng-click="acceptInference(infer)" class="btn-xs">
-          <i class="fa fa-fw fa-check text-success"></i>
-        </a>
-        <a href="" ng-click="rejectInference(infer)"><i class="fa fa-fw fa-close text-danger"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<div ng-if="!processed">
-  <h1 class="text-center text-muted"><i class="fa fa-fw fa-cog fa-spin"></i>Processing...</h1>
-</div>
-<div ng-show="showMessage && model.acceptedCount === 0 && model.rejectedCount === 0 && model.alreadyExtracted === 0" class="alert alert-danger" role="alert">
-  <i class="fa fa-fw fa-exclamation-circle text-danger"></i>No inference found.
-</div>
-<div ng-show="showMessage && model.alreadyExtracted > 0" class="alert alert-success" role="alert">
-  <i class="fa fa-fw fa-info-circle text-success"></i>Inferred values are already extracted.
+<div class="toppad">
+  <table ng-show="inferredValues.length > 0" class="table table-striped table-condensed fx-fade-up">
+    <thead>
+      <tr>
+        <th>
+          #
+        </th>
+        <th>
+          Parameter
+        </th>
+        <th>
+          Extracted
+        </th>
+        <th>
+          Inferred
+        </th>
+        <th class="nowrap">
+          <a tooltip="Accept All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: inferredValues.length === 0}" ng-click="acceptAllInferredValues()">
+            <i class="fa fa-check text-success"></i>
+          </a>
+          <a tooltip="Reject All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: inferredValues.length === 0}" ng-click="rejectAllInferredValues()">
+            <i class="fa fa-close text-danger"></i>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <caption class="table-caption">
+      <div class="total-records pull-left">
+        <span class="text-success">Accepted: <b class="ng-binding">{{model.acceptedCount}}</b>
+        </span>
+        &nbsp;|&nbsp;
+        <span class="text-danger">Rejected: <b class="ng-binding">{{model.rejectedCount}}</b>
+        </span>
+      </div>
+      <div class="total-records pull-right">
+        <span>Total: <b>{{model.inferredCount}}</b>
+        </span>
+      </div>
+    </caption>
+    <tbody>
+      <tr class="fx-fade-normal fx-speed-500 fx-easing-quad" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat="infer in inferredValues">
+        <th scope="row">{{ $index + 1 }}</th>
+        <td class="col-md-3">
+          {{ infer.parameterName }}
+        </td>
+        <td class="col-md-4">
+          <i ng-if="infer.extractedEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
+          <span ng-if="!isEmpty(infer.extractedDisplayValue)" read-more words="false" ng-model="infer.extractedDisplayValue" length="255"></span>
+          <span ng-if="isEmpty(infer.extractedDisplayValue)">&nbsp;</span>
+        </td>
+        <td class="col-md-4">
+          <i ng-if="infer.targetEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
+          <span ng-if="!isEmpty(infer.displayValue)" read-more words="false" ng-model="infer.displayValue" length="255"></span>
+          <span ng-if="isEmpty(infer.displayValue)">&nbsp;</span>
+        </td>
+        <td class="nowrap">
+          <a href="" ng-click="acceptInference(infer)" class="btn-xs">
+            <i class="fa fa-fw fa-check text-success"></i>
+          </a>
+          <a href="" ng-click="rejectInference(infer)"><i class="fa fa-fw fa-close text-danger"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-if="!processed">
+    <h1 class="text-center text-muted"><i class="fa fa-fw fa-cog fa-spin"></i>Processing...</h1>
+  </div>
+  <div ng-show="showMessage && model.acceptedCount === 0 && model.rejectedCount === 0 && model.alreadyExtracted === 0" class="alert alert-danger" role="alert">
+    <i class="fa fa-fw fa-exclamation-circle text-danger"></i>No inference found.
+  </div>
+  <div ng-show="showMessage && model.alreadyExtracted > 0" class="alert alert-success" role="alert">
+    <i class="fa fa-fw fa-info-circle text-success"></i>Inferred values are already extracted.
+  </div>
 </div>
