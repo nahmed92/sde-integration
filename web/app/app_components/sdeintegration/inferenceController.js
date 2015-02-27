@@ -77,7 +77,11 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     // This object unsavedParam is a global object of editSpecs which keeps track of the unsaved parameter.
     // So whenever we change a parameter, we have to add the element to this object. Please not using element[0] to set the DOM object
     // instead of element which is jquery object
-    $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
+    if (infer.isRepeatable) {
+      $window.parent.unsavedParam.addRepeatableInferredParameter(infer.element, infer);
+    } else {
+      $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
+    }
     $scope.inferredValues = _.without($scope.inferredValues, infer);
     $scope.model.acceptedCount++;
     $scope.closeIfNeeded();

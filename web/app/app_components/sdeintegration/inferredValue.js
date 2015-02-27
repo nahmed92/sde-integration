@@ -12,7 +12,6 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
       this.parameterId = value[0];
       this.hasExceptionCode = this.inferredValue.indexOf('_EX_') > -1;
       this.displayValue = this.inferredValue;
-      this.extractedDisplayValue = this.extractedValue;
 
       var exceptionCode;
       // Always check first for hasExceptionCode, because if exception code exits, the targetValue and targetUnit will always be undefined
@@ -23,19 +22,10 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
           this.targetEcode = exceptionCode.id;
         }
       } else if (this.hasUnit) {
-        this.extractedDisplayValue = this.extractedValue + ' ' + this.unitValue;
         this.targetValue = this.inferredValue.substring(0, this.inferredValue.indexOf(' ')); // The value upto first space is value
         this.targetUnit = this.inferredValue.substring(this.inferredValue.indexOf(' ') + 1); // The remaining string after first space is unit
       } else {
         this.targetValue = this.inferredValue;
-      }
-
-      // Displaying exception code if manually extracted
-      if (this.extractedEcode > 2) {
-        exceptionCode = inferenceService.findByExceptionCodeId(this.extractedEcode);
-        if (exceptionCode) {
-          this.extractedDisplayValue = exceptionCode.name;
-        }
       }
     },
 
