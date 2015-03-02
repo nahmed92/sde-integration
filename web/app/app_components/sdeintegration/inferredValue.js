@@ -2,7 +2,7 @@
 
 var app = angular.module('inferredValue.model', ['model', 'inference.service', 'underscore']);
 
-app.factory('InferredValue', function(BaseModel, inferenceService) {
+app.factory('InferredValue', function(BaseModel, inferenceService, _) {
   var InferredValue = BaseModel.extend({
     init: function(data) {
       this._super(data);
@@ -30,10 +30,19 @@ app.factory('InferredValue', function(BaseModel, inferenceService) {
     },
 
     isSameAsExtracted: function() {
-      if (this.hasExceptionCode) {
+      if (this.isRepeatable) {
+        return this.alreadyExtracted();
+      } else if (this.hasExceptionCode) {
         return this.targetEcode === this.extractedEcode;
+      } else {
+        return this.displayValue === this.extractedDisplayValue;
       }
-      return this.displayValue === this.extractedDisplayValue;
+    },
+
+    // Checks if inferred parameter is already extracted, in concatenated string of repeatable parameter
+    alreadyExtracted: function() {
+      var extractedDisplayValues = this.extractedDisplayValue.split('<br/>');
+      return _.contains(extractedDisplayValues, this.displayValue);
     }
   });
 
