@@ -55,7 +55,7 @@
         </td>
         <td class="nowrap">
           <a href="" ng-click="acceptInference(infer)" class="btn-xs">
-            <i class="fa fa-fw fa-check text-success"></i>
+            <i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
           </a>
           <a href="" ng-click="rejectInference(infer)"><i class="fa fa-fw fa-close text-danger"></i></a>
         </td>
