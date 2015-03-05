@@ -34,7 +34,8 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
   $scope.findValues = function(attrId, attrValue) {
     $scope.inferredValues = [];
     var data = {
-      item: attrId + '|' + attrValue
+      item: attrId + '|' + attrValue,
+      minSupport: 3
     };
 
     inferenceService.findInferencedValuesByParameterIdAndValue(data, $scope.model.engineId).then(function(inferredValues) {
