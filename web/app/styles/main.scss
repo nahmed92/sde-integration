@@ -11,6 +11,7 @@ $fa-font-path: '../bower_components/font-awesome/fonts';
 $total-records-background-color: #f8f8f8;
 $total-records-color: #777;
 $total-caption-border: #ddd;
+$hr-color: #ddd;
 
 .nowrap {
   white-space: nowrap;
@@ -47,4 +48,14 @@ p {
 
 .toppad {
   padding-top: 5px;
+}
+
+.table-condensed td hr {
+  border-top: 1px dotted $hr-color;
+  margin: 0;
+  padding: 0;
+}
+
+.table-condensed td hr:last-child {
+  display: none;
 }

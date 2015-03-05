@@ -41,7 +41,7 @@ app.factory('InferredValue', function(BaseModel, inferenceService, _) {
 
     // Checks if inferred parameter is already extracted, in concatenated string of repeatable parameter
     alreadyExtracted: function() {
-      var extractedDisplayValues = this.extractedDisplayValue.split('<br/>');
+      var extractedDisplayValues = this.extractedDisplayValue.split('<hr>');
       return _.contains(extractedDisplayValues, this.displayValue);
     }
   });
