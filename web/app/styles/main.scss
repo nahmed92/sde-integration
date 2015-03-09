@@ -69,6 +69,7 @@ p {
   border-bottom: 1px solid $dark-blue;
   border-top: 1px solid $white;
   color: $dark-blue;
+  vertical-align: middle;
 }
 
 .table .blue th {
@@ -76,4 +77,5 @@ p {
   border: 0;
   color: $white;
   text-align: center;
+  vertical-align: middle;
 }
