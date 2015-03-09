@@ -1,5 +1,5 @@
 <div class="toppad">
-  <table ng-show="getKeys(inferredValues).length > 0" class="table table-striped table-condensed fx-fade-up" style="font-size: 0.9em">
+  <table ng-show="getKeys(inferredValues).length > 0" class="table table-condensed fx-fade-up" style="font-size: 0.9em">
     <thead>
       <tr class="blue">
         <th class="col-sm-3">
@@ -35,11 +35,11 @@
       </div>
     </caption>
     <tbody>
-      <tr class="fx-fade-normal fx-speed-350 fx-easing-quad header" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat-start="header in headers" ng-if="inferredValues[header.headerId] !== undefined">
+      <tr class="fx-fade-normal fx-speed-350 fx-easing-quad header" ng-repeat-start="header in headers" ng-if="inferredValues[header.headerId] !== undefined">
         <th colspan="3" class="header">
           {{ header.headerName }}
         </th>
-        <td class="header">
+        <td class="header nowrap">
           <a tooltip="Accept Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="acceptAllInferredValuesInList(inferredValues[header.headerId], true)">
             <i class="fa fa-check text-success"></i>
           </a>
@@ -48,7 +48,7 @@
           </a>
         </td>
       </tr>
-      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat="infer in inferredValues[header.headerId]" ng-repeat-end>
+      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (!isEmpty(infer.extractedDisplayValue) && infer.displayValue != infer.extractedDisplayValue)}" ng-repeat="infer in inferredValues[header.headerId]" ng-repeat-end>
         <td class="col-sm-4">
           {{ infer.parameterName }}
         </td>
