@@ -12,6 +12,9 @@ $total-records-background-color: #f8f8f8;
 $total-records-color: #777;
 $total-caption-border: #ddd;
 $hr-color: #ddd;
+$dark-blue: #3366a3;
+$header-background: #eef;
+$white: #fff;
 
 .nowrap {
   white-space: nowrap;
@@ -50,12 +53,27 @@ p {
   padding-top: 5px;
 }
 
-.table-condensed td hr {
+.table td hr {
   border-top: 1px dotted $hr-color;
   margin: 0;
   padding: 0;
 }
 
-.table-condensed td hr:last-child {
+.table td hr:last-child {
   display: none;
+}
+
+.table .header td,
+.table .header th {
+  background-color: $header-background;
+  border-bottom: 1px solid $dark-blue;
+  border-top: 1px solid $white;
+  color: $dark-blue;
+}
+
+.table .blue th {
+  background-color: $dark-blue;
+  border: 0;
+  color: $white;
+  text-align: center;
 }
