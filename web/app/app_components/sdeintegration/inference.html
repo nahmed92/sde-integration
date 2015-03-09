@@ -35,20 +35,20 @@
       </div>
     </caption>
     <tbody>
-      <tr class="fx-fade-normal fx-speed-350 fx-easing-quad header" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat-start="(headerId, infers) in inferredValues">
+      <tr class="fx-fade-normal fx-speed-350 fx-easing-quad header" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat-start="header in headers" ng-if="inferredValues[header.headerId] !== undefined">
         <th colspan="3" class="header">
-          {{headerName(headerId)}}
+          {{ header.headerName }}
         </th>
         <td class="header">
-          <a tooltip="Accept Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="acceptAllInferredValuesInList(infers, true)">
+          <a tooltip="Accept Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="acceptAllInferredValuesInList(inferredValues[header.headerId], true)">
             <i class="fa fa-check text-success"></i>
           </a>
-          <a tooltip="Reject Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="rejectAllInferredValuesInList(infers, true)">
+          <a tooltip="Reject Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="rejectAllInferredValuesInList(inferredValues[header.headerId], true)">
             <i class="fa fa-close text-danger"></i>
           </a>
         </td>
       </tr>
-      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat="infer in infers" ng-repeat-end>
+      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (infer.extractedValue && infer.displayValue != infer.extractedValue)}" ng-repeat="infer in inferredValues[header.headerId]" ng-repeat-end>
         <td class="col-sm-4">
           {{ infer.parameterName }}
         </td>

@@ -60,10 +60,11 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
         }
       });
 
-      // sort by parameter order
-      $scope.inferredValues = $scope.sort($scope.inferredValues);
-      $scope.inferredValues = _.groupBy($scope.inferredValues, 'headerId');
       $scope.headers = $window.parent.headerSortOrder;
+      // Group by headers
+      $scope.inferredValues = _.groupBy($scope.inferredValues, 'headerId');
+      // Sort by header order
+      $scope.inferredValues = $scope.sort($scope.inferredValues);
 
       $scope.showMessage = _.keys($scope.inferredValues).length === 0;
       $scope.processed = true;
@@ -163,10 +164,16 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     return str === undefined || str === null || str.trim() === '';
   };
 
-  $scope.sort = function(values) {
-    return _.sortBy(values, function(val) {
-      return $window.parent.parameterSortOrder.indexOf(val.parameterId);
+  $scope.sort = function(inferredValues) {
+    var headerIds = _.pluck($scope.headers, 'headerId');
+    var keys = _.sortBy(_.keys(inferredValues), function(key) {
+      return headerIds.indexOf(key);
     });
+    var result = {};
+    _.each(keys, function(key) {
+      result[key] = inferredValues[key];
+    });
+    return result;
   };
 
   $scope.headerName = function(headerId) {
