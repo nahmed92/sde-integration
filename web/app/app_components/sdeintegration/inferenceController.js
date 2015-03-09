@@ -35,7 +35,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     $scope.inferredValues = [];
     var data = {
       item: attrId + '|' + attrValue,
-      minSupport: 3
+      minSupport: 1
     };
 
     inferenceService.findInferencedValuesByParameterIdAndValue(data, $scope.model.engineId).then(function(inferredValues) {
@@ -47,6 +47,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
             inferredValue: inference
           }));
           if (!inferred.isSameAsExtracted()) {
+            inferred.headerId = $window.parent.parameterHeaderMap[paramId];
             $scope.inferredValues.push(inferred);
             $scope.model.inferredCount++;
           } else {
@@ -61,8 +62,10 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
 
       // sort by parameter order
       $scope.inferredValues = $scope.sort($scope.inferredValues);
+      $scope.inferredValues = _.groupBy($scope.inferredValues, 'headerId');
+      $scope.headers = $window.parent.headerSortOrder;
 
-      $scope.showMessage = $scope.inferredValues.length === 0;
+      $scope.showMessage = _.keys($scope.inferredValues).length === 0;
       $scope.processed = true;
     }, function() {
       $scope.showMessage = true;
@@ -83,7 +86,10 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     } else {
       $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
     }
-    $scope.inferredValues = _.without($scope.inferredValues, infer);
+    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
+    if ($scope.inferredValues[infer.headerId].length === 0) {
+      delete $scope.inferredValues[infer.headerId];
+    }
     $scope.model.acceptedCount++;
     $scope.closeIfNeeded();
   };
@@ -97,13 +103,22 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     } else {
       $window.parent.unsavedParam.rejectInferredParameter(infer.element, infer);
     }
-    $scope.inferredValues = _.without($scope.inferredValues, infer);
+    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
+    if ($scope.inferredValues[infer.headerId].length === 0) {
+      delete $scope.inferredValues[infer.headerId];
+    }
     $scope.model.rejectedCount++;
     $scope.closeIfNeeded();
   };
 
   $scope.acceptAllInferredValues = function() {
-    angular.forEach($scope.inferredValues, function(inference) {
+    angular.forEach(_.keys($scope.inferredValues), function(headerId) {
+      $scope.acceptAllInferredValuesInList($scope.inferredValues[headerId]);
+    });
+  };
+
+  $scope.acceptAllInferredValuesInList = function(list) {
+    angular.forEach(list, function(inference) {
       $scope.acceptInference(inference, false);
     });
   };
@@ -114,14 +129,32 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     });
     dlg.result.then(function() {
       $log.info('Rejecting all values');
-      angular.forEach($scope.inferredValues, function(inference) {
-        $scope.rejectInference(inference);
+      angular.forEach(_.keys($scope.inferredValues), function(headerId) {
+        $scope.rejectAllInferredValuesInList($scope.inferredValues[headerId]);
       });
     });
   };
 
+  $scope.rejectAllInferredValuesInList = function(list, confirm) {
+    if (confirm === true) {
+      var dlg = dialogs.confirm('Reject All In Header', 'Are you sure you want to reject all the inferred values for this header?', {
+        size: 'sm'
+      });
+      dlg.result.then(function() {
+        $log.info('Rejecting all values in header');
+        angular.forEach(list, function(inference) {
+          $scope.rejectInference(inference);
+        });
+      });
+    } else {
+      angular.forEach(list, function(inference) {
+        $scope.rejectInference(inference);
+      });
+    }
+  };
+
   $scope.closeIfNeeded = function() {
-    if ($scope.inferredValues.length === 0) {
+    if (_.keys($scope.inferredValues).length === 0) {
       $window.parent.closePopover();
     }
   };
@@ -134,6 +167,16 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     return _.sortBy(values, function(val) {
       return $window.parent.parameterSortOrder.indexOf(val.parameterId);
     });
+  };
+
+  $scope.headerName = function(headerId) {
+    return _.find($scope.headers, {
+      headerId: headerId
+    }).headerName;
+  };
+
+  $scope.getKeys = function(obj) {
+    return _.keys(obj);
   };
 
   init();
