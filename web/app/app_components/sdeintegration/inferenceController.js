@@ -171,7 +171,9 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     });
     var result = {};
     _.each(keys, function(key) {
-      result[key] = inferredValues[key];
+      result[key] = _.sortBy(inferredValues[key], function(obj) {
+        return $window.parent.parameterSortOrder.indexOf(obj.parameterId);
+      });
     });
     return result;
   };

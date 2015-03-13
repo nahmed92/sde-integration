@@ -34,7 +34,7 @@ app.factory('InferredValue', function(BaseModel, inferenceService, _) {
         return this.alreadyExtracted();
       } else if (this.hasExceptionCode) {
         return this.targetEcode === this.extractedEcode;
-      } else if (this.extractedDisplayValue && this.extractedDisplayValue.length > 0 && this.displayValue && this.displayValue.length > 0) {
+      } else if (this.extractedDisplayValue && this.displayValue) {
         return this.displayValue.replace(/>\s+</g, '><') === this.extractedDisplayValue.replace(/>\s+</g, '><');
       } else {
         return this.displayValue === this.extractedDisplayValue;
