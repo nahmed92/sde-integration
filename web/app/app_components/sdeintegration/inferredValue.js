@@ -8,8 +8,9 @@ app.factory('InferredValue', function(BaseModel, inferenceService, _) {
       this._super(data);
 
       var value = data.inferredValue.split('|');
-      this.inferredValue = value[1];
-      this.parameterId = value[0];
+
+      this.parameterId = value.shift(); // Taking out the first index from the array
+      this.inferredValue = value.join('|'); // Concatenating the remaining components using |
       this.hasExceptionCode = this.inferredValue.indexOf('_EX_') > -1;
       this.displayValue = this.inferredValue;
 
