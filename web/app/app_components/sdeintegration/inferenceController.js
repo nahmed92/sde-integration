@@ -20,15 +20,18 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       engineId: $location.search().engineId
     };
     var item = decodeURIComponent($location.search().item);
-    var value = item.split('|');
 
-    var obj = new InferredValue(angular.extend($window.parent.getInputObjectByParameterId(value[0]), {
+    var value = item.split('|');
+    var parameterId = value.shift(); // Using first element of array as parameter id
+    value = value.join('|'); // Concatenating remaining values using | to cater the possibility of values having |
+
+    var obj = new InferredValue(angular.extend($window.parent.getInputObjectByParameterId(parameterId), {
       inferredValue: ' | '
     }));
     $scope.parameterName = obj.parameterName;
     $scope.parameterValue = obj.extractedDisplayValue;
 
-    $scope.findValues(value[0], value[1]);
+    $scope.findValues(parameterId, value);
   }
 
   $scope.findValues = function(attrId, attrValue) {
