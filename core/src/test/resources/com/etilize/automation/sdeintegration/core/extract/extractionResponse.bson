@@ -1,0 +1,49 @@
+{
+    "extraction":
+    [
+        {
+            "_id": {
+                "$exists": true
+            },
+            "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
+            "productId": 1,
+            "category": "Notebooks|4876",
+            "text": "Core i3 2.6GHZ",
+            "createdAt": { "$exists": true },
+            "headers":
+            [
+                {
+                    "name": "Processor & Chipset|123",
+                    "parameters":
+                    [
+                        {
+                            "paramId": 2230387,
+                            "name": "processortype",
+                            "value": "Core i3",
+                            "standardization": {
+                                "status": "NOT_FOUND"
+                            },
+                            "export": {
+                                "value": "Core i3"
+                            }
+                        },
+                        {
+                            "paramId": 2229779,
+                            "name": "processorspeed",
+                            "value": "2.6",
+                            "unit": "GHZ",
+                            "standardization": {
+                                "standardization": "GHz",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "2.6",
+                                "unit": "GHz"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

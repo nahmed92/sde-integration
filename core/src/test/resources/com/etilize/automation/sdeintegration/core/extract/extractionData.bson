@@ -1,0 +1,141 @@
+{
+    "extraction":
+    [
+        {
+            "_id": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
+            "productId": 1,
+            "category": "Notebooks|4876",
+            "text": "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2",
+            "createdAt": { "$date": "2000-03-18T08:04:53.326Z" },
+            "headers":
+            [
+                {
+                    "name": "Miscellaneous|123",
+                    "parameters":
+                    [
+                        {
+                            "paramId": 2230091,
+                            "name": "greencompliancecertificateauthority",
+                            "value": "ROHS",
+                            "standardization": {
+                                "standardization": "ROHS",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "ROHS"
+                            }
+                        },
+                        {
+                            "paramId": 2230090,
+                            "name": "greencompliant",
+                            "value": "Green Compliance",
+                            "standardization": {
+                                "standardization": "Yes",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "Yes"
+                            }
+                        },
+                        {
+                            "paramId": 2230091,
+                            "name": "greencompliancecertificateauthority",
+                            "value": "Energy Star",
+                            "standardization": {
+                                "standardization": "ENERGY STAR",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "ENERGY STAR"
+                            }
+                        },
+                        {
+                            "paramId": 2230091,
+                            "name": "greencompliancecertificateauthority",
+                            "value": "EPEAT Gold",
+                            "standardization": {
+                                "standardization": "EPEAT Gold",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "EPEAT Gold"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": {
+                "$oid": "55095aab3aca9ace762ad5f9"
+            },
+            "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
+            "productId": 1,
+            "category": "Notebooks|4876",
+            "text": "Product Line: Intel Core i3 i3-4300M (2.6GHz)",
+            "createdAt": { "$date": "2025-03-18T10:59:54.974Z" },
+            "headers":
+            [
+                {
+                    "name": "Processor & Chipset|123",
+                    "parameters":
+                    [
+                        {
+                            "paramId": 2230387,
+                            "name": "processortype",
+                            "value": "Core i3",
+                            "standardization": {
+                                "standardization": "Core i3",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "Core i3"
+                            }
+                        },
+                        {
+                            "paramId": 2230522,
+                            "name": "processormodel",
+                            "value": "i3-4300M",
+                            "standardization": {
+                                "standardization": "i5-4300M",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "i5-4300M"
+                            }
+                        },
+                        {
+                            "paramId": 2229779,
+                            "name": "processorspeed",
+                            "value": "2.6",
+                            "unit": "GHz",
+                            "standardization": {
+                                "standardization": "GHz",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "2.6",
+                                "unit": "GHz"
+                            }
+                        },
+                        {
+                            "paramId": 2230349,
+                            "name": "processormanufacturer",
+                            "value": "Intel",
+                            "standardization": {
+                                "standardization": "Intel",
+                                "status": "FOUND"
+                            },
+                            "export": {
+                                "value": "Intel"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

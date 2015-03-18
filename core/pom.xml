@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.etilize.build</groupId>
+        <artifactId>etilize-build-core</artifactId>
+        <version>0.0.2-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <groupId>com.etilize.automation.sde-integration</groupId>
+    <artifactId>core</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+
+    <name>sde-integration-core</name>
+    <description>SDE Integration REST APIs</description>
+
+    <properties>
+        <project.dotGitDirectory>${project.basedir}/../.git</project.dotGitDirectory>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.etilize.automation.ruta</groupId>
+            <artifactId>ruta-service-client</artifactId>
+            <version>0.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.etilize.automation.standardization</groupId>
+            <artifactId>standardization-service-client</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.future-converter</groupId>
+            <artifactId>spring-guava</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        <!-- joda time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+        </dependency>
+        <!-- mongo changeset mgmt -->
+        <dependency>
+            <groupId>org.mongeez</groupId>
+            <artifactId>mongeez</artifactId>
+            <version>0.9.4</version>
+        </dependency>
+        <!-- testing dependencies -->
+        <dependency>
+            <groupId>com.lordofthejars</groupId>
+            <artifactId>nosqlunit-mongodb</artifactId>
+            <version>0.7.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.fakemongo</groupId>
+            <artifactId>fongo</artifactId>
+            <version>1.5.7</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
