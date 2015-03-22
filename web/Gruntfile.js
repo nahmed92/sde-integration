@@ -528,7 +528,7 @@ module.exports = function(grunt) {
               url: 'http://sonar.etilizepak.com'
             },
             jdbc: {
-              url: 'jdbc:mysql://git.etilizepak.com:3306/sonar',
+              url: 'jdbc:mysql://' + (grunt.option('sonar.jdbc.host') || 'git.etilizepak.com') + ':3306/sonar',
               username: 'sonar',
               password: grunt.option('sonar.jdbc.password') || ''
             },
@@ -554,6 +554,7 @@ module.exports = function(grunt) {
             dynamicAnalysis: 'reuseReports',
             javascript: {
               jstestdriver: {
+                reportsPath: './',
                 coveragefile: 'coverage/coverage.lcov'
               },
               lcov: {
