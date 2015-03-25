@@ -83,8 +83,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
 
   $scope.acceptInference = function(infer) {
     // This object unsavedParam is a global object of editSpecs which keeps track of the unsaved parameter.
-    // So whenever we change a parameter, we have to add the element to this object. Please not using element[0] to set the DOM object
-    // instead of element which is jquery object
+    // So whenever we change a parameter, we have to add the element to this object.
     if (infer.isRepeatable) {
       $window.parent.unsavedParam.addRepeatableInferredParameter(infer.element, infer);
     } else {
@@ -113,18 +112,6 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     }
     $scope.model.rejectedCount++;
     $scope.closeIfNeeded();
-  };
-
-  $scope.acceptAllInferredValues = function() {
-    angular.forEach(_.keys($scope.inferredValues), function(headerId) {
-      $scope.acceptAllInferredValuesInList($scope.inferredValues[headerId]);
-    });
-  };
-
-  $scope.acceptAllInferredValuesInList = function(list) {
-    angular.forEach(list, function(inference) {
-      $scope.acceptInference(inference, false);
-    });
   };
 
   $scope.rejectAllInferredValues = function() {
@@ -157,10 +144,16 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     }
   };
 
-  $scope.closeIfNeeded = function() {
-    if (_.keys($scope.inferredValues).length === 0) {
-      $window.parent.closePopover();
-    }
+  $scope.acceptAllInferredValues = function() {
+    angular.forEach(_.keys($scope.inferredValues), function(headerId) {
+      $scope.acceptAllInferredValuesInList($scope.inferredValues[headerId]);
+    });
+  };
+
+  $scope.acceptAllInferredValuesInList = function(list) {
+    angular.forEach(list, function(inference) {
+      $scope.acceptInference(inference, false);
+    });
   };
 
   $scope.isEmpty = function(str) {
@@ -189,6 +182,12 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
 
   $scope.getKeys = function(obj) {
     return _.keys(obj);
+  };
+
+  $scope.closeIfNeeded = function() {
+    if (_.keys($scope.inferredValues).length === 0) {
+      $window.parent.closeInferencePopover();
+    }
   };
 
   init();

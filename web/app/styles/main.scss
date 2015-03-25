@@ -15,6 +15,9 @@ $hr-color: #ddd;
 $dark-blue: #3366a3;
 $header-background: #eef;
 $white: #fff;
+$grey: #888;
+$light-grey: #bbb;
+$standardization-background: #f0c33e;
 
 .nowrap {
   white-space: nowrap;
@@ -23,6 +26,10 @@ $white: #fff;
 p {
   display: inline;
   margin: 0;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .total-records {
@@ -49,10 +56,6 @@ p {
   border-bottom: 2px solid $total-caption-border;
 }
 
-.toppad {
-  padding-top: 5px;
-}
-
 .table td hr {
   border-top: 1px dotted $hr-color;
   margin: 0;
@@ -74,4 +77,31 @@ p {
   color: $white;
   text-align: center;
   vertical-align: middle;
+}
+
+.extract,
+.infer {
+  padding-top: 5px;
+}
+
+.extract .table .non-standard {
+  border-bottom: 1px dotted $grey;
+}
+
+.extract .table .standardization {
+  background-color: $standardization-background;
+  border-bottom: 2px solid $light-grey;
+  border-left: 2px solid $light-grey;
+  border-right: 2px solid $light-grey;
+  vertical-align: baseline;
+}
+
+.table .standardization > td {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.extract .table .expanded {
+  border: 2px solid $light-grey;
+  border-bottom: 0;
 }

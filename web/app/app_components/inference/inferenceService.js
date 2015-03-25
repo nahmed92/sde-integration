@@ -44,7 +44,7 @@ app.factory('inferenceService', function(Restangular, BaseService, Inference, AP
 
     findByExceptionCodeId: function(id) {
       return _.find(this.findActiveExceptionCodes(), function(exceptionCode) {
-        return exceptionCode.id == id; // jshint ignore:line
+        return parseInt(exceptionCode.id) === parseInt(id);
       });
     }
   });
