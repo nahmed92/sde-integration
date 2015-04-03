@@ -31,7 +31,7 @@ describe('Service: inference.service', function() {
     var engine = 'f01ea16f-0dd5-4aa6-a7ab-6a2bcbafc4a1';
 
     var inferredValues = ["2226297|D520", "2230593|40 GB", "21995|1 GB", "22248|Latitude D520 Notebook", "21748|Dell, Inc", "21750|BBY-680569076540-REFURBISHED", "225596|Dell"];
-    $httpBackend.whenGET(APP_CONFIG.baseUrl + '/engines/' + engine + '/infer?item=' + item).respond(inferredValues);
+    $httpBackend.whenGET(APP_CONFIG.inferenceUrl + '/engines/' + engine + '/infer?item=' + item).respond(inferredValues);
 
     inferenceService.findInferencedValuesByParameterIdAndValue(data, engine).then(function(inferredValues) {
       expect(inferredValues[0]).toBe('2226297|D520');

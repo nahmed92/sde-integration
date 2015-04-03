@@ -10,7 +10,7 @@ app.factory('inferenceService', function(Restangular, BaseService, Inference, AP
     },
 
     findInferencedValuesByParameterIdAndValue: function(data, engineId) {
-      return this.future(this.Restangular.allUrl(this.route, APP_CONFIG.baseUrl + '/engines/' + engineId).customGET('infer', data));
+      return this.future(this.Restangular.allUrl(this.route, APP_CONFIG.inferenceUrl + '/engines/' + engineId).customGET('infer', data));
     },
 
     findActiveExceptionCodes: function() {

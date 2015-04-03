@@ -1,6 +1,7 @@
 {
-  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8600'%>",
+  "baseUrl": "<%=grunt.option('app.baseUrl') || 'http://localhost:8800'%>",
   "baseHref": "<%=grunt.option('app.baseHref') || '/'%>",
+  "inferenceUrl": "<%=grunt.option('app.inferenceUrl') || 'http://localhost:8600'%>",
   "taxonomyUrl": "<%=grunt.option('app.taxonomyUrl') || 'http://localhost:8100'%>",
   "standardizationUrl": "<%=grunt.option('app.standardizationUrl') || 'http://localhost:8300'%>"
 }

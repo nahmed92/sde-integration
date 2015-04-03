@@ -54,6 +54,7 @@
         </td>
         <td class="col-sm-3">
           <i ng-if="infer.extractedEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
+          <span ng-if="infer.noValue" class="label label-warning">No Value</span>
           <span ng-if="!isEmpty(infer.extractedDisplayValue)" read-more words="false" ng-model="infer.extractedDisplayValue" length="255"></span>
           <span ng-if="isEmpty(infer.extractedDisplayValue)">&nbsp;</span>
         </td>
