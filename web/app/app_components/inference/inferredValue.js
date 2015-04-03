@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('inferredValue.model', ['model', 'inference.service', 'underscore']);
+var app = angular.module('inferredValue.model', ['model', 'inference.service', 'underscore', 'app.constants']);
 
-app.factory('InferredValue', function(BaseModel, inferenceService, _) {
+app.factory('InferredValue', function(BaseModel, inferenceService, _, CONST) {
   var InferredValue = BaseModel.extend({
     init: function(data) {
       this._super(data);
@@ -13,6 +13,11 @@ app.factory('InferredValue', function(BaseModel, inferenceService, _) {
       this.inferredValue = value.join('|'); // Concatenating the remaining components using |
       this.hasExceptionCode = this.inferredValue.indexOf('_EX_') > -1;
       this.displayValue = this.inferredValue;
+      // Replace [no value] tag in extracted value if it exists
+      if (_.contains(this.extractedDisplayValue, CONST.NO_VALUE)) {
+        this.extractedDisplayValue = this.extractedDisplayValue.replace(CONST.NO_VALUE, '');
+        this.noValue = true;
+      }
 
       var exceptionCode;
       // Always check first for hasExceptionCode, because if exception code exits, the targetValue and targetUnit will always be undefined

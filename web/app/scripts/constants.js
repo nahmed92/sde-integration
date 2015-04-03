@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('app.constants', []).constant('PAGE', {
+angular.module('app.constants', []).constant('CONST', {
   // define the constants
-  COUNTS: [10, 20, 50, 100],
-  DEFAULT: 20
+  // When a unit is extracted but the value is empty in edit specs, such as when only one unit is in the list and is selected by default,
+  // Edit specs sets the string [no value] in extractedDisplayValue field, so that we can replace it here and show it as a formatted label (See JIRA SDE-1856)
+  NO_VALUE: '[no value]'
 });

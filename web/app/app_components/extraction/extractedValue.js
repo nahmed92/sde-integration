@@ -1,13 +1,18 @@
 'use strict';
 
-var app = angular.module('extractedValue.model', ['model', 'underscore']);
+var app = angular.module('extractedValue.model', ['model', 'underscore', 'app.constants']);
 
-app.factory('ExtractedValue', function(BaseModel, _) {
+app.factory('ExtractedValue', function(BaseModel, _, CONST) {
   var ExtractedValue = BaseModel.extend({
     init: function(data) {
       this._super(data);
       this.displayValue = this.value;
       this.targetValue = this.value;
+      // Replace [no value] tag in extracted value if it exists
+      if (_.contains(this.extractedDisplayValue, CONST.NO_VALUE)) {
+        this.extractedDisplayValue = this.extractedDisplayValue.replace(CONST.NO_VALUE, '');
+        this.noValue = true;
+      }
 
       if (this.hasUnit) {
         this.targetUnit = this.unit;
