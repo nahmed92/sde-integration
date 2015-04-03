@@ -1,4 +1,4 @@
-<div class="toppad">
+<div class="extract">
   <table ng-show="getKeys(inferredValues).length > 0" class="table table-condensed fx-fade-up" style="font-size: 0.9em">
     <thead>
       <tr class="blue">
@@ -6,10 +6,10 @@
           Parameter
         </th>
         <th class="col-sm-4">
-          Extracted
+          Manual
         </th>
         <th class="col-sm-4">
-          Inferred
+          Auto
         </th>
         <th class="col-sm-1 nowrap">
           <a tooltip="Accept All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(inferredValues).length === 0}" ng-click="acceptAllInferredValues()">
@@ -48,7 +48,7 @@
           </a>
         </td>
       </tr>
-      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (!isEmpty(infer.extractedDisplayValue) && infer.displayValue != infer.extractedDisplayValue)}" ng-repeat="infer in inferredValues[header.headerId]" ng-repeat-end>
+      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (!isEmpty(infer.extractedDisplayValue) && infer.displayValue != infer.extractedDisplayValue), 'expanded': infer.showStandardization}" ng-repeat-start="infer in inferredValues[header.headerId]">
         <td class="col-sm-4">
           {{ infer.parameterName }}
         </td>
@@ -59,14 +59,45 @@
         </td>
         <td class="col-sm-4">
           <i ng-if="infer.targetEcode" class="fa fa-fw fa-2 fa-warning text-warning"></i>
-          <span ng-if="!isEmpty(infer.displayValue)" read-more words="false" ng-model="infer.displayValue" length="255"></span>
+          <i ng-if="infer.isNonStandard" class="fa fa-fw fa-2 fa-exclamation-circle text-warning"></i>
+          <span ng-if="!isEmpty(infer.displayValue)" read-more words="false" ng-model="infer.displayValue" length="255" ng-class="{'non-standard' : infer.isNonStandard === true }"></span>
           <span ng-if="isEmpty(infer.displayValue)">&nbsp;</span>
         </td>
         <td class="col-sm-1 nowrap">
-          <a href="" ng-click="acceptInference(infer)" class="btn-xs">
+          <span ng-if="infer.checkingNonStandard" class="btn-xs" title="Checking standardization">
+            <i class="fa fa-fw fa-spinner fa-pulse"></i>
+          </span>
+          <span ng-if="!infer.checkingNonStandard && !infer.isNonStandard" href="" ng-click="acceptInference(infer)" class="clickable btn-xs">
             <i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
-          </a>
-          <a href="" ng-click="rejectInference(infer)"><i class="fa fa-fw fa-close text-danger"></i></a>
+          </span>
+          <span ng-if="infer.isNonStandard" href="" ng-click="showStandardization(infer)" class="clickable btn-xs">
+            <i class="fa fa-fw fa-compass text-info"></i>
+          </span>
+          <span href="" ng-click="rejectInference(infer)" class="clickable btn-xs"><i class="fa fa-fw fa-close text-danger"></i>
+          </span>
+        </td>
+      </tr>
+      <tr ng-show="infer.showStandardization" ng-if="infer.isNonStandard" class="fx-fade-normal fx-easing-quad standardization" ng-repeat-end>
+        <td colspan=3 class="col-sm-11 text-center">
+          Please select a standard value for <b>{{infer.displayValue}}</b>
+          <select ng-if="!infer.loadingStandardValues && !infer.hasUnit" ng-options="codedValue.value as codedValue.value for codedValue in infer.codedValues" ng-model="infer.standardValue">
+            <option value="" label="-Select-">-Select-</option>
+          </select>
+          <select ng-if="!infer.loadingStandardValues && infer.hasUnit" ng-options="unit.name as unit.name for unit in infer.units" ng-model="infer.standardValue">
+            <option value="" label="-Select-">-Select-</option>
+          </select>
+          <img ng-if="infer.loadingStandardValues" src="images/ajax-loader.gif">
+        </td>
+        <td class="col-sm-1 nowrap" style="text-align:right">
+          <span href="" ng-if="infer.standardValue" ng-click="addStandardization(infer)" class="clickable btn-xs"><i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
+          </span>
+          <span href="" ng-click="infer.showStandardization=false" class="clickable btn-xs"><i class="fa fa-fw fa-close text-danger"></i>
+          </span>
+        </td>
+      </tr>
+      <tr ng-if="false" ng-repeat-end>
+        <td colspan=4 class="col-sm-12">
+          This row will never be rendered because of ng-if=false, but we need it because we need to close the outer ng-repeat (iterating on headers)
         </td>
       </tr>
     </tbody>
@@ -75,9 +106,9 @@
     <h1 class="text-center text-muted"><i class="fa fa-fw fa-cog fa-spin"></i>Processing...</h1>
   </div>
   <div ng-show="showMessage && model.acceptedCount === 0 && model.rejectedCount === 0 && model.alreadyExtracted === 0" class="alert alert-danger" role="alert">
-    <i class="fa fa-fw fa-exclamation-circle text-danger"></i>No inference found.
+    <i class="fa fa-fw fa-exclamation-circle text-danger"></i>No values could be extracted from attribute source.
   </div>
   <div ng-show="showMessage && model.alreadyExtracted > 0" class="alert alert-success" role="alert">
-    <i class="fa fa-fw fa-info-circle text-success"></i>Inferred values are already extracted.
+    <i class="fa fa-fw fa-info-circle text-success"></i>All values are already extracted.
   </div>
 </div>

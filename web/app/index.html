@@ -47,7 +47,7 @@
     left: 0;
   }
   /* taken from spinKit */
-  
+
   .spinner {
     margin: 100px auto 0;
     width: 70px;
@@ -62,7 +62,7 @@
     -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
     animation: bouncedelay 1.4s infinite ease-in-out;
     /* Prevent first frame from flickering when animation starts */
-    
+
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
   }
@@ -168,12 +168,33 @@
   <script src="scripts/constants.js"></script>
   <script src="scripts/utils.js"></script>
 
-  <script src="app_components/sdeintegration/inferenceController.js"></script>
-  <script src="app_components/sdeintegration/inferenceRoutes.js"></script>
-  <script src="app_components/sdeintegration/inferenceOverlay.js"></script>
-  <script src="app_components/sdeintegration/inferenceService.js"></script>
-  <script src="app_components/sdeintegration/inference.js"></script>
-  <script src="app_components/sdeintegration/inferredValue.js"></script>
+  <script src="app_components/taxonomy/taxonomy.js"></script>
+  <script src="app_components/taxonomy/commons/commons.js"></script>
+  <script src="app_components/taxonomy/category/categoryModel.js"></script>
+  <script src="app_components/taxonomy/category/categoryService.js"></script>
+  <script src="app_components/taxonomy/parameter/parameterModel.js"></script>
+  <script src="app_components/taxonomy/parameter/parameterService.js"></script>
+  <script src="app_components/taxonomy/cmsCodedValue/cmsCodedValueModel.js"></script>
+  <script src="app_components/taxonomy/cmsCodedValue/cmsCodedValueService.js"></script>
+  <script src="app_components/taxonomy/cmsUnit/cmsUnitModel.js"></script>
+  <script src="app_components/taxonomy/cmsUnit/cmsUnitService.js"></script>
+  <script src="app_components/taxonomy/cmsStandardValue/cmsStandardValueService.js"></script>
+
+  <script src="app_components/standardization/config.js"></script>
+  <script src="app_components/standardization/standardizationModel.js"></script>
+  <script src="app_components/standardization/standardizationService.js"></script>
+
+  <script src="app_components/inference/inferenceController.js"></script>
+  <script src="app_components/inference/inferenceRoutes.js"></script>
+  <script src="app_components/inference/inferenceService.js"></script>
+  <script src="app_components/inference/inference.js"></script>
+  <script src="app_components/inference/inferredValue.js"></script>
+
+  <script src="app_components/extraction/extractionController.js"></script>
+  <script src="app_components/extraction/extractionRoutes.js"></script>
+  <script src="app_components/extraction/extractionService.js"></script>
+  <script src="app_components/extraction/extraction.js"></script>
+  <script src="app_components/extraction/extractedValue.js"></script>
 
   <script src="app_components/context/context.js"></script>
   <script src="app_components/service/baseService.js"></script>
