@@ -47,7 +47,7 @@ public class ParameterPojoTest {
 
     @Test
     public void hasToString() {
-        final Parameter parameter = new Parameter("name", "value", "unit", 1);
+        final Parameter parameter = new Parameter("value", "unit", 1);
         assertThat(ObjectUtils.identityToString(parameter), not(parameter.toString()));
     }
 }

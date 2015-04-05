@@ -59,7 +59,7 @@ public class ExtractionRepositoryIntegrationTest extends AbstractMongoIntegratio
         assertThat(result.getTotalElements(), is(1L));
 
         // equals check for id
-        final Extraction item = new Extraction(1, "Notebooks|4876",
+        final Extraction item = new Extraction(1, 4876,
                 "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
         item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
         assertThat(result.getContent(), hasItem(item));

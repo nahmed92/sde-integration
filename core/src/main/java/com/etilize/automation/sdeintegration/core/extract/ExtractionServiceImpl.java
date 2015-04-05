@@ -42,7 +42,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.etilize.automation.ruta.client.ExtractionHeader;
 import com.etilize.automation.ruta.client.ExtractionParameter;
 import com.etilize.automation.ruta.client.ExtractionServiceClient;
 import com.etilize.automation.standardization.client.ParameterStandardization;
@@ -86,8 +85,53 @@ public class ExtractionServiceImpl implements ExtractionService {
     @Override
     public ListenableFuture<List<StandardizedParameter>> extract(
             final ExtractionRequest request) {
-        final ListenableFuture<ResponseEntity<List<ExtractionHeader>>> extractionFuture = toGuavaListenableFuture(extractionClient.extract(request.toExtractionRequest()));
-        return Futures.transform(extractionFuture, new ExtractionResponseHandler(request));
+        final Extraction extraction = new Extraction(request.getProductId(),
+                request.getCategoryId(), request.getText());
+        extraction.setCreatedAt(DateTime.now());
+        final List<ListenableFuture<List<StandardizedParameter>>> futures = Lists.newArrayList();
+        for (final Integer parameterId : request.getParameterIds()) {
+            final ListenableFuture<ResponseEntity<List<ExtractionParameter>>> future = toGuavaListenableFuture(extractionClient.extract(buildExtractionRequest(
+                    request.getText(), request.getCategoryId(), parameterId)));
+            futures.add(Futures.transform(future, new ExtractionResponseHandler(request,
+                    extraction)));
+
+        }
+        final ListenableFuture<List<StandardizedParameter>> future = Futures.transform(
+                Futures.successfulAsList(futures),
+                new AsyncFunction<List<List<StandardizedParameter>>, List<StandardizedParameter>>() {
+
+                    @Override
+                    public ListenableFuture<List<StandardizedParameter>> apply(
+                            final List<List<StandardizedParameter>> input)
+                            throws Exception {
+                        final List<StandardizedParameter> returnVal = Lists.newArrayList();
+                        for (final List<StandardizedParameter> list : input) {
+                            if (list != null) {
+                                returnVal.addAll(list);
+                            }
+                        }
+                        return Futures.immediateFuture(returnVal);
+                    }
+                });
+        Futures.addCallback(future, new FutureCallback<List<StandardizedParameter>>() {
+
+            @Override
+            public void onSuccess(final List<StandardizedParameter> result) {
+                repo.save(extraction);
+            }
+
+            @Override
+            public void onFailure(final Throwable ex) {
+                logger.error("Unable to process request", ex);
+            }
+        });
+        return future;
+    }
+
+    private com.etilize.automation.ruta.client.ExtractionRequest buildExtractionRequest(
+            final String text, final Integer categoryId, final Integer parameterId) {
+        return new com.etilize.automation.ruta.client.ExtractionRequest(text, categoryId,
+                parameterId);
     }
 
     /**
@@ -98,57 +142,38 @@ public class ExtractionServiceImpl implements ExtractionService {
      */
     private final class ExtractionResponseHandler
             implements
-            AsyncFunction<ResponseEntity<List<ExtractionHeader>>, List<StandardizedParameter>> {
+            AsyncFunction<ResponseEntity<List<ExtractionParameter>>, List<StandardizedParameter>> {
 
         private final ExtractionRequest request;
 
-        private ExtractionResponseHandler(final ExtractionRequest request) {
+        private final Extraction extraction;
+
+        private ExtractionResponseHandler(final ExtractionRequest request,
+                final Extraction extraction) {
             this.request = request;
+            this.extraction = extraction;
         }
 
         @Override
         public ListenableFuture<List<StandardizedParameter>> apply(
-                final ResponseEntity<List<ExtractionHeader>> input) throws Exception {
+                final ResponseEntity<List<ExtractionParameter>> input) throws Exception {
             // if the output was successful
             if (input.getStatusCode().is2xxSuccessful()) {
-                final Extraction extraction = new Extraction(request.getProductId(),
-                        request.getCategory(), request.getText());
-                extraction.setCreatedAt(DateTime.now());
-
                 final List<ListenableFuture<StandardizedParameter>> futures = Lists.newArrayList();
-                for (final ExtractionHeader header : input.getBody()) {
+                for (final ExtractionParameter parameter : input.getBody()) {
 
-                    final Header exHeader = new Header(header.getName());
-                    extraction.addHeader(exHeader);
-
-                    for (final ExtractionParameter parameter : header.getParameters()) {
-                        final String value = extractStandardizationCandidate(parameter);
-                        final ListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> stdFuture = Futures.withFallback(
-                                toGuavaListenableFuture(standardizationClient.standardize(
-                                        parameter.getId(), value)),
-                                new StandardizationFallback());
-                        futures.add(Futures.transform(
-                                stdFuture,
-                                new StandardizationResponseHandler(value,
-                                        request.getProductId(), exHeader, parameter)));
-                    }
+                    final String value = extractStandardizationCandidate(parameter);
+                    final ListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> stdFuture = Futures.withFallback(
+                            toGuavaListenableFuture(standardizationClient.standardize(
+                                    parameter.getId(), value)),
+                            new StandardizationFallback());
+                    futures.add(Futures.transform(
+                            stdFuture,
+                            new StandardizationResponseHandler(extraction, value,
+                                    request.getProductId(), parameter)));
                 }
 
-                final ListenableFuture<List<StandardizedParameter>> resultFuture = Futures.allAsList(futures);
-                Futures.addCallback(resultFuture,
-                        new FutureCallback<List<StandardizedParameter>>() {
-
-                            @Override
-                            public void onSuccess(final List<StandardizedParameter> result) {
-                                repo.save(extraction);
-                            }
-
-                            @Override
-                            public void onFailure(final Throwable ex) {
-                                logger.error("Unable to process request", ex);
-                            }
-                        });
-                return resultFuture;
+                return Futures.allAsList(futures);
             }
             // else return failure
             return Futures.immediateFailedFuture(new IllegalStateException(
@@ -187,24 +212,30 @@ public class ExtractionServiceImpl implements ExtractionService {
         }
     }
 
+    /**
+     * Standardization Service Response Handler
+     *
+     * @author Faisal Feroz
+     *
+     */
     private final class StandardizationResponseHandler
             implements
             AsyncFunction<ResponseEntity<Resource<ParameterStandardization>>, StandardizedParameter> {
+
+        private final Extraction extraction;
 
         private final String variation;
 
         private final int productId;
 
-        private final Header header;
-
         private final ExtractionParameter parameter;
 
-        private StandardizationResponseHandler(final String variation,
-                final int productId, final Header header,
+        private StandardizationResponseHandler(final Extraction extraction,
+                final String variation, final int productId,
                 final ExtractionParameter parameter) {
+            this.extraction = extraction;
             this.variation = variation;
             this.productId = productId;
-            this.header = header;
             this.parameter = parameter;
         }
 
@@ -236,9 +267,7 @@ public class ExtractionServiceImpl implements ExtractionService {
                     param.getStandardizedUnit());
 
             param.setExport(stdParam);
-
-            // add to header
-            header.addParameter(param);
+            extraction.addParameter(param);
 
             return Futures.immediateFuture(stdParam);
         }

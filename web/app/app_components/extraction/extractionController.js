@@ -93,7 +93,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
   };
 
   $scope.rejectAllInferredValues = function() {
-    var dlg = dialogs.confirm('Reject All', 'Are you sure you want to reject all the inferred values?', {
+    var dlg = dialogs.confirm('Reject All', 'Are you sure you want to reject all the values?', {
       size: 'sm'
     });
     dlg.result.then(function() {
@@ -106,7 +106,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
 
   $scope.rejectAllInferredValuesInList = function(list, confirm) {
     if (confirm === true) {
-      var dlg = dialogs.confirm('Reject All In Header', 'Are you sure you want to reject all the inferred values for this header?', {
+      var dlg = dialogs.confirm('Reject All In Header', 'Are you sure you want to reject all the values for this header?', {
         size: 'sm'
       });
       dlg.result.then(function() {
@@ -229,8 +229,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     var result = {
       productId: obj.productId,
       text: obj.text,
-      category: obj.categoryName + '|' + obj.categoryId,
-      headers: [obj.headerName + '|' + obj.headerId], // Why is this an array?
+      categoryId: obj.categoryId,
       parameterIds: getParameterIdsForHeader(obj.headerId)
     };
     return result;

@@ -48,8 +48,6 @@ public class Parameter {
 
     private final Integer paramId;
 
-    private final String name;
-
     private final String value;
 
     @JsonInclude(Include.NON_EMPTY)
@@ -62,21 +60,22 @@ public class Parameter {
     private StandardizedParameter export;
 
     @PersistenceConstructor
-    public Parameter(final String name, final String value, final String unit,
-            final Integer paramId) {
-        this.name = name;
+    public Parameter(final String value, final String unit, final Integer paramId) {
         this.value = value;
         this.unit = unit;
         this.paramId = paramId;
     }
 
+    /**
+     * Copy constructor to create an instance of {@link Parameter} from
+     * {@link ExtractionParameter}
+     *
+     * @param parameter must not be {@literal null}
+     */
     public Parameter(final ExtractionParameter parameter) {
-        this(parameter.getName(), parameter.getValue(), parameter.getUnit(),
-                parameter.getId());
-    }
-
-    public String getName() {
-        return name;
+        this.paramId = parameter.getId();
+        this.value = parameter.getValue();
+        this.unit = parameter.getUnit();
     }
 
     public String getValue() {
@@ -144,8 +143,7 @@ public class Parameter {
     @Override
     public String toString() {
         return new ToStringBuilder(this) //
-        .append("ParameterId", paramId) //
-        .append("Name", name) //
+        .append("Id", paramId) //
         .append("Value", value) //
         .append("Unit", unit) //
         .append("Standardization", standardization) //
@@ -157,7 +155,6 @@ public class Parameter {
     public final int hashCode() {
         return new HashCodeBuilder() //
         .append(paramId) //
-        .append(name) //
         .append(value) //
         .append(unit) //
         .toHashCode();
@@ -178,7 +175,6 @@ public class Parameter {
 
         return new EqualsBuilder() //
         .append(parameter.getParamId(), this.getParamId()) //
-        .append(parameter.getName(), this.getName()) //
         .append(parameter.getValue(), this.getValue()) //
         .append(parameter.getUnit(), this.getUnit()) //
         .isEquals();

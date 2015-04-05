@@ -21,11 +21,13 @@
     </properties>
 
     <dependencies>
+        <!-- ruta service client -->
         <dependency>
             <groupId>com.etilize.automation.ruta</groupId>
             <artifactId>ruta-service-client</artifactId>
-            <version>0.0.1.RELEASE</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
+        <!-- standardization service client -->
         <dependency>
             <groupId>com.etilize.automation.standardization</groupId>
             <artifactId>standardization-service-client</artifactId>

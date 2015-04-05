@@ -7,40 +7,34 @@
             },
             "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
             "productId": 1,
-            "category": "Notebooks|4876",
+            "categoryId": 4876,
             "text": "Core i3 2.6GHZ",
-            "createdAt": { "$exists": true },
-            "headers":
+            "createdAt": {
+                "$exists": true
+            },
+            "parameters":
             [
                 {
-                    "name": "Processor & Chipset|123",
-                    "parameters":
-                    [
-                        {
-                            "paramId": 2230387,
-                            "name": "processortype",
-                            "value": "Core i3",
-                            "standardization": {
-                                "status": "ERROR"
-                            },
-                            "export": {
-                                "value": "Core i3"
-                            }
-                        },
-                        {
-                            "paramId": 2229779,
-                            "name": "processorspeed",
-                            "value": "2.6",
-                            "unit": "GHZ",
-                            "standardization": {
-                                "status": "ERROR"
-                            },
-                            "export": {
-                                "value": "2.6",
-                                "unit": "GHZ"
-                            }
-                        }
-                    ]
+                    "paramId": 2230387,
+                    "value": "Core i3",
+                    "standardization": {
+                        "status": "ERROR"
+                    },
+                    "export": {
+                        "value": "Core i3"
+                    }
+                },
+                {
+                    "paramId": 2229779,
+                    "value": "2.6",
+                    "unit": "GHZ",
+                    "standardization": {
+                        "status": "ERROR"
+                    },
+                    "export": {
+                        "value": "2.6",
+                        "unit": "GHZ"
+                    }
                 }
             ]
         }

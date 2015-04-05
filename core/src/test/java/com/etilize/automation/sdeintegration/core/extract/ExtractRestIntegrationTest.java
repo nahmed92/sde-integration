@@ -71,7 +71,7 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
 
         final ObjectMapper mapper = new ObjectMapper();
         final ExtractionRequest request = new ExtractionRequest(1, "Core i3 2.6GHz",
-                "Notebooks|4876", Arrays.asList("Processor & Chipset|123"));
+                4876, Arrays.asList(123));
 
         final String content = mapper.writeValueAsString(request);
         final MvcResult mvcResult = mockMvc.perform(post("/extract") //

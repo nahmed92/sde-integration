@@ -36,10 +36,7 @@ import java.net.ConnectException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -49,7 +46,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
-import com.etilize.automation.ruta.client.ExtractionHeader;
 import com.etilize.automation.ruta.client.ExtractionParameter;
 import com.etilize.automation.ruta.client.ExtractionServiceClient;
 import com.etilize.automation.sdeintegration.core.test.base.AbstractMongoIntegrationTest;
@@ -85,19 +81,24 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     @Test
     public void shouldExtract() throws Exception {
         // given
-        final String header = "Processor & Chipset|123";
-        final String category = "Notebooks|4876";
+        final List<Integer> parameterIds = Lists.newArrayList(123, 456);
+        final Integer categoryId = 4876;
         final String text = "Core i3 2.6GHZ";
-        final SettableListenableFuture<ResponseEntity<List<ExtractionHeader>>> extractionFuture = new SettableListenableFuture<>();
-        final List<ExtractionHeader> body = Lists.newArrayList(new ExtractionHeader(
-                header, Lists.newArrayList(new ExtractionParameter("processortype",
-                        "Core i3", null, 2230387), new ExtractionParameter(
-                        "processorspeed", "2.6", "GHZ", 2229779))));
-        extractionFuture.set(new ResponseEntity<List<ExtractionHeader>>(body,
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture1 = new SettableListenableFuture<>();
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture2 = new SettableListenableFuture<>();
+        extractionFuture1.set(new ResponseEntity<List<ExtractionParameter>>(
+                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387)),
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, category, header))).thenReturn(extractionFuture);
+                        text, categoryId, 123))).thenReturn(extractionFuture1);
+        extractionFuture2.set(new ResponseEntity<List<ExtractionParameter>>(
+                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", 2229779)),
+                HttpStatus.OK));
+        when(
+                extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
+                        text, categoryId, 456))).thenReturn(extractionFuture2);
+
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std1Future = new SettableListenableFuture<>();
         std1Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 HttpStatus.NOT_FOUND));
@@ -114,8 +115,8 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(std2Future);
 
         // when
-        final ExtractionRequest request = new ExtractionRequest(1, text, category,
-                Arrays.asList(header));
+        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+                parameterIds);
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 
         // then
@@ -127,34 +128,28 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     }
 
     @Test
-    public void shouldReturnErrorWhenExtractionServiceReturnsError() throws Exception {
+    public void shouldReturnEmptyResultWhenExtractionServiceReturnsError()
+            throws Exception {
         // given
-        final String header = "Processor & Chipset|123";
-        final String category = "Notebooks|4876";
+        final int parameterId = 123;
+        final Integer categoryId = 4876;
         final String text = "Core i3 2.6GHZ";
-        final SettableListenableFuture<ResponseEntity<List<ExtractionHeader>>> extractionFuture = new SettableListenableFuture<>();
-        extractionFuture.set(new ResponseEntity<List<ExtractionHeader>>(
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture = new SettableListenableFuture<>();
+        extractionFuture.set(new ResponseEntity<List<ExtractionParameter>>(
                 HttpStatus.INTERNAL_SERVER_ERROR));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, category, header))).thenReturn(extractionFuture);
+                        text, categoryId, parameterId))).thenReturn(extractionFuture);
 
-        final ExtractionRequest request = new ExtractionRequest(1, text, category,
-                Arrays.asList(header));
+        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+                Arrays.asList(parameterId));
 
         // when
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 
         // then
         assertThat(result, is(notNullValue()));
-
-        try {
-            result.get();
-            Assert.fail("Exception should have been thrown.");
-        } catch (ExecutionException e) {
-            assertThat(e.getCause(),
-                    Matchers.is(Matchers.instanceOf(IllegalStateException.class)));
-        }
+        assertThat(result.get(), hasSize(0));
     }
 
     @ShouldMatchDataSet(location = "standardizationResponse.bson")
@@ -162,19 +157,18 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     public void shouldnotReturnErrorWhenStandardizationServiceReturnsError()
             throws Exception {
         // given
-        final String header = "Processor & Chipset|123";
-        final String category = "Notebooks|4876";
+        final int parameterId = 123;
+        final Integer categoryId = 4876;
         final String text = "Core i3 2.6GHZ";
-        final SettableListenableFuture<ResponseEntity<List<ExtractionHeader>>> extractionFuture = new SettableListenableFuture<>();
-        final List<ExtractionHeader> body = Lists.newArrayList(new ExtractionHeader(
-                header, Lists.newArrayList(new ExtractionParameter("processortype",
-                        "Core i3", null, 2230387), new ExtractionParameter(
-                        "processorspeed", "2.6", "GHZ", 2229779))));
-        extractionFuture.set(new ResponseEntity<List<ExtractionHeader>>(body,
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture = new SettableListenableFuture<>();
+        final List<ExtractionParameter> body = Lists.newArrayList(
+                new ExtractionParameter("Core i3", null, 2230387),
+                new ExtractionParameter("2.6", "GHZ", 2229779));
+        extractionFuture.set(new ResponseEntity<List<ExtractionParameter>>(body,
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, category, header))).thenReturn(extractionFuture);
+                        text, categoryId, parameterId))).thenReturn(extractionFuture);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std1Future = new SettableListenableFuture<>();
         std1Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
@@ -186,8 +180,8 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(std2Future);
 
         // when
-        final ExtractionRequest request = new ExtractionRequest(1, text, category,
-                Arrays.asList(header));
+        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+                Arrays.asList(parameterId));
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 
         // then

@@ -32,7 +32,6 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,39 +44,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ExtractionRequest {
 
-    private final int productId;
+    private final Integer productId;
 
     private final String text;
 
-    private final String category;
+    private final Integer categoryId;
 
-    private final List<String> headers;
+    private final List<Integer> parameterIds;
 
     /**
      * Constructor for {@link ExtractionRequest}
      *
      * @param productId must not be {@literal null}
      * @param text must not be {@literal null}
-     * @param category must not be {@literal null}
-     * @param headers must not be {@literal null}
+     * @param categoryId must not be {@literal null}
+     * @param parameterIds must not be {@literal null}
      */
     @JsonCreator
-    public ExtractionRequest(@JsonProperty("productId") final int productId,
+    public ExtractionRequest(@JsonProperty("productId") final Integer productId,
             @JsonProperty("text") final String text,
-            @JsonProperty("category") final String category,
-            @JsonProperty("headers") final List<String> headers) {
-        Assert.notNull(productId, "ProductId is Required");
-        Assert.hasText(text, "Text must contain atleast one non-space character");
-        Assert.hasText(category, "Category is required");
-        Assert.notEmpty(headers, "Atleast one header is required");
-
+            @JsonProperty("categoryId") final Integer categoryId,
+            @JsonProperty("parameterIds") final List<Integer> parameterIds) {
         this.productId = productId;
         this.text = text;
-        this.category = category;
-        this.headers = headers;
+        this.categoryId = categoryId;
+        this.parameterIds = parameterIds;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
@@ -85,32 +79,23 @@ public class ExtractionRequest {
         return text;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public List<String> getHeaders() {
-        return headers;
+    public List<Integer> getParameterIds() {
+        return parameterIds;
     }
 
     /**
-     * Helper method to convert to
-     * {@link com.etilize.automation.ruta.client.ExtractionRequest}
-     *
-     * @return
+     * {@inheritDoc}
      */
-    public com.etilize.automation.ruta.client.ExtractionRequest toExtractionRequest() {
-        final com.etilize.automation.ruta.client.ExtractionRequest request = new com.etilize.automation.ruta.client.ExtractionRequest(
-                text, category, headers.toArray(new String[0]));
-        return request;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this) //
-        .append("Product", productId) //
-        .append("Category", category) //
-        .append("Headers", headers) //
+        .append("ProductId", productId) //
+        .append("CategoryId", categoryId) //
+        .append("ParameterIds", parameterIds) //
         .append("Text", StringUtils.abbreviate(text, 25)) // NOSONAR
         .toString();
     }

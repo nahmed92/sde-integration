@@ -78,8 +78,8 @@ public class ExtractionController extends AbstractRepositoryRestController {
         Assert.notNull(request.getProductId(), "ProductId is Required");
         Assert.hasText(request.getText(),
                 "Text must contain atleast one non-space character");
-        Assert.hasText(request.getCategory(), "Category is required");
-        Assert.notEmpty(request.getHeaders(), "Atleast one header is required");
+        Assert.notNull(request.getCategoryId(), "CategoryId is required");
+        Assert.notEmpty(request.getParameterIds(), "Atleast one paramterId is required");
 
         logger.debug("Receiver request {}", request);
 

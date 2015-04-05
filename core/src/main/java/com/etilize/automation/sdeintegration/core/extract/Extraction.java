@@ -56,20 +56,20 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
 
     private final Integer productId;
 
-    private final String category;
+    private final Integer categoryId;
 
     private final String text;
 
     private DateTime createdAt;
 
-    private List<Header> headers = new ArrayList<>();
+    private List<Parameter> parameters = new ArrayList<>();
 
     @JsonCreator
     public Extraction(@JsonProperty("productId") final Integer productId,
-            @JsonProperty("category") final String category,
+            @JsonProperty("categoryId") final Integer categoryId,
             @JsonProperty("text") final String text) {
         this.productId = productId;
-        this.category = category;
+        this.categoryId = categoryId;
         this.text = text;
     }
 
@@ -77,8 +77,8 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
         return productId;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
     public String getText() {
@@ -93,21 +93,21 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
         this.createdAt = createdAt;
     }
 
-    public List<Header> getHeaders() {
-        return headers;
+    public List<Parameter> getParameters() {
+        return parameters;
     }
 
-    public void setHeaders(List<Header> headers) {
-        this.headers = headers;
+    public void setParameters(List<Parameter> parameters) {
+        this.parameters = parameters;
     }
 
     /**
-     * Adds a header
+     * Adds a Parameter
      *
-     * @param header the {@link Header} to add
+     * @param parameter the {@link Parameter} to add
      */
-    public void addHeader(final Header header) {
-        this.headers.add(header);
+    public void addParameter(final Parameter parameter) {
+        this.parameters.add(parameter);
     }
 
     @Override
@@ -121,10 +121,10 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
         if (!(obj instanceof Extraction)) {
             return false;
         }
-        final Extraction parameter = (Extraction) obj;
+        final Extraction extraction = (Extraction) obj;
 
         return new EqualsBuilder() //
-        .append(parameter.getId(), this.getId()).isEquals();
+        .append(extraction.getId(), this.getId()).isEquals();
     }
 
     @Override
@@ -137,9 +137,9 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
     @Override
     public String toString() {
         return new ToStringBuilder(this) //
-        .append("Product", productId) //
-        .append("Category", category) //
-        .append("Created at", createdAt) //
+        .append("ProductId", productId) //
+        .append("CategoryId", categoryId) //
+        .append("CreatedAt", createdAt) //
         .append("Text", StringUtils.abbreviate(text, 25)) // NOSONAR
         .toString();
     }

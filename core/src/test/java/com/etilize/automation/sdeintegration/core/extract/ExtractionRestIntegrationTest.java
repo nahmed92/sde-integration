@@ -57,11 +57,10 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
                 get("/extractions/{id}", new ObjectId("55095aab3aca9ace762ad5f9"))) //
         .andExpect(status().isOk()) //
         .andExpect(jsonPath("$.productId", is(1))) //
-        .andExpect(jsonPath("$.category", is("Notebooks|4876"))) //
+        .andExpect(jsonPath("$.categoryId", is(4876))) //
         .andExpect(
                 jsonPath("$.text", is("Product Line: Intel Core i3 i3-4300M (2.6GHz)"))) //
-        .andExpect(jsonPath("$.headers[*]", hasSize(1))) //
-        .andExpect(jsonPath("$.headers[0].parameters[*]", hasSize(4)));
+        .andExpect(jsonPath("$.parameters[*]", hasSize(4)));
     }
 
     @Test
@@ -76,7 +75,7 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
 
     @Test
     public void shouldnotCreateNewExtraction() throws Exception {
-        final Extraction product = new Extraction(1, "Notebooks", "Core i3");
+        final Extraction product = new Extraction(1, 4876, "Core i3");
         final ObjectMapper mapper = new ObjectMapper();
 
         mockMvc.perform(post("/extractions") //
