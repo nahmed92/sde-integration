@@ -17,7 +17,8 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       rejectedCount: 0,
       alreadyExtracted: 0,
       skipped: 0,
-      engineId: $location.search().engineId
+      engineId: $location.search().engineId,
+      analyticsKey: $location.search().analyticsKey
     };
     var item = decodeURIComponent($location.search().item);
 
@@ -38,7 +39,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     $scope.inferredValues = [];
     var data = {
       item: attrId + '|' + attrValue,
-      minSupport: 1
+      analyticsKey: $scope.model.analyticsKey
     };
 
     inferenceService.findInferencedValuesByParameterIdAndValue(data, $scope.model.engineId).then(function(inferredValues) {
