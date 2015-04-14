@@ -85,30 +85,4 @@ describe('InferenceValue', function() {
     expect(inferredValue.targetEcode).toBeUndefined();
 
   });
-
-  xit('should create correct object of InferredValue containing exception code', function() {
-
-    var data = {
-      inferredValue: '2230593|_EX_4'
-    }
-    angular.extend(data, unitParameterInfo);
-    var inferredValue = new InferredValue(data);
-
-    deferredECode.resolve({
-      id: '4',
-      name: 'Not Applicable'
-    });
-
-    //    expect(inferenceService.findByExceptionCodeId).toHaveBeenCalledWith('4');
-
-    expect(inferredValue).toBeDefined();
-    expect(inferredValue.hasUnit).toBe(true);
-    expect(inferredValue.hasExceptionCode).toBe(true);
-    expect(inferredValue.displayValue).toBe('Not Applicable');
-    expect(inferredValue.targetValue).toBeUndefined();
-    expect(inferredValue.targetUnit).toBeUndefined();
-    expect(inferredValue.targetEcode).toBe(4);
-
-  });
-
 });

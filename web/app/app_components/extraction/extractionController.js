@@ -4,14 +4,12 @@ var app = angular.module('extraction', ['extraction.service', 'extraction.routes
 
 app.controller('ExtractionController', function($scope, extractionService, ExtractedValue, cmsCodedValueService, cmsUnitService, standardizationService, _, $window, $location, $log, dialogs) {
 
-  $scope.inferredValues = [];
-  $scope.parameterName = '';
-  $scope.parameterValue = '';
   $scope.showMessage = false;
   $scope.processed = false;
 
   function init() {
     $scope.model = {
+      inferredValues: [],
       acceptedCount: 0,
       inferredCount: 0,
       rejectedCount: 0,
@@ -33,7 +31,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
           var inferred = new ExtractedValue(angular.extend(obj, extraction));
           if (!inferred.isSameAsExtracted()) {
             inferred.headerId = $window.parent.parameterHeaderMap[paramId];
-            $scope.inferredValues.push(inferred);
+            $scope.model.inferredValues.push(inferred);
             $scope.model.inferredCount++;
           } else {
             $scope.model.alreadyExtracted++;
@@ -51,11 +49,11 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
 
       $scope.headers = $window.parent.headerSortOrder;
       // Group by headers
-      $scope.inferredValues = _.groupBy($scope.inferredValues, 'headerId');
+      $scope.model.inferredValues = _.groupBy($scope.model.inferredValues, 'headerId');
       // Sort by header order
-      $scope.inferredValues = $scope.sort($scope.inferredValues);
+      $scope.model.inferredValues = $scope.sort($scope.model.inferredValues);
 
-      $scope.showMessage = _.keys($scope.inferredValues).length === 0;
+      $scope.showMessage = _.keys($scope.model.inferredValues).length === 0;
       $scope.processed = true;
     }, function() {
       $scope.showMessage = true;
@@ -75,18 +73,18 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     } else {
       $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
     }
-    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
-    if ($scope.inferredValues[infer.headerId].length === 0) {
-      delete $scope.inferredValues[infer.headerId];
+    $scope.model.inferredValues[infer.headerId] = _.without($scope.model.inferredValues[infer.headerId], infer);
+    if ($scope.model.inferredValues[infer.headerId].length === 0) {
+      delete $scope.model.inferredValues[infer.headerId];
     }
     $scope.model.acceptedCount++;
     $scope.closeIfNeeded();
   };
 
   $scope.rejectInference = function(infer) {
-    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
-    if ($scope.inferredValues[infer.headerId].length === 0) {
-      delete $scope.inferredValues[infer.headerId];
+    $scope.model.inferredValues[infer.headerId] = _.without($scope.model.inferredValues[infer.headerId], infer);
+    if ($scope.model.inferredValues[infer.headerId].length === 0) {
+      delete $scope.model.inferredValues[infer.headerId];
     }
     $scope.model.rejectedCount++;
     $scope.closeIfNeeded();
@@ -98,8 +96,8 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     });
     dlg.result.then(function() {
       $log.info('Rejecting all values');
-      angular.forEach(_.keys($scope.inferredValues), function(headerId) {
-        $scope.rejectAllInferredValuesInList($scope.inferredValues[headerId]);
+      angular.forEach(_.keys($scope.model.inferredValues), function(headerId) {
+        $scope.rejectAllInferredValuesInList($scope.model.inferredValues[headerId]);
       });
     });
   };
@@ -123,8 +121,8 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
   };
 
   $scope.acceptAllInferredValues = function() {
-    angular.forEach(_.keys($scope.inferredValues), function(headerId) {
-      $scope.acceptAllInferredValuesInList($scope.inferredValues[headerId]);
+    angular.forEach(_.keys($scope.model.inferredValues), function(headerId) {
+      $scope.acceptAllInferredValuesInList($scope.model.inferredValues[headerId]);
     });
   };
 
@@ -163,7 +161,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
   };
 
   $scope.closeIfNeeded = function() {
-    if (_.keys($scope.inferredValues).length === 0) {
+    if (_.keys($scope.model.inferredValues).length === 0) {
       $window.parent.closeExtractionPopover();
     }
   };

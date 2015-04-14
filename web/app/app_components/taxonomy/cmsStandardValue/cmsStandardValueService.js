@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('cmsStandardValue.service', ['cmsCodedValue.service', 'cmsUnit.service']);
+var app = angular.module('cmsStandardValue.service', ['cmsCodedValue.service', 'cmsUnit.service', 'underscore']);
 
 /**
  * This is a wrapper service class which uses cmsCodedValueService and cmsUnitService to return CMS coded and unit values from a single class
