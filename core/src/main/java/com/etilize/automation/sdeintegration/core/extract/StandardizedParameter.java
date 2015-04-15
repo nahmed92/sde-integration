@@ -1,8 +1,8 @@
 /*
  * #region
- * sde-core
+ * sde-integration-core
  * %%
- * Copyright (C) 2013 - 2014 Etilize
+ * Copyright (C) 2013 - 2015 Etilize
  * %%
  * NOTICE: All information contained herein is, and remains the property of ETILIZE.
  * The intellectual and technical concepts contained herein are proprietary to
@@ -54,9 +54,6 @@ public class StandardizedParameter {
     @JsonInclude(Include.NON_EMPTY)
     private final String unit;
 
-    @JsonInclude(Include.NON_EMPTY)
-    private String error;
-
     @PersistenceConstructor
     public StandardizedParameter(final String value, final String unit) {
         this.value = value;
@@ -68,14 +65,6 @@ public class StandardizedParameter {
         this.value = value;
         this.unit = unit;
         this.parameterId = parameterId;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(final String error) {
-        this.error = error;
     }
 
     public Integer getParameterId() {

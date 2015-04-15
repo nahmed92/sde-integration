@@ -85,10 +85,4 @@ public class ExtractionController extends AbstractRepositoryRestController {
 
         return FutureConverter.toSpringListenableFuture(service.extract(request));
     }
-
-    // for unit testing
-    void setExtractionService(final ExtractionService service) {
-        this.service = service;
-    }
-
 }

@@ -77,8 +77,7 @@
                     "paramId": 2230387,
                     "value": "Core i3",
                     "standardization": {
-                        "standardization": "Core i3",
-                        "status": "FOUND"
+                        "status": "NOT_FOUND"
                     },
                     "export": {
                         "value": "Core i3"
@@ -98,7 +97,7 @@
                 {
                     "paramId": 2229779,
                     "value": "2.6",
-                    "unit": "GHz",
+                    "unit": "GHZ",
                     "standardization": {
                         "standardization": "GHz",
                         "status": "FOUND"
@@ -112,8 +111,7 @@
                     "paramId": 2230349,
                     "value": "Intel",
                     "standardization": {
-                        "standardization": "Intel",
-                        "status": "FOUND"
+                        "status": "ERROR"
                     },
                     "export": {
                         "value": "Intel"
