@@ -3,15 +3,12 @@
 var app = angular.module('inference', ['inference.service', 'inferredValue.model', 'inference.routes', 'ui.bootstrap', 'app.config', 'readMore', 'sdeutils', 'underscore', 'ngSanitize', 'dialogs.main', 'dialogs.default-translations']);
 
 app.controller('InferenceController', function($scope, inferenceService, _, $window, $location, $log, InferredValue, dialogs) {
-
-  $scope.inferredValues = [];
-  $scope.parameterName = '';
-  $scope.parameterValue = '';
   $scope.showMessage = false;
   $scope.processed = false;
 
   function init() {
     $scope.model = {
+      inferredValues: [],
       acceptedCount: 0,
       inferredCount: 0,
       rejectedCount: 0,
@@ -20,23 +17,18 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       engineId: $location.search().engineId,
       analyticsKey: $location.search().analyticsKey
     };
+
     var item = decodeURIComponent($location.search().item);
 
     var value = item.split('|');
     var parameterId = value.shift(); // Using first element of array as parameter id
     value = value.join('|'); // Concatenating remaining values using | to cater the possibility of values having |
 
-    var obj = new InferredValue(angular.extend($window.parent.getInputObjectByParameterId(parameterId), {
-      inferredValue: ' | '
-    }));
-    $scope.parameterName = obj.parameterName;
-    $scope.parameterValue = obj.extractedDisplayValue;
-
     $scope.findValues(parameterId, value);
   }
 
   $scope.findValues = function(attrId, attrValue) {
-    $scope.inferredValues = [];
+    $scope.model.inferredValues = [];
     var data = {
       item: attrId + '|' + attrValue,
       analyticsKey: $scope.model.analyticsKey
@@ -52,7 +44,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
           }));
           if (!inferred.isSameAsExtracted()) {
             inferred.headerId = $window.parent.parameterHeaderMap[paramId];
-            $scope.inferredValues.push(inferred);
+            $scope.model.inferredValues.push(inferred);
             $scope.model.inferredCount++;
           } else {
             $scope.model.alreadyExtracted++;
@@ -66,11 +58,11 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
 
       $scope.headers = $window.parent.headerSortOrder;
       // Group by headers
-      $scope.inferredValues = _.groupBy($scope.inferredValues, 'headerId');
+      $scope.model.inferredValues = _.groupBy($scope.model.inferredValues, 'headerId');
       // Sort by header order
-      $scope.inferredValues = $scope.sort($scope.inferredValues);
+      $scope.model.inferredValues = $scope.sort($scope.model.inferredValues);
 
-      $scope.showMessage = _.keys($scope.inferredValues).length === 0;
+      $scope.showMessage = _.keys($scope.model.inferredValues).length === 0;
       $scope.processed = true;
     }, function() {
       $scope.showMessage = true;
@@ -90,9 +82,9 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     } else {
       $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
     }
-    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
-    if ($scope.inferredValues[infer.headerId].length === 0) {
-      delete $scope.inferredValues[infer.headerId];
+    $scope.model.inferredValues[infer.headerId] = _.without($scope.model.inferredValues[infer.headerId], infer);
+    if ($scope.model.inferredValues[infer.headerId].length === 0) {
+      delete $scope.model.inferredValues[infer.headerId];
     }
     $scope.model.acceptedCount++;
     $scope.closeIfNeeded();
@@ -107,9 +99,9 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     } else {
       $window.parent.unsavedParam.rejectInferredParameter(infer.element, infer);
     }
-    $scope.inferredValues[infer.headerId] = _.without($scope.inferredValues[infer.headerId], infer);
-    if ($scope.inferredValues[infer.headerId].length === 0) {
-      delete $scope.inferredValues[infer.headerId];
+    $scope.model.inferredValues[infer.headerId] = _.without($scope.model.inferredValues[infer.headerId], infer);
+    if ($scope.model.inferredValues[infer.headerId].length === 0) {
+      delete $scope.model.inferredValues[infer.headerId];
     }
     $scope.model.rejectedCount++;
     $scope.closeIfNeeded();
@@ -121,8 +113,8 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     });
     dlg.result.then(function() {
       $log.info('Rejecting all values');
-      angular.forEach(_.keys($scope.inferredValues), function(headerId) {
-        $scope.rejectAllInferredValuesInList($scope.inferredValues[headerId]);
+      angular.forEach(_.keys($scope.model.inferredValues), function(headerId) {
+        $scope.rejectAllInferredValuesInList($scope.model.inferredValues[headerId]);
       });
     });
   };
@@ -146,14 +138,14 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
   };
 
   $scope.acceptAllInferredValues = function() {
-    angular.forEach(_.keys($scope.inferredValues), function(headerId) {
-      $scope.acceptAllInferredValuesInList($scope.inferredValues[headerId]);
+    angular.forEach(_.keys($scope.model.inferredValues), function(headerId) {
+      $scope.acceptAllInferredValuesInList($scope.model.inferredValues[headerId]);
     });
   };
 
   $scope.acceptAllInferredValuesInList = function(list) {
     angular.forEach(list, function(inference) {
-      $scope.acceptInference(inference, false);
+      $scope.acceptInference(inference);
     });
   };
 
@@ -186,7 +178,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
   };
 
   $scope.closeIfNeeded = function() {
-    if (_.keys($scope.inferredValues).length === 0) {
+    if (_.keys($scope.model.inferredValues).length === 0) {
       $window.parent.closeInferencePopover();
     }
   };
