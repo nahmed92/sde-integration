@@ -18,6 +18,7 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
         this.targetUnit = this.unit;
         this.displayValue = this.value + ' ' + this.unit;
       }
+      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparision and setting of SDE_INTERNAL id. Fix for [SDE-1904]
     },
 
     isSameAsExtracted: function() {
