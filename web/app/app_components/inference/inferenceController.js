@@ -30,7 +30,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
   $scope.findValues = function(attrId, attrValue) {
     $scope.model.inferredValues = [];
     var data = {
-      item: attrId + '|' + attrValue,
+      items: attrId + '|' + attrValue,
       analyticsKey: $scope.model.analyticsKey
     };
 

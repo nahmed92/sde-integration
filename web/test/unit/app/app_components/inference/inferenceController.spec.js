@@ -167,29 +167,29 @@ describe('Controller: InferenceContoller', function() {
       extractedEcode: undefined
     };
     mockElementObjects[22268] = {
-        element: {},
-        parameterId: 22268,
-        parameterName: 'Chipset Model',
-        hasUnit: false,
-        isNumber: false,
-        isCoded: false,
-        isRepeatable: false,
-        extractedValue: '',
-        extractedDisplayValue: 'Data N/A',
-        extractedEcode: '3'
-      };
+      element: {},
+      parameterId: 22268,
+      parameterName: 'Chipset Model',
+      hasUnit: false,
+      isNumber: false,
+      isCoded: false,
+      isRepeatable: false,
+      extractedValue: '',
+      extractedDisplayValue: 'Data N/A',
+      extractedEcode: '3'
+    };
     mockElementObjects[22269] = {
-        element: {},
-        parameterId: 22269,
-        parameterName: 'Maximum Memory',
-        hasUnit: false,
-        isNumber: false,
-        isCoded: false,
-        isRepeatable: false,
-        extractedValue: '',
-        extractedDisplayValue: '',
-        extractedEcode: undefined
-      };
+      element: {},
+      parameterId: 22269,
+      parameterName: 'Maximum Memory',
+      hasUnit: false,
+      isNumber: false,
+      isCoded: false,
+      isRepeatable: false,
+      extractedValue: '',
+      extractedDisplayValue: '',
+      extractedEcode: undefined
+    };
     mockElementObjects[2226064] = {
       element: {},
       parameterId: 2226064,
