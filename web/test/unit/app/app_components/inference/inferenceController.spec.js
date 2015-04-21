@@ -6,7 +6,7 @@ describe('Controller: InferenceContoller', function() {
   beforeEach(module('app.constants'));
   beforeEach(module('uiRouterNoop'));
 
-  var $scope, $compile, $rootScope, $location, $window, inferenceService, deferredInferredValues, angularGrowl, engineId, analyticsKey, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
+  var $scope, $rootScope, $location, $window, inferenceService, deferredInferredValues, angularGrowl, engineId, analyticsKey, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, growl, _CONST_) {
@@ -36,7 +36,7 @@ describe('Controller: InferenceContoller', function() {
 
     // pass state to search controller
     $location.search({
-      item: '2225938|Netbook',
+      items: ['2225938|Netbook'],
       engineId: '79cbf55f-5ffc-424d-b265-6991fd4149b4',
       analyticsKey: '10000142'
     });
@@ -122,10 +122,6 @@ describe('Controller: InferenceContoller', function() {
     // Any changes to there return value of getInputObjectByParameterId() in edit specs would require changes here.
     $scope.findElement = function(parameterId) {
       return mockElementObjects[parameterId];
-    };
-
-    $scope.findUnitGroup = function(parameterId) {
-      return angular.element('<select inputid="pp_111_25698_0" parameter-name="Proc Speed"></select>');
     };
 
     mockElementObjects = {};
@@ -447,7 +443,6 @@ describe('Controller: InferenceContoller', function() {
 
     it('should not reject all values in header after cancelling confirmation dialog', function() {
       var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
-      var count = list.length;
       $scope.rejectAllInferredValuesInList(list, true);
 
       dialogResult.reject(); // Rejecting the dialog to simulate cancel by user
