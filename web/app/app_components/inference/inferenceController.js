@@ -18,19 +18,20 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       analyticsKey: $location.search().analyticsKey
     };
 
-    var item = decodeURIComponent($location.search().item);
+    // Location search returns string if there is only one value, and an array if there are multiple values in the query parameter items
+    // We have to check the type because if it is not object, we convert it into array before passing it to the map function
+    var itemsArray = typeof($location.search().items) === 'object' ? $location.search().items : [$location.search().items];
 
-    var value = item.split('|');
-    var parameterId = value.shift(); // Using first element of array as parameter id
-    value = value.join('|'); // Concatenating remaining values using | to cater the possibility of values having |
-
-    $scope.findValues(parameterId, value);
+    var items = _.map(itemsArray, function(item) {
+      return decodeURIComponent(item);
+    });
+    $scope.findValues(items);
   }
 
-  $scope.findValues = function(attrId, attrValue) {
+  $scope.findValues = function(items) {
     $scope.model.inferredValues = [];
     var data = {
-      items: attrId + '|' + attrValue,
+      items: items,
       analyticsKey: $scope.model.analyticsKey
     };
 
