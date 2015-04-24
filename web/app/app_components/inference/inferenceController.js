@@ -2,7 +2,7 @@
 
 var app = angular.module('inference', ['inference.service', 'inferredValue.model', 'inference.routes', 'ui.bootstrap', 'app.config', 'readMore', 'sdeutils', 'underscore', 'ngSanitize', 'dialogs.main', 'dialogs.default-translations']);
 
-app.controller('InferenceController', function($scope, inferenceService, _, $window, $location, $log, InferredValue, dialogs) {
+app.controller('InferenceController', function($scope, inferenceService, _, $window, $location, $log, InferredValue, dialogs, APP_CONFIG) {
   $scope.showMessage = false;
   $scope.processed = false;
 
@@ -15,7 +15,8 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       alreadyExtracted: 0,
       skipped: 0,
       engineId: $location.search().engineId,
-      analyticsKey: $location.search().analyticsKey
+      analyticsKey: $location.search().analyticsKey,
+      skippedParameterIds: APP_CONFIG.skippedParameterIds // Defined in properties as an array of strings, used to skip parameters such as Manufacturer and Brand from being displayed in inference results
     };
 
     // Location search returns string if there is only one value, and an array if there are multiple values in the query parameter items
@@ -39,7 +40,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
       _.each(inferredValues.inference, function(inference) {
         var paramId = inference.split('|')[0];
         var obj = $scope.findElement(paramId);
-        if (obj) {
+        if (obj && _.indexOf($scope.model.skippedParameterIds, paramId) === -1) {
           var inferred = new InferredValue(angular.extend(obj, {
             inferredValue: inference
           }));

@@ -222,6 +222,10 @@ describe('Controller: InferenceContoller', function() {
     expect($scope.model.inferredValues.length).toEqual(0);
     expect($scope.model.engineId).toMatch(engineId);
     expect($scope.model.analyticsKey).toMatch(analyticsKey);
+    expect($scope.model.skippedParameterIds).toBeDefined();
+    expect($scope.model.skippedParameterIds.length).toEqual(2);
+    expect($scope.model.skippedParameterIds).toContain('21748');
+    expect($scope.model.skippedParameterIds).toContain('225596');
 
     deferredInferredValues.resolve({
       inference: []
