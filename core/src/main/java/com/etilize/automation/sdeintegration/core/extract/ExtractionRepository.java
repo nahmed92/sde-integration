@@ -46,14 +46,32 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
  */
 public interface ExtractionRepository extends MongoRepository<Extraction, ObjectId> {
 
+    /**
+     * Returns a {@link Page} of {@link Extraction} objects that are create on or after
+     * the given createdAt date
+     *
+     * @param createdAt
+     * @param pageable
+     * @return
+     */
     Page<Extraction> findAllByCreatedAtIsGreaterThanEqual(
-            @Param("createdAt") @DateTimeFormat(iso = ISO.DATE) final DateTime createdAt,
+            @Param("createdAt") @DateTimeFormat(iso = ISO.DATE_TIME) final DateTime createdAt,
             final Pageable pageable);
 
+    /*
+     * (non-Javadoc)
+     *
+     * save not exported over REST
+     */
     @RestResource(exported = false)
     @Override
     <S extends Extraction> S save(final S entity);
 
+    /*
+     * (non-Javadoc)
+     *
+     * delete not exported over REST
+     */
     @RestResource(exported = false)
     @Override
     void delete(final Extraction entity);

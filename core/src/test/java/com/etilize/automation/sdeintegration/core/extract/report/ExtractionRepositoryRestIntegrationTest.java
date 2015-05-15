@@ -48,7 +48,7 @@ public class ExtractionRepositoryRestIntegrationTest extends AbstractMongoIntegr
             throws Exception {
         mockMvc.perform(
                 get("/extractions/search/findAllByCreatedAtIsGreaterThanEqual?createdAt={createdAt}&projection=report",
-                        "2010-03-18")) //
+                        "2010-03-18T00:00:00.000-05:00")) //
         .andExpect(status().isOk()) //
         .andExpect(jsonPath("$._embedded.extractions[*]", hasSize(1))) //
         .andExpect(jsonPath("$._embedded.extractions[0].parameters[*]", hasSize(4))) //
