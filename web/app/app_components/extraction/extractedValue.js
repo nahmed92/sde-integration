@@ -6,6 +6,11 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
   var ExtractedValue = BaseModel.extend({
     init: function(data) {
       this._super(data);
+
+      // SDE-2021 - Parsing values to float so that we can remove the trailing .0
+      if (this.isNumber && this.value) {
+        this.value = '' + parseFloat(this.value.replace(',', '')); // Replacing comma with empty string to handle thousand separator comma, and appending with empty string to convert it back to a string value so that operations like string trim doesn't fail in other part of the codebase
+      }
       this.displayValue = this.value;
       this.targetValue = this.value;
       // Replace [no value] tag in extracted value if it exists
