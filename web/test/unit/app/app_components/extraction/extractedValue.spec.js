@@ -82,6 +82,27 @@ describe('ExtractedValue', function() {
 
   });
 
+  it('should remove trailing decimal point and zero from ExtractedValue containing numeric value', function() {
+
+    // This case covers SDE-2021
+    // In numeric values, the trailing .0 should be removed, and the type of value should still be string, to allow string trim function and avoid any unforeseen issues in existing codebase
+
+    var data = {
+      parameterId: 2239228,
+      value: '12.0',
+      unit: 'V AC'
+    }
+    angular.extend(data, unitParameterInfo);
+    var extractedValue = new ExtractedValue(data);
+
+    expect(extractedValue).toBeDefined();
+    expect(extractedValue.isNumber).toBe(true);
+    expect(extractedValue.targetValue).toMatch('12');
+    expect(extractedValue.displayValue).toMatch('12 V AC');
+    expect(extractedValue.value).toMatch('12'); // value is an internal field, and should not be used beyond the constructor of extactedValue class
+
+  });
+
   it('should replace [no value] string while creating ExtractedValue object', function() {
 
     var data = {
