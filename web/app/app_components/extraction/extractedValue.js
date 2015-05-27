@@ -23,7 +23,7 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
         this.targetUnit = this.unit;
         this.displayValue = this.value + ' ' + this.unit;
       }
-      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparision and setting of SDE_INTERNAL id. Fix for [SDE-1904]
+      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparison and setting of SDE_INTERNAL id. Fix for [SDE-1904]
     },
 
     isSameAsExtracted: function() {
@@ -36,6 +36,25 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
       } else {
         return this.displayValue === this.extractedDisplayValue;
       }
+    },
+
+    // After standard value is retrieved from taxonomy service, this method will be called to update the fields dependent on value
+    // No updating display value with unit because this case is only valid for coded values, which can never have units
+    updateValue: function(newValue) {
+      this.value = newValue;
+      this.displayValue = newValue;
+      this.targetValue = newValue;
+
+      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparison and setting of SDE_INTERNAL id. Fix for [SDE-1904]
+    },
+
+    // After standard value for unit is retrieved from taxonomy service, this method is called to update the fields dependent on unit
+    updateUnit: function(newUnit) {
+      this.displayValue = this.value;
+      this.targetUnit = newUnit;
+      this.displayValue = this.value + ' ' + newUnit;
+
+      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparison and setting of SDE_INTERNAL id. Fix for [SDE-1904]
     },
 
     // Checks if inferred parameter is already extracted, in concatenated string of repeatable parameter
