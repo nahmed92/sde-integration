@@ -84,6 +84,11 @@ p {
   padding-top: 5px;
 }
 
+.extract td:not(:first-child),
+.infer td:not(:first-child) {
+  border-left: 1px solid $light-grey;
+}
+
 .extract .table .non-standard {
   border-bottom: 1px dotted $grey;
 }
