@@ -84,13 +84,19 @@
       <tr ng-show="infer.showStandardization" ng-if="infer.isNonStandard" class="fx-fade-normal fx-easing-quad standardization" ng-repeat-end>
         <td colspan=3 class="col-sm-11 text-center">
           Please select a standard value for <b>{{infer.displayValue}}</b>
-          <select ng-if="!infer.loadingStandardValues && !infer.hasUnit" ng-options="codedValue.value as codedValue.value for codedValue in infer.codedValues" ng-model="infer.standardValue">
+          <select ng-if="!infer.loadingStandardValues && !infer.hasUnit" ng-options="codedValue.value as codedValue.value for codedValue in infer.filteredCodedValues" ng-model="infer.standardValue">
             <option value="" label="-Select-">-Select-</option>
           </select>
-          <select ng-if="!infer.loadingStandardValues && infer.hasUnit" ng-options="unit.name as unit.name for unit in infer.units" ng-model="infer.standardValue">
+          <select ng-if="!infer.loadingStandardValues && infer.hasUnit" ng-options="unit.name as unit.name for unit in infer.filteredUnits" ng-model="infer.standardValue">
             <option value="" label="-Select-">-Select-</option>
           </select>
           <img ng-if="infer.loadingStandardValues" src="images/ajax-loader.gif">
+          <span ng-if="!infer.loadingStandardValues && !infer.hasUnit" class="btn btn-default btn-xs text-default" title="Search in list" ng-click="searchCodedValueInList(infer)"><i class="fa fa-fw fa-search"></i>
+          </span>
+          <span ng-if="!infer.loadingStandardValues && infer.hasUnit" class="btn btn-default btn-xs text-default" title="Search in list" ng-click="searchUnitInList(infer)"><i class="fa fa-fw fa-search"></i>
+          </span>
+          <span ng-if="!infer.loadingStandardValues && infer.searchString" class="text-muted" ng-click="clearSearchFilter(infer)" style="border-bottom: 1px dotted #888;">{{infer.searchString}}<i class="fa fa-fw fa-times btn btn-xs text-danger" title="Clear Search Filter"></i>
+          </span>
         </td>
         <td class="col-sm-1 nowrap" style="text-align:right">
           <span href="" ng-if="infer.standardValue" ng-click="addStandardization(infer)" class="clickable btn-xs"><i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
