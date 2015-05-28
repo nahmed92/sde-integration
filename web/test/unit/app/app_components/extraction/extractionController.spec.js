@@ -436,6 +436,23 @@ describe('Controller: ExtractionContoller', function() {
       expect(_.keys($scope.inferredValues)).not.toContain(PROCESSORCHIPSET);
     });
 
+    it('should not accept all non-standard values', function() {
+      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var count = list.length;
+
+      // Setting first item as non-standard, so it is skipped
+      list[0].isNonStandard = true;
+
+      $scope.acceptAllInferredValuesInList(list);
+
+      // Should make individual calls to addInferredParameter, one call per item in original list, except for the skipped item
+      expect($window.parent.unsavedParam.addInferredParameter.calls.length).toEqual(count - 1);
+      expect($scope.model.acceptedCount).toEqual(count - 1);
+
+      // After accepting header list should contain one item in this header
+      expect($scope.model.inferredValues[PROCESSORCHIPSET].length).toEqual(1);
+    });
+
     it('should reject all values in header', function() {
       var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
