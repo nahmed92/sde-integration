@@ -128,7 +128,11 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
 
   $scope.acceptAllInferredValuesInList = function(list) {
     angular.forEach(list, function(inference) {
-      $scope.acceptInference(inference, false);
+      if (inference.isNonStandard !== true) {
+        $scope.acceptInference(inference, false);
+      } else {
+        $log.info('Accept-All is skipping non-standard value ' + inference.displayValue + ' for parameter ' + inference.parameterId);
+      }
     });
   };
 
