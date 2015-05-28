@@ -249,9 +249,9 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
         // Using the coded value / unit name from standardization service, to ensure standard capitalization
         // Standardization service does case insensitive comparison, but returns the response with correct case
         if (infer.hasUnit) {
-          infer.value = data[0].value;
+          infer.updateUnit(data[0].name);
         } else {
-          infer.targetUnit = data[0].name;
+          infer.updateValue(data[0].value);
         }
       } else {
         infer.isNonStandard = true;
