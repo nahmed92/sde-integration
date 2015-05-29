@@ -6,7 +6,7 @@ describe('Controller: ExtractionContoller', function() {
   beforeEach(module('app.constants'));
   beforeEach(module('uiRouterNoop'));
 
-  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
+  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, growl, _CONST_) {
@@ -94,6 +94,9 @@ describe('Controller: ExtractionContoller', function() {
           addRepeatableInferredParameter: function() {}
         },
         closeExtractionPopover: function() {}
+      },
+      prompt: function() {
+        return deferredSearchString;
       }
     };
 
@@ -206,6 +209,68 @@ describe('Controller: ExtractionContoller', function() {
       extractedDisplayValue: '<p> <b>Live long and prosper</b> <br /> <br />42 is the answer to life, universe and everything thanks to its 4th-gen Intel® Core® i7 processor | NVIDIA® GeForce© GTX graphics. Especially with a pipe in data and spaces between tags for testing string comparision between extracted and inferred values</p>',
       extractedEcode: 3
     };
+
+    // Mock object
+    infer = {
+      searchString: '',
+      codedValues: [{
+        value: 'i3-1234U'
+      }, {
+        value: 'i5-1234U'
+      }, {
+        value: 'i7-1234U'
+      }, {
+        value: 'i3-3310N'
+      }, {
+        value: 'i5-3310N'
+      }, {
+        value: 'i5-3310N'
+      }, {
+        value: 'i7-5544'
+      }, {
+        value: 'i7-55'
+      }],
+      filteredCodedValues: [{
+        value: 'i3-1234U'
+      }, {
+        value: 'i5-1234U'
+      }, {
+        value: 'i7-1234U'
+      }, {
+        value: 'i3-3310N'
+      }, {
+        value: 'i5-3310N'
+      }, {
+        value: 'i5-3310N'
+      }, {
+        value: 'i7-5544'
+      }, {
+        value: 'i7-55'
+      }],
+      units: [{
+        name: '"'
+      }, {
+        name: 'cm'
+      }, {
+        name: 'mm'
+      }, {
+        name: 'm'
+      }, {
+        name: 'km'
+      }],
+      filteredUnits: [{
+        name: '"'
+      }, {
+        name: 'cm'
+      }, {
+        name: 'mm'
+      }, {
+        name: 'm'
+      }, {
+        name: 'km'
+      }]
+    };
+
   }));
 
   it('should initialize scope', function() {
@@ -515,6 +580,77 @@ describe('Controller: ExtractionContoller', function() {
 
       // The inferred values object should still contain the same number of elements as inferredCount
       expect(_.flatten(_.values($scope.model.inferredValues)).length).toEqual(inferredCount);
+    });
+
+    it('should select coded value when filter value matches only one target value', function() {
+      deferredSearchString = 'i5-123';
+      $scope.searchCodedValueInList(infer);
+      expect(infer.filteredCodedValues.length).toEqual(infer.codedValues.length); // Should not change the filtered array
+      expect(infer.searchString).toBe('');
+      expect(infer.standardValue).toBe('i5-1234U');
+    });
+
+    it('should filter coded values when filter value matches in the middle of target string', function() {
+      deferredSearchString = '-331';
+      $scope.searchCodedValueInList(infer);
+      expect(infer.filteredCodedValues.length).toEqual(3);
+      expect(infer.searchString).toBe(deferredSearchString);
+    });
+
+    it('should filter coded values case insensitively', function() {
+      deferredSearchString = 'I7';
+      $scope.searchCodedValueInList(infer);
+      expect(infer.filteredCodedValues.length).toEqual(3);
+      expect(infer.searchString).toBe(deferredSearchString);
+    });
+
+    it('should clear coded values filter', function() {
+      deferredSearchString = 'I7';
+      $scope.searchCodedValueInList(infer);
+      expect(infer.filteredCodedValues.length).toEqual(3);
+      expect(infer.searchString).toBe(deferredSearchString);
+
+      // Clearing filter
+      $scope.clearSearchFilter(infer);
+      expect(infer.searchString.length).toBe(0);
+      expect(infer.filteredCodedValues.length).toEqual(infer.codedValues.length); // All values should have been restored in list
+
+    });
+
+    it('should select unit when filter value matches only one target value', function() {
+      deferredSearchString = '"';
+      $scope.searchUnitInList(infer);
+      expect(infer.filteredCodedValues.length).toEqual(infer.codedValues.length); // Should not change the filtered array
+      expect(infer.searchString).toBe('');
+      expect(infer.standardValue).toBe('"');
+    });
+
+    it('should filter units when filter value matches in the middle of target string', function() {
+      deferredSearchString = 'm';
+      $scope.searchUnitInList(infer);
+      expect(infer.filteredUnits.length).toEqual(4);
+      expect(infer.searchString).toBe(deferredSearchString);
+    });
+
+    it('should filter unit values case insensitively', function() {
+      deferredSearchString = 'M';
+      $scope.searchUnitInList(infer);
+      expect(infer.filteredUnits.length).toEqual(4);
+    });
+
+    it('should clear units filter', function() {
+      deferredSearchString = 'm';
+
+      infer.hasUnit = true;
+      $scope.searchUnitInList(infer);
+      expect(infer.filteredUnits.length).toEqual(4);
+      expect(infer.searchString).toBe(deferredSearchString);
+
+      // Clearing filter
+      $scope.clearSearchFilter(infer);
+      expect(infer.searchString.length).toBe(0);
+      expect(infer.filteredUnits.length).toEqual(infer.units.length); // All values should have been restored in list
+
     });
 
   });

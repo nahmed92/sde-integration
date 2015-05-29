@@ -188,11 +188,13 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
       if (infer.hasUnit) {
         cmsUnitService.findUnitValuesByCategoryIdAndParameterId(obj).then(function(data) {
           infer.units = data;
+          infer.filteredUnits = data;
           infer.loadingStandardValues = false;
         });
       } else {
         cmsCodedValueService.findCodedValuesByCategoryIdAndParameterId(obj).then(function(data) {
           infer.codedValues = data;
+          infer.filteredCodedValues = data;
           infer.loadingStandardValues = false;
         });
       }
@@ -265,6 +267,59 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
       $log.warn('Could not check standarization for Parameter Id ' + obj.parameterId + ' with value ' + obj.value);
       infer.checkingNonStandard = false;
     });
+  };
+
+  $scope.searchCodedValueInList = function(infer) {
+    infer.searchString = $window.prompt('Search In List') || '';
+    if (infer.searchString) {
+      var searchString = infer.searchString.toLowerCase();
+
+      var filteredValues = _.filter(infer.codedValues, function(item) {
+        return item.value.toLowerCase().indexOf(searchString) > -1;
+      });
+
+      if (filteredValues && filteredValues.length === 1) {
+        // If we have only one candidate match, then we select that value, and reset the search string
+        infer.standardValue = filteredValues[0].value;
+        infer.searchString = '';
+        infer.filteredCodedValues = infer.codedValues;
+      } else {
+        // Otherwise we set the filtered list in scope
+        infer.filteredCodedValues = filteredValues;
+        delete infer.standardValue;
+      }
+    }
+  };
+
+  $scope.searchUnitInList = function(infer) {
+    infer.searchString = $window.prompt('Search In List') || '';
+    if (infer.searchString) {
+      var searchString = infer.searchString.toLowerCase();
+
+      var filteredValues = _.filter(infer.units, function(item) {
+        return item.name.toLowerCase().indexOf(searchString) > -1;
+      });
+
+      if (filteredValues && filteredValues.length === 1) {
+        // If we have only one candidate match, then we select that value, and reset the search string
+        infer.standardValue = filteredValues[0].name;
+        infer.searchString = '';
+        infer.filteredUnits = infer.units;
+      } else {
+        // Otherwise we set the filtered list in scope
+        infer.filteredUnits = filteredValues;
+        delete infer.standardValue;
+      }
+    }
+  };
+
+  $scope.clearSearchFilter = function(infer) {
+    infer.searchString = '';
+    if (infer.hasUnit) {
+      infer.filteredUnits = infer.units;
+    } else {
+      infer.filteredCodedValues = infer.codedValues;
+    }
   };
 
   init();
