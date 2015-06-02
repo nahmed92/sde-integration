@@ -6,7 +6,7 @@ describe('Controller: ExtractionContoller', function() {
   beforeEach(module('app.constants'));
   beforeEach(module('uiRouterNoop'));
 
-  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
+  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, growl, _CONST_) {
@@ -40,7 +40,7 @@ describe('Controller: ExtractionContoller', function() {
       findOneByCategoryIdParameterIdAndValue: function() {}
     };
     standardizationService = {
-
+      addVariations: function() {}
     };
 
     // pass state to search controller
@@ -105,6 +105,9 @@ describe('Controller: ExtractionContoller', function() {
     spyOn(cmsCodedValueService, 'findOneByCategoryIdParameterIdAndValue').andReturn($q.defer().promise);
     spyOn(cmsUnitService, 'findOneByCategoryIdParameterIdAndValue').andReturn($q.defer().promise);
 
+    deferredAddVariation = $q.defer();
+    spyOn(standardizationService, 'addVariations').andReturn(deferredAddVariation.promise);
+
     spyOn(angularGrowl, 'success').andCallThrough();
     spyOn(angularGrowl, 'error').andCallThrough();
     spyOn($window.parent.unsavedParam, 'addInferredParameter');
@@ -124,6 +127,8 @@ describe('Controller: ExtractionContoller', function() {
       cmsUnitService: cmsUnitService,
       standardizationService: standardizationService
     });
+
+    spyOn($scope, 'acceptInference').andCallThrough();
 
     // This method gets the input object from editspecs. So we are mocking it here with the values we are using in our test.
     // Any changes to there return value of getInputObjectByParameterId() in edit specs would require changes here.
@@ -360,6 +365,47 @@ describe('Controller: ExtractionContoller', function() {
     expect(inference.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
     expect(inference.noValue).toBe(true);
 
+  });
+
+  it('should add standardization for coded value', function() {
+
+    var obj = {
+      parameterId: 12345,
+      standardValue: 'i7-1234MQ',
+      hasUnit: false
+    }
+    $scope.addStandardization(obj);
+    expect(obj.targetValue).toEqual(obj.standardValue);
+  });
+
+  it('should add standardization for unit', function() {
+
+    var obj = {
+      parameterId: 11111,
+      standardValue: 'mm',
+      hasUnit: true
+    }
+    $scope.addStandardization(obj);
+    expect(obj.targetUnit).toEqual(obj.standardValue);
+  });
+
+  it('should accept inference after adding standardization', function() {
+
+    var obj = {
+      parameterId: 12345,
+      standardValue: 'i7-1234MQ',
+      targetValue: '1234mq',
+      hasUnit: false
+    }
+    var data = {
+      '1234mq': 'i7-1234MQ'
+    };
+
+    $scope.addStandardization(obj);
+    expect(standardizationService.addVariations).toHaveBeenCalledWith(obj.parameterId, data);
+    deferredAddVariation.resolve();
+    $scope.$digest();
+    expect($scope.acceptInference).toHaveBeenCalled();
   });
 
   describe('Accept and Reject', function() {

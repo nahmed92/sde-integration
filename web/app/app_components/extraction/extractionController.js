@@ -211,9 +211,13 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
         data[inference.targetValue] = inference.standardValue;
         inference.targetValue = inference.standardValue;
       }
-      standardizationService.addVariations(inference.parameterId, data);
-
-      $scope.acceptInference(inference);
+      standardizationService.addVariations(inference.parameterId, data).then(function() {
+        $scope.acceptInference(inference);
+      }, function() {
+        // Accepting inference in both success and failure cases, because we already know that the value user selected is valid, and can be accepted. The only issue with failure is that this value will still be displayed as non-standard value the next time it is extracted.
+        $log.warn('Could not save standard value ' + inference.standardValue + ' for parameterId' + inference.parameterId);
+        $scope.acceptInference(inference);
+      });
     }
   };
 
