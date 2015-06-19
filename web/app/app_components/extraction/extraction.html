@@ -84,16 +84,11 @@
       <tr ng-show="infer.showStandardization" ng-if="infer.isNonStandard" class="fx-fade-normal fx-easing-quad standardization" ng-repeat-end>
         <td colspan=3 class="col-sm-11 text-center">
           Please select a standard value for <b>{{infer.displayValue}}</b>
-          <select ng-if="!infer.loadingStandardValues && !infer.hasUnit" ng-options="codedValue.value as codedValue.value for codedValue in infer.filteredCodedValues" ng-model="infer.standardValue">
-            <option value="" label="-Select-">-Select-</option>
-          </select>
-          <select ng-if="!infer.loadingStandardValues && infer.hasUnit" ng-options="unit.name as unit.name for unit in infer.filteredUnits" ng-model="infer.standardValue">
+          <select ng-if="!infer.loadingStandardValues" ng-options="standardValue.value as standardValue.value for standardValue in infer.filteredStandardValues" ng-model="infer.standardValue">
             <option value="" label="-Select-">-Select-</option>
           </select>
           <img ng-if="infer.loadingStandardValues" src="images/ajax-loader.gif">
-          <span ng-if="!infer.loadingStandardValues && !infer.hasUnit" class="btn btn-default btn-xs text-default" title="Search in list" ng-click="searchCodedValueInList(infer)"><i class="fa fa-fw fa-search"></i>
-          </span>
-          <span ng-if="!infer.loadingStandardValues && infer.hasUnit" class="btn btn-default btn-xs text-default" title="Search in list" ng-click="searchUnitInList(infer)"><i class="fa fa-fw fa-search"></i>
+          <span ng-if="!infer.loadingStandardValues" class="btn btn-default btn-xs text-default" title="Search in list" ng-click="searchStandardValueInList(infer)"><i class="fa fa-fw fa-search"></i>
           </span>
           <span ng-if="!infer.loadingStandardValues && infer.searchString" class="text-muted" ng-click="clearSearchFilter(infer)" style="border-bottom: 1px dotted #888;">{{infer.searchString}}<i class="fa fa-fw fa-times btn btn-xs text-danger" title="Clear Search Filter"></i>
           </span>
@@ -107,7 +102,7 @@
       </tr>
       <tr ng-if="false" ng-repeat-end>
         <td colspan=4 class="col-sm-12">
-          This row will never be rendered because of ng-if=false, but we need it because we need to close the outer ng-repeat (iterating on headers)
+          This row will never be rendered because of ng-if == false, but we need it because we need to close the outer ng-repeat (iterating on headers)
         </td>
       </tr>
     </tbody>

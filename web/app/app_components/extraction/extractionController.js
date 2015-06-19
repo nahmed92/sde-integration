@@ -22,7 +22,6 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     var obj = $window.parent.getObjectByAttributeId($scope.model.attributeId);
     $scope.model.categoryId = obj.categoryId;
     angular.extend($scope.model, obj);
-
     extractionService.extractForSourceValue(getObjectForPost(obj)).then(function(extractedValues) {
       _.each(extractedValues.extraction, function(extraction) {
         var paramId = extraction.parameterId;
@@ -38,7 +37,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
             $log.info('Skipping extraction as it is same as extracted value', paramId);
           }
           // For all extracted coded values and units, we check if they are standardized (taxonomy service)
-          if (inferred.isCoded || inferred.hasUnit) {
+          if (inferred.isCoded || inferred.hasUnit || inferred.isUnitType) {
             $scope.checkNonStandard(inferred);
           }
         } else {
@@ -175,31 +174,33 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
    */
 
   $scope.showStandardization = function(infer) {
-    if (infer.showStandardization) {
-      infer.showStandardization = false;
-    } else {
-      infer.showStandardization = true;
-      infer.loadingStandardValues = true;
+    if (!infer.showStandardization) {
       var obj = {
         categoryId: $scope.model.categoryId,
         parameterId: infer.parameterId,
         value: infer.hasUnit ? infer.targetUnit : infer.value
       };
-      if (infer.hasUnit) {
-        cmsUnitService.findUnitValuesByCategoryIdAndParameterId(obj).then(function(data) {
-          infer.units = data;
-          infer.filteredUnits = data;
-          infer.loadingStandardValues = false;
-        });
-      } else {
-        cmsCodedValueService.findCodedValuesByCategoryIdAndParameterId(obj).then(function(data) {
-          infer.codedValues = data;
-          infer.filteredCodedValues = data;
-          infer.loadingStandardValues = false;
-        });
-      }
+      infer.loadingStandardValues = true;
+
+      var promise = (infer.hasUnit || infer.isUnitType) ? cmsUnitService.findUnitValuesByCategoryIdAndParameterId(obj) : cmsCodedValueService.findCodedValuesByCategoryIdAndParameterId(obj);
+      promise.then(function(data) {
+        infer.standardValues = infer.isCoded ? data : getStandardValues(data);
+        infer.filteredStandardValues = infer.isCoded ? data : getStandardValues(data);
+        infer.loadingStandardValues = false;
+      });
     }
+    infer.showStandardization = !infer.showStandardization;
   };
+
+  // The unit service returns units like { name: 'GHz' } while the coded value service returns the values in { value: 'Intel'} format
+  // This function will rename "name" label of units to "value" so that the UI can be bound to the same label
+  function getStandardValues(data) {
+    return _.map(data, function(item) {
+      return {
+        'value': item.name
+      };
+    });
+  }
 
   $scope.addStandardization = function(inference) {
     if (inference.standardValue) {
@@ -248,21 +249,17 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     var obj = {
       categoryId: $scope.model.categoryId,
       parameterId: infer.parameterId,
-      value: infer.hasUnit ? infer.targetUnit : infer.value
+      value: infer.hasUnit ? infer.targetUnit : infer.value // Please note that values with isUnitType are going into the else case
     };
 
     // We are setting the applicable service in a local variable, so that we have to write the callback only once
-    var service = infer.hasUnit ? cmsUnitService : cmsCodedValueService;
+    var service = (infer.hasUnit || infer.isUnitType) ? cmsUnitService : cmsCodedValueService;
     service.findOneByCategoryIdParameterIdAndValue(obj).then(function(data) {
       if (data[0] && data[0].active === true) {
         infer.isNonStandard = false;
         // Using the coded value / unit name from standardization service, to ensure standard capitalization
         // Standardization service does case insensitive comparison, but returns the response with correct case
-        if (infer.hasUnit) {
-          infer.updateUnit(data[0].name);
-        } else {
-          infer.updateValue(data[0].value);
-        }
+        infer[infer.hasUnit ? 'updateUnit' : 'updateValue'](data[0].value || data[0].name);
       } else {
         infer.isNonStandard = true;
       }
@@ -273,12 +270,11 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     });
   };
 
-  $scope.searchCodedValueInList = function(infer) {
+  $scope.searchStandardValueInList = function(infer) {
     infer.searchString = $window.prompt('Search In List') || '';
     if (infer.searchString) {
       var searchString = infer.searchString.toLowerCase();
-
-      var filteredValues = _.filter(infer.codedValues, function(item) {
+      var filteredValues = _.filter(infer.standardValues, function(item) {
         return item.value.toLowerCase().indexOf(searchString) > -1;
       });
 
@@ -286,32 +282,10 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
         // If we have only one candidate match, then we select that value, and reset the search string
         infer.standardValue = filteredValues[0].value;
         infer.searchString = '';
-        infer.filteredCodedValues = infer.codedValues;
+        infer.filteredStandardValues = infer.standardValues;
       } else {
         // Otherwise we set the filtered list in scope
-        infer.filteredCodedValues = filteredValues;
-        delete infer.standardValue;
-      }
-    }
-  };
-
-  $scope.searchUnitInList = function(infer) {
-    infer.searchString = $window.prompt('Search In List') || '';
-    if (infer.searchString) {
-      var searchString = infer.searchString.toLowerCase();
-
-      var filteredValues = _.filter(infer.units, function(item) {
-        return item.name.toLowerCase().indexOf(searchString) > -1;
-      });
-
-      if (filteredValues && filteredValues.length === 1) {
-        // If we have only one candidate match, then we select that value, and reset the search string
-        infer.standardValue = filteredValues[0].name;
-        infer.searchString = '';
-        infer.filteredUnits = infer.units;
-      } else {
-        // Otherwise we set the filtered list in scope
-        infer.filteredUnits = filteredValues;
+        infer.filteredStandardValues = filteredValues;
         delete infer.standardValue;
       }
     }
@@ -319,11 +293,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
 
   $scope.clearSearchFilter = function(infer) {
     infer.searchString = '';
-    if (infer.hasUnit) {
-      infer.filteredUnits = infer.units;
-    } else {
-      infer.filteredCodedValues = infer.codedValues;
-    }
+    infer.filteredStandardValues = infer.standardValues;
   };
 
   init();
