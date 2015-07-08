@@ -11,7 +11,7 @@
         <th class="col-sm-4">
           Auto
         </th>
-        <th class="col-sm-1 nowrap">
+        <th class="col-sm-1 nowrap button-column">
           <a tooltip="Accept All" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(model.inferredValues).length === 0}" ng-click="acceptAllInferredValues()">
             <i class="fa fa-check text-success"></i>
           </a>
@@ -42,7 +42,7 @@
         <th colspan="3" class="header">
           {{ header.headerName }}
         </th>
-        <td class="header nowrap">
+        <td class="header nowrap button-column">
           <a tooltip="Accept Header" tooltip-placement="bottom" class="btn btn-default btn-xs" ng-class="{disabled: getKeys(model.inferredValues).length === 0}" ng-click="acceptAllInferredValuesInList(model.inferredValues[header.headerId], true)">
             <i class="fa fa-check text-success"></i>
           </a>
@@ -67,17 +67,19 @@
           <span ng-if="!isEmpty(infer.displayValue)" read-more words="false" ng-model="infer.displayValue" length="255" ng-class="{'non-standard' : infer.isNonStandard === true }"></span>
           <span ng-if="isEmpty(infer.displayValue)">&nbsp;</span>
         </td>
-        <td class="col-sm-1 nowrap">
+        <td class="col-sm-1 nowrap button-column">
           <span ng-if="infer.checkingNonStandard" class="btn-xs" title="Checking standardization">
             <i class="fa fa-fw fa-spinner fa-pulse"></i>
           </span>
-          <span ng-if="!infer.checkingNonStandard && !infer.isNonStandard" href="" ng-click="acceptInference(infer)" class="clickable btn-xs">
-            <i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
+          <span ng-if="!infer.checkingNonStandard && !infer.isNonStandard">
+            <a ng-if="infer.isRepeatable" title="Replace" href="" ng-click="acceptInference(infer, true)" ng-if="infer.isRepeatable"><i class="fa fa-fw fa-retweet text-success"></i></a>
+            <a ng-if="infer.isRepeatable" title="Add" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-plus text-success"></i></a>
+            <a ng-if="!infer.isRepeatable" title="Accept" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-check text-success"></i></a>
           </span>
           <span ng-if="infer.isNonStandard" href="" ng-click="showStandardization(infer)" class="clickable btn-xs">
             <i class="fa fa-fw fa-compass text-info"></i>
           </span>
-          <span href="" ng-click="rejectInference(infer)" class="clickable btn-xs"><i class="fa fa-fw fa-close text-danger"></i>
+          <span title="Reject" href="" ng-click="rejectInference(infer)" class="clickable btn-xs"><i class="fa fa-fw fa-close text-danger"></i>
           </span>
         </td>
       </tr>
@@ -93,7 +95,9 @@
           <span ng-if="!infer.loadingStandardValues && infer.searchString" class="text-muted" ng-click="clearSearchFilter(infer)" style="border-bottom: 1px dotted #888;">{{infer.searchString}}<i class="fa fa-fw fa-times btn btn-xs text-danger" title="Clear Search Filter"></i>
           </span>
         </td>
-        <td class="col-sm-1 nowrap" style="text-align:right">
+        <td class="col-sm-1 nowrap button-column">
+          <span href="" ng-if="infer.standardValue && infer.isRepeatable" ng-click="addStandardization(infer, true)" class="clickable btn-xs"><i class="fa fa-fw fa-retweet text-success"></i>
+          </span>
           <span href="" ng-if="infer.standardValue" ng-click="addStandardization(infer)" class="clickable btn-xs"><i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i>
           </span>
           <span href="" ng-click="infer.showStandardization=false" class="clickable btn-xs"><i class="fa fa-fw fa-close text-danger"></i>

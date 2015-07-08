@@ -85,6 +85,7 @@ describe('Controller: InferenceContoller', function() {
         unsavedParam: {
           addInferredParameter: function() {},
           addRepeatableInferredParameter: function() {},
+          replaceRepeatableInferredParameter: function() {},
           rejectInferredParameter: function() {},
           rejectRepeatableInferredParameter: function() {}
         },
@@ -98,6 +99,7 @@ describe('Controller: InferenceContoller', function() {
     spyOn(angularGrowl, 'error').andCallThrough();
     spyOn($window.parent.unsavedParam, 'addInferredParameter');
     spyOn($window.parent.unsavedParam, 'addRepeatableInferredParameter');
+    spyOn($window.parent.unsavedParam, 'replaceRepeatableInferredParameter');
     spyOn($window.parent.unsavedParam, 'rejectInferredParameter');
     spyOn($window.parent.unsavedParam, 'rejectRepeatableInferredParameter');
     spyOn($window.parent, 'closeInferencePopover');
@@ -378,6 +380,23 @@ describe('Controller: InferenceContoller', function() {
 
       // Accepting repeatable parameter calls a separate method in edit specs, we are verifying this behavior here
       expect($window.parent.unsavedParam.addRepeatableInferredParameter).toHaveBeenCalledWith(infer.element, infer);
+
+      // After accepting one value, the scope should have 2 inferences left and accepted count set to 1
+      inferences = _.flatten(_.values($scope.model.inferredValues));
+      expect(inferences.length).toEqual(2);
+      expect($scope.model.acceptedCount).toEqual(1);
+    });
+
+    it('should replace repeatable inferred value and extract it', function() {
+      var infer = _.find(inferences, {
+        parameterId: '2226064'
+      });
+      expect(infer.isRepeatable).toBe(true);
+
+      $scope.acceptInference(infer, true); // Sending true as the second parameter to trigger replace flow
+
+      // Accepting repeatable parameter calls a separate method in edit specs, we are verifying this behavior here
+      expect($window.parent.unsavedParam.replaceRepeatableInferredParameter).toHaveBeenCalledWith(infer.element, infer);
 
       // After accepting one value, the scope should have 2 inferences left and accepted count set to 1
       inferences = _.flatten(_.values($scope.model.inferredValues));

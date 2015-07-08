@@ -64,11 +64,16 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     return $window.parent.getInputObjectByParameterId(parameterId);
   };
 
-  $scope.acceptInference = function(infer) {
+  // SDE-2142: In the case of repeatable attributes, we are adding a second boolean parameter. If it is true, we call the replaceRepeatableParmeter method in Edit Specs instead of addRepeatableParameter
+  $scope.acceptInference = function(infer, replace) {
     // This object unsavedParam is a global object of editSpecs which keeps track of the unsaved parameter.
     // So whenever we change a parameter, we have to add the element to this object.
     if (infer.isRepeatable) {
-      $window.parent.unsavedParam.addRepeatableInferredParameter(infer.element, infer);
+      if (replace === true) {
+        $window.parent.unsavedParam.replaceRepeatableInferredParameter(infer.element, infer);
+      } else {
+        $window.parent.unsavedParam.addRepeatableInferredParameter(infer.element, infer);
+      }
     } else {
       $window.parent.unsavedParam.addInferredParameter(infer.element, infer);
     }
@@ -202,7 +207,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     });
   }
 
-  $scope.addStandardization = function(inference) {
+  $scope.addStandardization = function(inference, replace) {
     if (inference.standardValue) {
       var data = {};
       if (inference.hasUnit) {
@@ -213,11 +218,11 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
         inference.targetValue = inference.standardValue;
       }
       standardizationService.addVariations(inference.parameterId, data).then(function() {
-        $scope.acceptInference(inference);
+        $scope.acceptInference(inference, replace);
       }, function() {
         // Accepting inference in both success and failure cases, because we already know that the value user selected is valid, and can be accepted. The only issue with failure is that this value will still be displayed as non-standard value the next time it is extracted.
         $log.warn('Could not save standard value ' + inference.standardValue + ' for parameterId' + inference.parameterId);
-        $scope.acceptInference(inference);
+        $scope.acceptInference(inference, replace);
       });
     }
   };

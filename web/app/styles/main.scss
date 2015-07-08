@@ -79,6 +79,10 @@ p {
   vertical-align: middle;
 }
 
+.table .blue th:last-child {
+  text-align: right;
+}
+
 .extract,
 .infer {
   padding-top: 5px;
@@ -109,4 +113,8 @@ p {
 .extract .table .expanded {
   border: 2px solid $light-grey;
   border-bottom: 0;
+}
+
+.button-column {
+  text-align: right;
 }
