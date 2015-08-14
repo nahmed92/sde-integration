@@ -107,7 +107,7 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std2Future = new SettableListenableFuture<>();
         final ParameterStandardization standardization = new ParameterStandardization();
         standardization.setId(2229779);
-        HashMap<String, String> map = new HashMap<>();
+        final HashMap<String, String> map = new HashMap<>();
         map.put("GHZ", "GHz");
         standardization.setStandardizations(map);
         std2Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
@@ -125,6 +125,57 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         final List<StandardizedParameter> parameters = result.get();
         assertThat(parameters, is(notNullValue()));
         assertThat(parameters, hasSize(2));
+    }
+
+    @ShouldMatchDataSet(location = "extractionWithSentinelResponse.bson")
+    @Test
+    public void shouldRemoveValuesWhosStandardizationIsSentinelValue() throws Exception {
+        // given
+        final List<Integer> parameterIds = Lists.newArrayList(123, 456);
+        final Integer categoryId = 4876;
+        final String text = "Core i3 2.6GHZ";
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture1 = new SettableListenableFuture<>();
+        final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture2 = new SettableListenableFuture<>();
+        extractionFuture1.set(new ResponseEntity<List<ExtractionParameter>>(
+                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387)),
+                HttpStatus.OK));
+        when(
+                extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
+                        text, categoryId, 123))).thenReturn(extractionFuture1);
+        extractionFuture2.set(new ResponseEntity<List<ExtractionParameter>>(
+                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", 2229779)),
+                HttpStatus.OK));
+        when(
+                extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
+                        text, categoryId, 456))).thenReturn(extractionFuture2);
+
+        final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> stdNotFound = new SettableListenableFuture<>();
+        stdNotFound.set(new ResponseEntity<Resource<ParameterStandardization>>(
+                HttpStatus.NOT_FOUND));
+        when(standardizationClient.standardize(2230387, "Core i3")).thenReturn(
+                stdNotFound);
+
+        final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> sentinel = new SettableListenableFuture<>();
+        final ParameterStandardization standardization = new ParameterStandardization();
+        standardization.setId(2229779);
+        final HashMap<String, String> map = new HashMap<>();
+        map.put("GHZ", StandardizationServiceClient.SENTINEL);
+        standardization.setStandardizations(map);
+        sentinel.set(new ResponseEntity<Resource<ParameterStandardization>>(
+                new Resource<ParameterStandardization>(standardization), HttpStatus.OK));
+        when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(sentinel);
+
+        // when
+        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+                parameterIds);
+        final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
+
+        // then
+        assertThat(result, is(notNullValue()));
+
+        final List<StandardizedParameter> parameters = result.get();
+        assertThat(parameters, is(notNullValue()));
+        assertThat(parameters, hasSize(1));
     }
 
     @Test

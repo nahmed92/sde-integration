@@ -46,6 +46,8 @@ import com.etilize.automation.ruta.client.ExtractionParameter;
 import com.etilize.automation.ruta.client.ExtractionServiceClient;
 import com.etilize.automation.standardization.client.ParameterStandardization;
 import com.etilize.automation.standardization.client.StandardizationServiceClient;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.FutureCallback;
@@ -106,8 +108,11 @@ public class ExtractionServiceImpl implements ExtractionService {
                             throws Exception {
                         final List<StandardizedParameter> returnVal = Lists.newArrayList();
                         for (final List<StandardizedParameter> list : input) {
+                            // there is a chance that no standardization was returned
                             if (list != null) {
-                                returnVal.addAll(list);
+                                // there is a possibility that SENTINEL was returned
+                                returnVal.addAll(Collections2.filter(list,
+                                        Predicates.notNull()));
                             }
                         }
                         return Futures.immediateFuture(returnVal);
@@ -245,10 +250,12 @@ public class ExtractionServiceImpl implements ExtractionService {
                 throws Exception {
             final Parameter param = new Parameter(parameter);
 
+            boolean shouldAdd = true;
             if (input.getStatusCode().is2xxSuccessful()) {
                 final String standardizedValue = input.getBody().getContent().getStandardizations().get(
                         variation);
                 param.setStandardization(new Standardization(standardizedValue));
+                shouldAdd = !StandardizationServiceClient.SENTINEL.equals(standardizedValue);
             } else if (input.getStatusCode() == HttpStatus.NOT_FOUND) {
                 param.setStandardization(new Standardization(Status.NOT_FOUND));
                 logger.warn(
@@ -261,15 +268,21 @@ public class ExtractionServiceImpl implements ExtractionService {
                         param, productId, input.getStatusCode());
             }
 
-            final StandardizedParameter stdParam = new StandardizedParameter(
-                    param.getParamId(), //
-                    param.getStandardizedValue(), //
-                    param.getStandardizedUnit());
+            if (shouldAdd) {
+                final StandardizedParameter stdParam = new StandardizedParameter(
+                        param.getParamId(), //
+                        param.getStandardizedValue(), //
+                        param.getStandardizedUnit());
 
-            param.setExport(stdParam);
-            extraction.addParameter(param);
+                param.setExport(stdParam);
+                extraction.addParameter(param);
+                return Futures.immediateFuture(stdParam);
+            }
 
-            return Futures.immediateFuture(stdParam);
+            logger.info(
+                    "SENTINEL Standardization Found for Parameter: {} of product with Id: {}",
+                    param, productId);
+            return Futures.immediateFuture(null);
         }
     }
 }
