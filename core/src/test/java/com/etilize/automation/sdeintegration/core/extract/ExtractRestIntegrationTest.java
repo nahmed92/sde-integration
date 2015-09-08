@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -46,7 +46,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.etilize.automation.sdeintegration.core.test.base.AbstractMongoIntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.SettableFuture;
 
 @DirtiesContext
@@ -61,8 +61,9 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
 
     @Test
     public void shouldExtractData() throws Exception {
-        final SettableFuture<List<StandardizedParameter>> future = SettableFuture.create();
-        final List<StandardizedParameter> values = Lists.newArrayList(
+        final SettableFuture<Set<StandardizedParameter>> future = SettableFuture.create();
+        final Set<StandardizedParameter> values = Sets.newHashSet(
+                new StandardizedParameter(2230387, "Core i3", null),
                 new StandardizedParameter(2230387, "Core i3", null),
                 new StandardizedParameter(2229779, "2.6", "GHz"));
         future.set(values);

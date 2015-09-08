@@ -36,6 +36,7 @@ import java.net.ConnectException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +80,7 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
 
     @ShouldMatchDataSet(location = "extractionResponse.bson")
     @Test
-    public void shouldExtract() throws Exception {
+    public void shouldExtractAndReturnUniqueResults() throws Exception {
         // given
         final List<Integer> parameterIds = Lists.newArrayList(123, 456);
         final Integer categoryId = 4876;
@@ -87,8 +88,8 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture1 = new SettableListenableFuture<>();
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture2 = new SettableListenableFuture<>();
         extractionFuture1.set(new ResponseEntity<List<ExtractionParameter>>(
-                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387)),
-                HttpStatus.OK));
+                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387),
+                        new ExtractionParameter("2.6", "GHZ", 2229779)), HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
                         text, categoryId, 123))).thenReturn(extractionFuture1);
@@ -117,12 +118,12 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         // when
         final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
                 parameterIds);
-        final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
+        final ListenableFuture<Set<StandardizedParameter>> result = service.extract(request);
 
         // then
         assertThat(result, is(notNullValue()));
 
-        final List<StandardizedParameter> parameters = result.get();
+        final Set<StandardizedParameter> parameters = result.get();
         assertThat(parameters, is(notNullValue()));
         assertThat(parameters, hasSize(2));
     }
@@ -168,12 +169,12 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         // when
         final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
                 parameterIds);
-        final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
+        final ListenableFuture<Set<StandardizedParameter>> result = service.extract(request);
 
         // then
         assertThat(result, is(notNullValue()));
 
-        final List<StandardizedParameter> parameters = result.get();
+        final Set<StandardizedParameter> parameters = result.get();
         assertThat(parameters, is(notNullValue()));
         assertThat(parameters, hasSize(1));
     }
@@ -196,7 +197,7 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
                 Arrays.asList(parameterId));
 
         // when
-        final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
+        final ListenableFuture<Set<StandardizedParameter>> result = service.extract(request);
 
         // then
         assertThat(result, is(notNullValue()));
@@ -233,12 +234,12 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         // when
         final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
                 Arrays.asList(parameterId));
-        final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
+        final ListenableFuture<Set<StandardizedParameter>> result = service.extract(request);
 
         // then
         assertThat(result, is(notNullValue()));
 
-        final List<StandardizedParameter> parameters = result.get();
+        final Set<StandardizedParameter> parameters = result.get();
         assertThat(parameters, is(notNullValue()));
         assertThat(parameters, hasSize(2));
     }

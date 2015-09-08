@@ -31,6 +31,7 @@ package com.etilize.automation.sdeintegration.core.extract;
 import static net.javacrumbs.futureconverter.springguava.FutureConverter.*;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -49,6 +50,7 @@ import com.etilize.automation.standardization.client.StandardizationServiceClien
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.FutureFallback;
@@ -85,7 +87,7 @@ public class ExtractionServiceImpl implements ExtractionService {
      * {@inheritDoc}
      */
     @Override
-    public ListenableFuture<List<StandardizedParameter>> extract(
+    public ListenableFuture<Set<StandardizedParameter>> extract(
             final ExtractionRequest request) {
         final Extraction extraction = new Extraction(request.getProductId(),
                 request.getCategoryId(), request.getText());
@@ -98,15 +100,15 @@ public class ExtractionServiceImpl implements ExtractionService {
                     extraction)));
 
         }
-        final ListenableFuture<List<StandardizedParameter>> future = Futures.transform(
+        final ListenableFuture<Set<StandardizedParameter>> future = Futures.transform(
                 Futures.successfulAsList(futures),
-                new AsyncFunction<List<List<StandardizedParameter>>, List<StandardizedParameter>>() {
+                new AsyncFunction<List<List<StandardizedParameter>>, Set<StandardizedParameter>>() {
 
                     @Override
-                    public ListenableFuture<List<StandardizedParameter>> apply(
+                    public ListenableFuture<Set<StandardizedParameter>> apply(
                             final List<List<StandardizedParameter>> input)
                             throws Exception {
-                        final List<StandardizedParameter> returnVal = Lists.newArrayList();
+                        final Set<StandardizedParameter> returnVal = Sets.newHashSet();
                         for (final List<StandardizedParameter> list : input) {
                             // there is a chance that no standardization was returned
                             if (list != null) {
@@ -118,10 +120,10 @@ public class ExtractionServiceImpl implements ExtractionService {
                         return Futures.immediateFuture(returnVal);
                     }
                 });
-        Futures.addCallback(future, new FutureCallback<List<StandardizedParameter>>() {
+        Futures.addCallback(future, new FutureCallback<Set<StandardizedParameter>>() {
 
             @Override
-            public void onSuccess(final List<StandardizedParameter> result) {
+            public void onSuccess(final Set<StandardizedParameter> result) {
                 repo.save(extraction);
             }
 
