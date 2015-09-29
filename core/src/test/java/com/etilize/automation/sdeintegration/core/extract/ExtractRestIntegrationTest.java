@@ -63,9 +63,9 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
     public void shouldExtractData() throws Exception {
         final SettableFuture<Set<StandardizedParameter>> future = SettableFuture.create();
         final Set<StandardizedParameter> values = Sets.newHashSet(
-                new StandardizedParameter(2230387, "Core i3", null),
-                new StandardizedParameter(2230387, "Core i3", null),
-                new StandardizedParameter(2229779, "2.6", "GHz"));
+                new StandardizedParameter(2230387, "Core i3", null, false),
+                new StandardizedParameter(2230387, "Core i3", null, true),
+                new StandardizedParameter(2229779, "2.6", "GHz", true));
         future.set(values);
         Mockito.when(service.extract(Mockito.any(ExtractionRequest.class))).thenReturn(
                 future);

@@ -274,7 +274,7 @@ public class ExtractionServiceImpl implements ExtractionService {
                 final StandardizedParameter stdParam = new StandardizedParameter(
                         param.getParamId(), //
                         param.getStandardizedValue(), //
-                        param.getStandardizedUnit());
+                        param.getStandardizedUnit(), param.isStandardized());
 
                 param.setExport(stdParam);
                 extraction.addParameter(param);

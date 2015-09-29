@@ -47,7 +47,8 @@ public class StandardizedParameterPojoTest {
 
     @Test
     public void hasToString() {
-        final StandardizedParameter param = new StandardizedParameter(1, "value", "unit");
+        final StandardizedParameter param = new StandardizedParameter(1, "value", "unit",
+                false);
         assertThat(ObjectUtils.identityToString(param), not(param.toString()));
     }
 }

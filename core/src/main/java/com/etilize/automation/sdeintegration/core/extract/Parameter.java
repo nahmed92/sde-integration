@@ -115,8 +115,7 @@ public class Parameter {
     public String getStandardizedUnit() {
         String standardizedUnit = unit;
 
-        if (!StringUtils.isEmpty(unit) && standardization != null
-                && standardization.isFound()) {
+        if (!StringUtils.isEmpty(unit) && isStandardized()) {
             standardizedUnit = standardization.getStandardization();
         }
 
@@ -132,12 +131,21 @@ public class Parameter {
     public String getStandardizedValue() {
         String standardizedValue = value;
 
-        if (StringUtils.isEmpty(unit) && standardization != null
-                && standardization.isFound()) {
+        if (StringUtils.isEmpty(unit) && isStandardized()) {
             standardizedValue = standardization.getStandardization();
         }
 
         return standardizedValue;
+    }
+
+    /**
+     * Returns whether the value is standardized or not
+     *
+     * @return
+     */
+    @JsonIgnore
+    public boolean isStandardized() {
+        return standardization != null && standardization.isFound();
     }
 
     @Override

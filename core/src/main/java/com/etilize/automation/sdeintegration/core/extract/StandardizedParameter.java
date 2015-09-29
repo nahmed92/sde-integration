@@ -47,32 +47,31 @@ public class StandardizedParameter {
 
     @JsonInclude(Include.NON_NULL)
     @Transient
-    private Integer parameterId;
+    private final Integer parameterId;
 
     private final String value;
 
     @JsonInclude(Include.NON_EMPTY)
     private final String unit;
 
+    @Transient
+    private final boolean standardized;
+
     @PersistenceConstructor
     public StandardizedParameter(final String value, final String unit) {
-        this.value = value;
-        this.unit = unit;
+        this(null, value, unit, false);
     }
 
     public StandardizedParameter(final Integer parameterId, final String value,
-            final String unit) {
+            final String unit, final boolean standardized) {
+        this.parameterId = parameterId;
         this.value = value;
         this.unit = unit;
-        this.parameterId = parameterId;
+        this.standardized = standardized;
     }
 
     public Integer getParameterId() {
         return parameterId;
-    }
-
-    public void setParameterId(Integer parameterId) {
-        this.parameterId = parameterId;
     }
 
     public String getValue() {
@@ -81,6 +80,10 @@ public class StandardizedParameter {
 
     public String getUnit() {
         return unit;
+    }
+
+    public boolean isStandardized() {
+        return standardized;
     }
 
     @Override

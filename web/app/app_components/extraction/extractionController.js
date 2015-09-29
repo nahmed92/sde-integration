@@ -37,7 +37,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
             $log.info('Skipping extraction as it is same as extracted value', paramId);
           }
           // For all extracted coded values and units, we check if they are standardized (taxonomy service)
-          if (inferred.isCoded || inferred.hasUnit || inferred.isUnitType) {
+          if (!inferred.standardized && (inferred.isCoded || inferred.hasUnit || inferred.isUnitType)) {
             $scope.checkNonStandard(inferred);
           }
         } else {
