@@ -36,19 +36,6 @@
                         "value": "2.6",
                         "unit": "GHz"
                     }
-                },
-                {
-                    "paramId": 2229779,
-                    "value": "2.6",
-                    "unit": "GHZ",
-                    "standardization": {
-                        "standardization": "GHz",
-                        "status": "FOUND"
-                    },
-                    "export": {
-                        "value": "2.6",
-                        "unit": "GHz"
-                    }
                 }
             ]
         }

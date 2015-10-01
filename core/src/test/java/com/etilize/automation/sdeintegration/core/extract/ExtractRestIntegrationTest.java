@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -46,7 +46,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.etilize.automation.sdeintegration.core.test.base.AbstractMongoIntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.SettableFuture;
 
 @DirtiesContext
@@ -61,8 +61,12 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
 
     @Test
     public void shouldExtractData() throws Exception {
-        final SettableFuture<Set<StandardizedParameter>> future = SettableFuture.create();
-        final Set<StandardizedParameter> values = Sets.newHashSet(
+        final SettableFuture<List<StandardizedParameter>> future = SettableFuture.create();
+        // we allow duplicates because there are cases like:
+        // 1 x Automatic Document Feeder 20 Sheet
+        // 1 x Input Tray 100 Sheet
+        // 1 x Photo Tray 20 Sheet
+        final List<StandardizedParameter> values = Lists.newArrayList(
                 new StandardizedParameter(2230387, "Core i3", null, false),
                 new StandardizedParameter(2230387, "Core i3", null, true),
                 new StandardizedParameter(2229779, "2.6", "GHz", true));
@@ -84,10 +88,12 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
 
         this.mockMvc.perform(asyncDispatch(mvcResult)) //
         .andExpect(status().isOk()) //
-        .andExpect(jsonPath("$[*]", hasSize(2))) //
-        .andExpect(jsonPath("$[*].parameterId", contains(2230387, 2229779))) //
-        .andExpect(jsonPath("$[*].value", contains("Core i3", "2.6"))) //
-        .andExpect(jsonPath("$[*].unit", contains("GHz")));
+        .andExpect(jsonPath("$[*]", hasSize(3))) //
+        .andExpect(jsonPath("$[*].parameterId", contains(2230387, 2230387, 2229779))) //
+        .andExpect(jsonPath("$[*].value", contains("Core i3", "Core i3", "2.6"))) //
+        .andExpect(jsonPath("$[*].unit", contains("GHz"))) //
+        .andExpect(jsonPath("$[0].standardized", is(false))) //
+        .andExpect(jsonPath("$[1].standardized", is(true))); //
 
     }
 }

@@ -28,7 +28,7 @@
 
 package com.etilize.automation.sdeintegration.core.extract;
 
-import java.util.Set;
+import java.util.List;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -47,6 +47,6 @@ public interface ExtractionService {
      * @param request
      * @return
      */
-    ListenableFuture<Set<StandardizedParameter>> extract(final ExtractionRequest request);
+    ListenableFuture<List<StandardizedParameter>> extract(final ExtractionRequest request);
 
 }

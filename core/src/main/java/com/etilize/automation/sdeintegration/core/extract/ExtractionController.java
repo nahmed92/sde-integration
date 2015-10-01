@@ -28,7 +28,7 @@
 
 package com.etilize.automation.sdeintegration.core.extract;
 
-import java.util.Set;
+import java.util.List;
 import java.util.concurrent.Future;
 
 import net.javacrumbs.futureconverter.springguava.FutureConverter;
@@ -72,7 +72,7 @@ public class ExtractionController extends AbstractRepositoryRestController {
     }
 
     @RequestMapping(value = "/extract", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Future<Set<StandardizedParameter>> extract(
+    public Future<List<StandardizedParameter>> extract(
             @RequestBody final ExtractionRequest request) {
         Assert.notNull(request);
         Assert.notNull(request.getProductId(), "ProductId is Required");
