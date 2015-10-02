@@ -6,7 +6,7 @@ describe('Controller: ExtractionContoller', function() {
   beforeEach(module('app.constants'));
   beforeEach(module('uiRouterNoop'));
 
-  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSORCHIPSET, GENERALINFORMATION, MEMORY;
+  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSOR_CHIPSET, GENERAL_INFORMATION, MEMORY;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, growl, _CONST_) {
@@ -17,8 +17,8 @@ describe('Controller: ExtractionContoller', function() {
     CONST = _CONST_;
 
     // Header Ids
-    PROCESSORCHIPSET = 72;
-    GENERALINFORMATION = 35;
+    PROCESSOR_CHIPSET = 72;
+    GENERAL_INFORMATION = 35;
     MEMORY = 52;
 
     dialogResult = $q.defer();
@@ -71,18 +71,18 @@ describe('Controller: ExtractionContoller', function() {
         },
 
         parameterHeaderMap: {
-          21751: GENERALINFORMATION,
-          2230522: PROCESSORCHIPSET,
-          2229779: PROCESSORCHIPSET,
-          2239228: PROCESSORCHIPSET,
-          22268: PROCESSORCHIPSET,
+          21751: GENERAL_INFORMATION,
+          2230522: PROCESSOR_CHIPSET,
+          2229779: PROCESSOR_CHIPSET,
+          2239228: PROCESSOR_CHIPSET,
+          22268: PROCESSOR_CHIPSET,
           2226064: MEMORY
         },
         headerSortOrder: [{
-          headerId: GENERALINFORMATION,
+          headerId: GENERAL_INFORMATION,
           headerName: 'General Information'
         }, {
-          headerId: PROCESSORCHIPSET,
+          headerId: PROCESSOR_CHIPSET,
           headerName: 'Processor & Chipset'
         }, {
           headerId: MEMORY,
@@ -342,11 +342,40 @@ describe('Controller: ExtractionContoller', function() {
       '1234mq': 'i7-1234MQ'
     };
 
-    $scope.addStandardization(obj);
+    // Sending true as the third argument, because we want accept to be called
+    $scope.addStandardization(obj, false, true);
     expect(standardizationService.addVariations).toHaveBeenCalledWith(obj.parameterId, data);
     deferredAddVariation.resolve();
     $scope.$digest();
     expect($scope.acceptInference).toHaveBeenCalled();
+  });
+
+  it('should update state and not accept inference after adding standardization', function() {
+
+    var obj = {
+      parameterId: 12345,
+      standardValue: 'i7-1234MQ',
+      targetValue: '1234mq',
+      hasUnit: false,
+      updateValue: function() {}
+    }
+    spyOn(obj, 'updateValue');
+
+    var data = {
+      '1234mq': 'i7-1234MQ'
+    };
+
+    // Sending false as the third argument, because we don't want accept to be called
+    $scope.addStandardization(obj, false, false);
+    expect(standardizationService.addVariations).toHaveBeenCalledWith(obj.parameterId, data);
+    deferredAddVariation.resolve();
+    $scope.$digest();
+    expect($scope.acceptInference).not.toHaveBeenCalled();
+
+    // Check that state it updated and standardization row is hidden
+    expect(obj.isNonStandard).toBe(false);
+    expect(obj.showStandardization).toBe(false);
+    expect(obj.updateValue).toHaveBeenCalledWith(obj.standardValue);
   });
 
   describe('Accept and Reject', function() {
@@ -434,7 +463,7 @@ describe('Controller: ExtractionContoller', function() {
       expect($scope.model.rejectedCount).toEqual(2);
 
       // The header should also be removed
-      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSORCHIPSET);
+      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSOR_CHIPSET);
 
       infer = _.find(inferences, {
         parameterId: 2226064
@@ -493,7 +522,7 @@ describe('Controller: ExtractionContoller', function() {
     });
 
     it('should accept all values in header', function() {
-      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
       $scope.acceptAllInferredValuesInList(list);
 
@@ -502,11 +531,11 @@ describe('Controller: ExtractionContoller', function() {
       expect($scope.model.acceptedCount).toEqual(count);
 
       // After accepting header list should not contain this header
-      expect(_.keys($scope.inferredValues)).not.toContain(PROCESSORCHIPSET);
+      expect(_.keys($scope.inferredValues)).not.toContain(PROCESSOR_CHIPSET);
     });
 
     it('should not accept all non-standard values', function() {
-      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
 
       // Setting first item as non-standard, so it is skipped
@@ -519,11 +548,11 @@ describe('Controller: ExtractionContoller', function() {
       expect($scope.model.acceptedCount).toEqual(count - 1);
 
       // After accepting header list should contain one item in this header
-      expect($scope.model.inferredValues[PROCESSORCHIPSET].length).toEqual(1);
+      expect($scope.model.inferredValues[PROCESSOR_CHIPSET].length).toEqual(1);
     });
 
     it('should reject all values in header', function() {
-      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
       $scope.rejectAllInferredValuesInList(list); // not sending second argument, so its a falsey value, so it will reject without confirmation
 
@@ -531,11 +560,11 @@ describe('Controller: ExtractionContoller', function() {
       expect($scope.model.rejectedCount).toEqual(count);
 
       // After accepting header list should not contain this header
-      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSORCHIPSET);
+      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSOR_CHIPSET);
     });
 
     it('should reject all values in header after confirmation', function() {
-      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
       $scope.rejectAllInferredValuesInList(list, true);
 
@@ -545,11 +574,11 @@ describe('Controller: ExtractionContoller', function() {
       expect($scope.model.rejectedCount).toEqual(count);
 
       // After accepting header list should not contain this header
-      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSORCHIPSET);
+      expect(_.keys($scope.model.inferredValues)).not.toContain(PROCESSOR_CHIPSET);
     });
 
     it('should not reject all values in header after cancelling confirmation dialog', function() {
-      var list = $scope.model.inferredValues[PROCESSORCHIPSET]; // Getting all for Processor & Chipset
+      var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
       var count = list.length;
       $scope.rejectAllInferredValuesInList(list, true);
 

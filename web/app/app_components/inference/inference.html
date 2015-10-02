@@ -51,7 +51,7 @@
           </a>
         </td>
       </tr>
-      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'warning': (!isEmpty(infer.extractedDisplayValue) && infer.displayValue != infer.extractedDisplayValue)}" ng-repeat="infer in model.inferredValues[header.headerId]" ng-repeat-end>
+      <tr class="fx-fade-normal fx-speed-300 fx-easing-quad" ng-class="{'success': header.highlight && infer.setNo === header.highlight.setNo && infer.attributeId === header.highlight.attributeId, 'warning': (!isEmpty(infer.extractedDisplayValue) && infer.displayValue != infer.extractedDisplayValue && (infer.setNo !== header.highlight.setNo || infer.attributeId !== header.highlight.attributeId) )}" ng-repeat="infer in model.inferredValues[header.headerId]" ng-repeat-end>
         <td class="col-sm-4">
           {{ infer.parameterName }}
         </td>
@@ -67,9 +67,14 @@
           <span ng-if="isEmpty(infer.displayValue)">&nbsp;</span>
         </td>
         <td class="col-sm-1 nowrap button-column">
-          <a ng-if="infer.isRepeatable" title="Replace" href="" ng-click="acceptInference(infer, true)" ng-if="infer.isRepeatable"><i class="fa fa-fw fa-retweet text-success"></i></a>
-          <a ng-if="infer.isRepeatable" title="Add" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-plus text-success"></i></a>
-          <a ng-if="!infer.isRepeatable" title="Accept" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-check text-success"></i></a>
+          <span ng-if="infer.relatedParameterIds">
+            <a title="Accept" href="" ng-click="acceptInferenceSet(infer)" class="btn-xs"><i class="fa fa-fw fa-list text-success" ng-mouseenter="setHighlight(header, infer)" ng-mouseout="setHighlight(header, null)"></i></a>
+          </span>
+          <span ng-if="!infer.relatedParameterIds">
+            <a ng-if="infer.isRepeatable" title="Replace" href="" ng-click="acceptInference(infer, true)" ng-if="infer.isRepeatable"><i class="fa fa-fw fa-retweet text-success"></i></a>
+            <a ng-if="infer.isRepeatable" title="Add" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-plus text-success"></i></a>
+            <a ng-if="!infer.isRepeatable" title="Accept" href="" ng-click="acceptInference(infer)" class="btn-xs"><i class="fa fa-fw fa-check text-success"></i></a>
+          </span>
           <a title="Reject" href="" ng-click="rejectInference(infer)"><i class="fa fa-fw fa-close text-danger"></i></a>
         </td>
       </tr>
