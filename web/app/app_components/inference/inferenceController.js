@@ -188,7 +188,7 @@ app.controller('InferenceController', function($scope, inferenceService, _, $win
     var relatedParameters = [];
     angular.forEach(list, function(inference) {
       // If the inference does not have any related parameter ids, we can accept id right away, otherwise we will call the acceptInferenceSet() method, but only once per set
-      if (angular.isUndefined(inference.setNo)) {
+      if (inference.isRepeatable === false || angular.isUndefined(inference.setNo)) {
         $scope.acceptInference(inference);
       } else {
         relatedParameters.push(inference);
