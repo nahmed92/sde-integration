@@ -103,6 +103,45 @@ describe('ExtractedValue', function() {
 
   });
 
+  it('should split value to get unit when unit is not present in extraction object for parameter which has unit', function() {
+
+    // This case covers SDE-2311
+
+    var data = {
+      parameterId: 2239228,
+      value: '12 V AC'
+    }
+    angular.extend(data, unitParameterInfo);
+    var extractedValue = new ExtractedValue(data);
+
+    expect(extractedValue).toBeDefined();
+    expect(extractedValue.isNumber).toBe(true);
+    expect(extractedValue.targetValue).toMatch('12');
+    expect(extractedValue.targetUnit).toMatch('V AC');
+    expect(extractedValue.displayValue).toMatch('12 V AC');
+    expect(extractedValue.value).toMatch('12'); // value is an internal field, and should not be used beyond the constructor of extactedValue class
+
+  });
+
+  it('should remove trailing .0 and split value to get unit when both cases are present', function() {
+
+    // This case covers combination of SDE-2021 and SDE-2311
+
+    var data = {
+      parameterId: 2239228,
+      value: '12.0 V AC'
+    }
+    angular.extend(data, unitParameterInfo);
+    var extractedValue = new ExtractedValue(data);
+
+    expect(extractedValue).toBeDefined();
+    expect(extractedValue.isNumber).toBe(true);
+    expect(extractedValue.targetValue).toMatch('12');
+    expect(extractedValue.targetUnit).toMatch('V AC');
+    expect(extractedValue.displayValue).toMatch('12 V AC');
+
+  });
+
   it('should replace [no value] string while creating ExtractedValue object', function() {
 
     var data = {

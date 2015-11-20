@@ -8,22 +8,24 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
       this._super(data);
 
       // SDE-2021 - Parsing values to float so that we can remove the trailing .0
-      if (this.isNumber && this.value) {
-        this.value = '' + parseFloat(this.value.replace(',', '')); // Replacing comma with empty string to handle thousand separator comma, and appending with empty string to convert it back to a string value so that operations like string trim doesn't fail in other part of the codebase
+      // Replacing comma with empty string to handle thousand separator comma, and appending with empty string to convert it back to a string value so that operations like string trim doesn't fail in other part of the codebase
+      this.targetValue = this.isNumber ? ('' + parseFloat(this.value.replace(',', ''))) : this.value;
+      this.displayValue = this.isNumber ? ('' + parseFloat(this.value.replace(',', ''))) : this.value;
+
+      if (this.hasUnit) {
+        // this.targetValue = angular.isDefined(this.unit) ? this.value : this.value.substring(0, this.value.indexOf(' ')); // The value upto first space is value [SDE-2311]
+        this.targetUnit = angular.isDefined(this.unit) ? this.unit : this.value.substring(this.value.indexOf(' ') + 1); // The remaining string after first space is unit [SDE-2311]
+        this.displayValue = this.targetValue + ' ' + this.targetUnit;
       }
-      this.displayValue = this.value;
-      this.targetValue = this.value;
+
+      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparison and setting of SDE_INTERNAL id. Fix for [SDE-1904]
+
       // Replace [no value] tag in extracted value if it exists
       if (_.contains(this.extractedDisplayValue, CONST.NO_VALUE)) {
         this.extractedDisplayValue = this.extractedDisplayValue.replace(CONST.NO_VALUE, '');
         this.noValue = true;
       }
 
-      if (this.hasUnit) {
-        this.targetUnit = this.unit;
-        this.displayValue = this.value + ' ' + this.unit;
-      }
-      this.inferredValue = this.displayValue; // Setting inferredValue because this field is used for comparison and setting of SDE_INTERNAL id. Fix for [SDE-1904]
     },
 
     isSameAsExtracted: function() {
