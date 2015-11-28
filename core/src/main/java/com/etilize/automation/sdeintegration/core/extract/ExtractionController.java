@@ -81,7 +81,7 @@ public class ExtractionController extends AbstractRepositoryRestController {
         Assert.notNull(request.getCategoryId(), "CategoryId is required");
         Assert.notEmpty(request.getParameterIds(), "Atleast one paramterId is required");
 
-        logger.debug("Receiver request {}", request);
+        logger.debug("Received request {}", request);
 
         return FutureConverter.toSpringListenableFuture(service.extract(request));
     }

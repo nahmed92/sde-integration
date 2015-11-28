@@ -7,13 +7,16 @@
         <groupId>com.etilize.build</groupId>
         <artifactId>etilize-build</artifactId>
         <version>0.0.2-SNAPSHOT</version>
-        <relativePath>../</relativePath>
+        <relativePath />
     </parent>
 
     <groupId>com.etilize.automation.sde-integration</groupId>
     <artifactId>sde-integration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <name>SDE Integration</name>
+    <description>SDE Integration Project that integrates SDE technologies with conQuire</description>
 
     <modules>
         <module>core</module>

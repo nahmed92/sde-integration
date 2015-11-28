@@ -6,7 +6,7 @@
         <groupId>com.etilize.build</groupId>
         <artifactId>etilize-build-core</artifactId>
         <version>0.0.2-SNAPSHOT</version>
-        <relativePath>../../</relativePath>
+        <relativePath />
     </parent>
 
     <groupId>com.etilize.automation.sde-integration</groupId>
