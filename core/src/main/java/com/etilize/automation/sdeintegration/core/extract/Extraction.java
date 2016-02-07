@@ -89,7 +89,7 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
         return createdAt;
     }
 
-    public void setCreatedAt(DateTime createdAt) {
+    public void setCreatedAt(final DateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -97,7 +97,7 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
         return parameters;
     }
 
-    public void setParameters(List<Parameter> parameters) {
+    public void setParameters(final List<Parameter> parameters) {
         this.parameters = parameters;
     }
 
@@ -107,7 +107,9 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
      * @param parameter the {@link Parameter} to add
      */
     public void addParameter(final Parameter parameter) {
-        this.parameters.add(parameter);
+        synchronized (parameters) {
+            this.parameters.add(parameter);
+        }
     }
 
     @Override
