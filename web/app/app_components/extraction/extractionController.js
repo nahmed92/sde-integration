@@ -20,7 +20,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     };
 
     var obj = $window.parent.getObjectByAttributeId($scope.model.attributeId);
-    $scope.model.categoryId = obj.categoryId;
+    obj.isProductSource = $location.search().productSource === 'true' ? true : false;
     angular.extend($scope.model, obj);
     extractionService.extractForSourceValue(getObjectForPost(obj)).then(function(extractedValues) {
       _.each(extractedValues.extraction, function(extraction) {
@@ -386,12 +386,24 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
     return parameterIds;
   }
 
+  /**
+   * @returns an array of all parameters ids currently displayed on edit specs page. Used to populate request object for product sources
+   */
+  function getAllParameterIds() {
+    return _.keys($window.parent.parameterHeaderMap);
+  }
+
+  /**
+   * Returns an object which is in the required format of extraction service. The object should contain the following fields productId, text, categoryId, parameterIds.
+   * @param obj
+   * @returns
+   */
   function getObjectForPost(obj) {
     var result = {
       productId: obj.productId,
       text: obj.text,
       categoryId: obj.categoryId,
-      parameterIds: getParameterIdsForHeader(obj.headerId)
+      parameterIds: obj.isProductSource ? getAllParameterIds() : getParameterIdsForHeader(obj.headerId)
     };
     return result;
   }
