@@ -56,20 +56,17 @@ describe('Controller: ExtractionContoller', function() {
      */
     $window = {
       parent: {
-        getObjectByAttributeId: function(parameterId) {
+        getObjectByAttributeId: function(attributeId) {
           return {
-            element: {},
-            parameterId: parameterId,
-            parameterName: 'Parameter Name',
-            hasUnit: false,
-            isNumber: false,
-            isCoded: false,
-            isRepeatable: false,
-            extractedValue: '',
-            extractedEcode: undefined
+            attributeId: attributeId,
+            productId: productId,
+            text: 'This is text for extraction',
+            headerName: 'General Information',
+            headerId: '35',
+            categoryId: '4768',
+            categoryName: 'Notebooks'
           };
         },
-
         parameterHeaderMap: {
           21751: GENERAL_INFORMATION,
           2230522: PROCESSOR_CHIPSET,
@@ -228,6 +225,8 @@ describe('Controller: ExtractionContoller', function() {
     expect($scope.model.inferredValues.length).toEqual(0);
     expect($scope.model.productId).toMatch(productId);
     expect($scope.model.attributeId).toMatch(attributeId);
+    expect($scope.model.isProductSource).toBe(false);
+    expect($scope.model.categoryId).toEqual('4768');
 
     deferredExtractedValues.resolve({
       extraction: []
@@ -762,8 +761,111 @@ describe('Controller: ExtractionContoller', function() {
         $scope.clearSearchFilter(infer);
         expect(infer.searchString.length).toBe(0);
         expect(infer.filteredStandardValues.length).toEqual(infer.standardValues.length); // All values should have been restored in list
-
       });
+    });
+  });
+});
+
+/*
+ * The before each statements of this describe block are identical to the previous one, with one change that we are passing productSource=true in the $location object while initializing the controller
+ * Here we will only test the cases where productSource is true.
+ */
+
+describe('Product Source Extraction', function() {
+
+  beforeEach(module('extraction'));
+  beforeEach(module('app.constants'));
+  beforeEach(module('uiRouterNoop'));
+
+  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSOR_CHIPSET, GENERAL_INFORMATION, MEMORY;
+
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, _CONST_) {
+    $rootScope = _$rootScope_;
+    $location = _$location_;
+    $scope = $rootScope.$new();
+    CONST = _CONST_;
+
+    // Header Ids
+    PROCESSOR_CHIPSET = 72;
+    GENERAL_INFORMATION = 35;
+    MEMORY = 52;
+
+    dialogResult = $q.defer();
+    dialog = {
+      confirm: function() {},
+      result: function() {}
+    };
+
+    productId = '10000142';
+    attributeId = '111';
+
+    extractionService = {
+      extractForSourceValue: function() {}
+    };
+
+    // pass state to search controller
+    $location.search({
+      productId: productId,
+      attributeId: attributeId,
+      productSource: 'true'
+    });
+
+    /**
+     * extraction controller depends on a lot of globals defined in edit specs, which are accessed in the iframe using $window.parent
+     * We are mocking those variables and methods here.
+     * Any logic changes in edit specs affecting these variables should be accompanied by same changes in these mocks.
+     */
+    $window = {
+      parent: {
+        getObjectByAttributeId: function(attributeId) {
+          return {
+            attributeId: attributeId,
+            productId: productId,
+            text: 'This is text for extraction',
+            headerName: 'General Information',
+            headerId: '35',
+            categoryId: '4768',
+            categoryName: 'Notebooks'
+          };
+        },
+        parameterHeaderMap: {
+          21751: GENERAL_INFORMATION,
+          2230522: PROCESSOR_CHIPSET,
+          2229779: PROCESSOR_CHIPSET,
+          2239228: PROCESSOR_CHIPSET,
+          22268: PROCESSOR_CHIPSET,
+          2226064: MEMORY
+        }
+      }
+    };
+
+    deferredExtractedValues = $q.defer();
+    spyOn(extractionService, 'extractForSourceValue').andReturn(deferredExtractedValues.promise);
+
+    $controller('ExtractionController', {
+      $scope: $scope,
+      $location: $location,
+      extractionService: extractionService,
+      $window: $window
+    });
+  }));
+
+  /*
+   * These tests are in a separate describe block, which has productSource=true passed in the $location object
+   */
+  it('should set product source extraction flag in scope', function() {
+    expect($scope.model.isProductSource).toBe(true);
+  });
+
+  it('should pass product source extraction flag to extraction request', function() {
+    // The method should be called
+    expect(extractionService.extractForSourceValue).toHaveBeenCalled();
+
+    // Each parameter id should be a part of the parameter ids array passed in the call arguments
+    var allParameterIds = _.keys($window.parent.parameterHeaderMap);
+    _.each(allParameterIds, function(key, index) {
+      expect(_.contains(allParameterIds, extractionService.extractForSourceValue.mostRecentCall.args[0].parameterIds[index])).toBe(true);
     });
   });
 });
