@@ -227,6 +227,9 @@ describe('Controller: ExtractionContoller', function() {
     expect($scope.model.attributeId).toMatch(attributeId);
     expect($scope.model.isProductSource).toBe(false);
     expect($scope.model.categoryId).toEqual('4768');
+    expect($scope.model.skippedParameterIds).toBeDefined();
+    expect($scope.model.skippedParameterIds.length).toEqual(1);
+    expect($scope.model.skippedParameterIds).toContain('21748');
 
     deferredExtractedValues.resolve({
       extraction: []

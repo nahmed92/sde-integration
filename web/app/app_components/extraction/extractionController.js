@@ -2,7 +2,7 @@
 
 var app = angular.module('extraction', ['extraction.service', 'extraction.routes', 'extractedValue.model', 'taxonomy', 'cmsCodedValue.service', 'cmsUnit.service', 'standardization.service', 'ui.bootstrap', 'app.config', 'readMore', 'sdeutils', 'underscore', 'ngSanitize', 'dialogs.main', 'dialogs.default-translations']);
 
-app.controller('ExtractionController', function($scope, extractionService, ExtractedValue, cmsCodedValueService, cmsUnitService, standardizationService, _, $window, $location, $q, $log, dialogs) {
+app.controller('ExtractionController', function($scope, extractionService, ExtractedValue, cmsCodedValueService, cmsUnitService, standardizationService, _, $window, $location, $q, $log, dialogs, APP_CONFIG) {
   $scope.showMessage = false;
   $scope.processed = false;
   $scope.checkingNonStandardPromises = [];
@@ -16,7 +16,8 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
       alreadyExtracted: 0,
       skipped: 0,
       productId: $location.search().productId,
-      attributeId: $location.search().attributeId
+      attributeId: $location.search().attributeId,
+      skippedParameterIds: APP_CONFIG.skippedParameterIds // Defined in properties as an array of strings, used to skip parameters such as Manufacturer and Brand from being displayed in inference results
     };
 
     var obj = $window.parent.getObjectByAttributeId($scope.model.attributeId);
@@ -26,7 +27,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
       _.each(extractedValues.extraction, function(extraction) {
         var paramId = extraction.parameterId;
         var obj = $scope.findElement(paramId);
-        if (obj) {
+        if (obj && _.indexOf($scope.model.skippedParameterIds, paramId.toString()) === -1) {
           var inferred = new ExtractedValue(angular.extend(obj, extraction));
           if (angular.isUndefined(inferred.relatedParameterIds) && inferred.isSameAsExtracted()) {
             $log.info('Skipping extraction as it is same as extracted value', paramId);
