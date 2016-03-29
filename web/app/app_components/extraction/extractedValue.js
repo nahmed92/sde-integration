@@ -36,6 +36,7 @@ app.factory('ExtractedValue', function(BaseModel, _, CONST) {
       } else if (this.extractedDisplayValue && this.displayValue) {
         return this.displayValue.replace(/>\s+</g, '><') === this.extractedDisplayValue.replace(/>\s+</g, '><');
       } else {
+        // This case happens when display value or extracted display value is null, and we want to avoid .replace() method on a null value
         return this.displayValue === this.extractedDisplayValue;
       }
     },

@@ -245,12 +245,23 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
 
   // This method is called once per header
   $scope.filterAlreadyExtractedSets = function(list) {
-    // Moving all non related parameters directly to result array
+
+    var skipped = [];
+    // Moving all non related parameters to result array if they are not same as already extracted
     var result = _.filter(list, function(inference) {
-      return angular.isUndefined(inference.setNo);
+      if (angular.isUndefined(inference.setNo)) {
+        if (inference.isSameAsExtracted()) {
+          $scope.model.alreadyExtracted++;
+          $log.info('Skipping standardized extraction as it is same as extracted value', inference.parameterId);
+          skipped.push(inference);
+          return false;
+        }
+        return true;
+      }
+      return false;
     });
 
-    var filtered = _.map(_.groupBy(_.difference(list, result), 'attributeId'), function(attList, attributeId) {
+    var filtered = _.map(_.groupBy(_.difference(_.difference(list, skipped), result), 'attributeId'), function(attList, attributeId) {
       var sets = _.groupBy(attList, 'setNo');
       var extractedDisplayValues = $scope.getExtractedDisplayValues(_.first(_.values(sets)));
       var filteredSets = _.reduce(sets, function(result, set) {
