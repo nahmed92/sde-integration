@@ -6,7 +6,7 @@ describe('Controller: ExtractionContoller', function() {
   beforeEach(module('app.constants'));
   beforeEach(module('uiRouterNoop'));
 
-  var $scope, $compile, $rootScope, $location, $window, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSOR_CHIPSET, GENERAL_INFORMATION, MEMORY;
+  var $scope, $compile, $rootScope, $location, $window, $log, extractionService, cmsCodedValueService, cmsUnitService, standardizationService, deferredExtractedValues, deferredCodedValue, deferredSearchString, deferredAddVariation, infer, angularGrowl, productId, attributeId, mockElementObjects, CONST, dialog, dialogResult, PROCESSOR_CHIPSET, GENERAL_INFORMATION, MEMORY;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$rootScope_, $controller, _$location_, $q, APP_CONFIG, growl, _CONST_) {
@@ -15,6 +15,9 @@ describe('Controller: ExtractionContoller', function() {
     $scope = $rootScope.$new();
     angularGrowl = growl;
     CONST = _CONST_;
+    $log = {
+      info: function(msg) {}
+    }
 
     // Header Ids
     PROCESSOR_CHIPSET = 72;
@@ -99,8 +102,9 @@ describe('Controller: ExtractionContoller', function() {
     };
 
     deferredExtractedValues = $q.defer();
+    deferredCodedValue = $q.defer();
     spyOn(extractionService, 'extractForSourceValue').andReturn(deferredExtractedValues.promise);
-    spyOn(cmsCodedValueService, 'findOneByCategoryIdParameterIdAndValue').andReturn($q.defer().promise);
+    spyOn(cmsCodedValueService, 'findOneByCategoryIdParameterIdAndValue').andReturn(deferredCodedValue.promise);
     spyOn(cmsUnitService, 'findOneByCategoryIdParameterIdAndValue').andReturn($q.defer().promise);
 
     deferredAddVariation = $q.defer();
@@ -108,6 +112,7 @@ describe('Controller: ExtractionContoller', function() {
 
     spyOn(angularGrowl, 'success').andCallThrough();
     spyOn(angularGrowl, 'error').andCallThrough();
+    spyOn($log, 'info').andCallThrough();
     spyOn($window.parent.unsavedParam, 'addInferredParameter');
     spyOn($window.parent.unsavedParam, 'addRepeatableInferredParameter');
     spyOn($window.parent.unsavedParam, 'replaceRepeatableInferredParameter');
@@ -119,6 +124,7 @@ describe('Controller: ExtractionContoller', function() {
     $controller('ExtractionController', {
       $scope: $scope,
       $location: $location,
+      $log: $log,
       extractionService: extractionService,
       $window: $window,
       dialogs: dialog,
@@ -148,8 +154,8 @@ describe('Controller: ExtractionContoller', function() {
       isNumber: false,
       isCoded: true,
       isRepeatable: false,
-      extractedValue: '',
-      extractedDisplayValue: '',
+      extractedValue: 'i5-123U',
+      extractedDisplayValue: 'i5-123U',
       extractedEcode: undefined
     };
     mockElementObjects[2239228] = {
@@ -378,6 +384,55 @@ describe('Controller: ExtractionContoller', function() {
     expect(obj.isNonStandard).toBe(false);
     expect(obj.showStandardization).toBe(false);
     expect(obj.updateValue).toHaveBeenCalledWith(obj.standardValue);
+  });
+
+  it('should filter already extracted values after standardization', function() {
+    var inferredValues = {
+      // 2230522 will be skipped, but not initially because it is already extracted
+      extraction: [{
+        parameterId: 2230522,
+        value: 'i5-123u',
+        standardized: false
+      }, {
+        parameterId: 2229779,
+        value: '2.8',
+        unit: 'GHz'
+      }]
+    };
+    deferredExtractedValues.resolve(inferredValues);
+    $scope.$digest();
+    var codedValue = {
+      '_embedded': {
+        'cmsCodedValues': [{
+          'value': 'i5-123U',
+          'active': true,
+          '_links': {
+            'self': {
+              'href': 'http://localhost/cmsCodedValues/123'
+            }
+          }
+        }]
+      }
+    }
+    deferredCodedValue.resolve(codedValue);
+    $scope.$digest();
+
+    var list = $scope.model.inferredValues[PROCESSOR_CHIPSET]; // Getting all for Processor & Chipset
+    var obj = _.findWhere(list, {
+      parameterId: 2230522
+    });
+    obj.updateValue('i5-123U');
+    obj.isNonStandard = false;
+
+    expect($scope.model.alreadyExtracted).toBe(0);
+    var result = $scope.filterAlreadyExtractedSets(list);
+    expect(result.length).toBe(list.length - 1);
+    // Test that alreadyExtracted counter has been incremented
+    expect($scope.model.alreadyExtracted).toBe(1);
+    // Test that log message was displayed
+    expect($log.info).toHaveBeenCalled();
+    // Test that log message contained the parameterId
+    expect($log.info.mostRecentCall.args).toContain(2230522);
   });
 
   describe('Accept and Reject', function() {
