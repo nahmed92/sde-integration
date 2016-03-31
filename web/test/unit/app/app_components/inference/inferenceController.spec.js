@@ -432,7 +432,7 @@ describe('Controller: InferenceContoller', function() {
     // This object will return that one inferred object. Accessing that 1 element. Have to flatten array because inferredValue object has inferences are grouped by headers
     var inference = _.flatten(_.values($scope.model.inferredValues))[0];
     expect(inference.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
-    expect(inference.noValue).toBe(true);
+    expect(inference.noValue).toBe(undefined);
 
   });
 

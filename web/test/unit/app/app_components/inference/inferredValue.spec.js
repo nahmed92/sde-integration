@@ -3,16 +3,20 @@
 describe('InferenceValue', function() {
 
   beforeEach(module('inferredValue.model'));
+  beforeEach(module('app.constants'));
   var InferredValue;
+  var CONST;
 
   var parameterInfo;
   var numericParameterInfo;
   var unitParameterInfo;
+  var noValueParameterInfo;
 
   var deferredECode;
 
-  beforeEach(inject(function(_InferredValue_, $q) {
+  beforeEach(inject(function(_InferredValue_, $q, _CONST_) {
     InferredValue = _InferredValue_;
+    CONST = _CONST_;
 
     parameterInfo = {
       parameterId: 2226297,
@@ -44,9 +48,20 @@ describe('InferenceValue', function() {
       extractedEcode: undefined
     };
 
-  }));
+    noValueParameterInfo = {
+      parameterId: 2239228,
+      parameterName: 'Maximum Turbo Speed',
+      hasUnit: true,
+      isNumber: true,
+      isCoded: false,
+      isRepeatable: false,
+      unitValue: 'GHz',
+      extractedValue: '',
+      extractedDisplayValue: '[no value] GHz<hr>[no value] GHz<hr>[no value] GHz',
+      extractedEcode: undefined
+    };
 
-  afterEach(function() {});
+  }));
 
   it('should create an InferredValue object', function() {
 
@@ -62,10 +77,6 @@ describe('InferenceValue', function() {
     expect(inferredValue.displayValue).toBe('SP3');
     expect(inferredValue.targetUnit).toBeUndefined();
     expect(inferredValue.targetEcode).toBeUndefined();
-
-
-    //    var inferredValues = ["2226297|D520", "2230593|40 GB", "21995|1 GB", "22248|Latitude D520 Notebook", "21748|Dell, Inc", "21750|BBY-680569076540-REFURBISHED", "225596|Dell"];
-
   });
 
   it('should create correct object of InferredValue containing units', function() {
@@ -83,6 +94,21 @@ describe('InferenceValue', function() {
     expect(inferredValue.targetValue).toBe('40');
     expect(inferredValue.targetUnit).toBe('GB');
     expect(inferredValue.targetEcode).toBeUndefined();
-
   });
+
+  it('should replace all occurrences of [no value] string while creating InferredValue object', function() {
+
+    var data = {
+      inferredValue: '2239228|3.8 GHz'
+    }
+    angular.extend(data, noValueParameterInfo);
+    var inferredValue = new InferredValue(data);
+
+    expect(inferredValue.displayValue).toEqual('3.8 GHz');
+    expect(inferredValue.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
+    expect(inferredValue.extractedDisplayValue).toContain(CONST.NO_VALUE_REPLACEMENT_MARKUP);
+    expect(inferredValue.extractedDisplayValue).toEqual(CONST.NO_VALUE_REPLACEMENT_MARKUP + ' GHz<hr>' + CONST.NO_VALUE_REPLACEMENT_MARKUP + ' GHz<hr>' + CONST.NO_VALUE_REPLACEMENT_MARKUP + ' GHz');
+    expect(inferredValue.noValue).toBe(undefined);
+  });
+
 });
