@@ -540,7 +540,7 @@ module.exports = function(grunt) {
             language: 'js',
             sourceEncoding: 'UTF-8',
             analysis: {
-              mode: grunt.option('sonar.analysis.mode') || 'incremental'
+              mode: grunt.option('sonar.analysis.mode') || 'preview'
             },
             issuesReport: {
               html: {

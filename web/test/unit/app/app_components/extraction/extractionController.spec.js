@@ -312,8 +312,29 @@ describe('Controller: ExtractionContoller', function() {
     // This object will return that one inferred object. Accessing that 1 element. Have to flatten array because inferredValue object has inferences are grouped by headers
     var inference = _.flatten(_.values($scope.model.inferredValues))[0];
     expect(inference.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
-    expect(inference.noValue).toBe(true);
+    expect(inference.extractedDisplayValue).toContain(CONST.NO_VALUE_REPLACEMENT_MARKUP);
+  });
 
+  it('should replace multiple [no value] strings in extractedDisplayValue)', function() {
+
+    var inferredValues = {
+      //  2239228 covers the [no value] case
+      extraction: [{
+        parameterId: 2239228,
+        value: '3.2 GHz'
+      }]
+    };
+    mockElementObjects[2239228].extractedDisplayValue = CONST.NO_VALUE + "GHz<hr>" + CONST.NO_VALUE;
+    deferredExtractedValues.resolve(inferredValues);
+    $scope.$digest();
+
+    expect($scope.model.inferredCount).toEqual(1);
+
+    // This object will return that one inferred object. Accessing that 1 element. Have to flatten array because inferredValue object has inferences are grouped by headers
+    var inference = _.flatten(_.values($scope.model.inferredValues))[0];
+    expect(inference.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
+    expect(inference.extractedDisplayValue).toContain(CONST.NO_VALUE_REPLACEMENT_MARKUP);
+    expect(inference.extractedDisplayValue).toEqual(CONST.NO_VALUE_REPLACEMENT_MARKUP + 'GHz<hr>' + CONST.NO_VALUE_REPLACEMENT_MARKUP);
   });
 
   it('should add standardization for coded value', function() {

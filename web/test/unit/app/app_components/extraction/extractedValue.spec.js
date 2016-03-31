@@ -3,7 +3,9 @@
 describe('ExtractedValue', function() {
 
   beforeEach(module('extractedValue.model'));
+  beforeEach(module('app.constants'));
   var ExtractedValue;
+  var CONST;
 
   var parameterInfo;
   var numericParameterInfo;
@@ -11,8 +13,9 @@ describe('ExtractedValue', function() {
 
   var deferredECode;
 
-  beforeEach(inject(function(_ExtractedValue_, $q) {
+  beforeEach(inject(function(_ExtractedValue_, $q, _CONST_) {
     ExtractedValue = _ExtractedValue_;
+    CONST = _CONST_;
 
     parameterInfo = {
       element: {},
@@ -37,7 +40,7 @@ describe('ExtractedValue', function() {
       isRepeatable: false,
       unitValue: 'GHz',
       extractedValue: '',
-      extractedDisplayValue: '[no value] GHz',
+      extractedDisplayValue: '[no value] GHz<hr>[no value] GHz',
       extractedEcode: undefined
     };
 
@@ -152,9 +155,11 @@ describe('ExtractedValue', function() {
     angular.extend(data, unitParameterInfo);
     var extractedValue = new ExtractedValue(data);
 
-    expect(extractedValue.displayValue).toMatch('3.8 GHz');
-    expect(extractedValue.extractedDisplayValue).toMatch('GHz');
-    expect(extractedValue.noValue).toBe(true);
+    expect(extractedValue.displayValue).toEqual('3.8 GHz');
+    expect(extractedValue.extractedDisplayValue).toNotContain(CONST.NO_VALUE);
+    expect(extractedValue.extractedDisplayValue).toContain(CONST.NO_VALUE_REPLACEMENT_MARKUP);
+    expect(extractedValue.extractedDisplayValue).toEqual(CONST.NO_VALUE_REPLACEMENT_MARKUP + ' GHz<hr>' + CONST.NO_VALUE_REPLACEMENT_MARKUP + ' GHz');
+    expect(extractedValue.noValue).toBe(undefined);
 
   });
 

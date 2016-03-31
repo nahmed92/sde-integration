@@ -15,8 +15,7 @@ app.factory('InferredValue', function(BaseModel, inferenceService, _, CONST) {
       this.displayValue = this.inferredValue;
       // Replace [no value] tag in extracted value if it exists
       if (_.contains(this.extractedDisplayValue, CONST.NO_VALUE)) {
-        this.extractedDisplayValue = this.extractedDisplayValue.replace(CONST.NO_VALUE, '');
-        this.noValue = true;
+        this.extractedDisplayValue = this.extractedDisplayValue.split(CONST.NO_VALUE).join(CONST.NO_VALUE_REPLACEMENT_MARKUP);
       }
 
       var exceptionCode;
