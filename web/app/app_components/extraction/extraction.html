@@ -93,9 +93,9 @@
           </span>
         </td>
         <td class="col-sm-1 nowrap button-column">
-          <a href="" ng-if="infer.relatedParameterIds && infer.standardValue" ng-click="addStandardization(infer, false, false)" title="Add Standardization" class="btn-xs"><i class="fa fa-fw fa-check text-success"></i></a>
-          <a href="" ng-if="!infer.relatedParameterIds && infer.standardValue && infer.isRepeatable" ng-click="addStandardization(infer, true, true)" class="btn-xs"><i class="fa fa-fw fa-retweet text-success"></i></a>
-          <a href="" ng-if="!infer.relatedParameterIds && infer.standardValue" ng-click="addStandardization(infer, false, true)" class="btn-xs"><i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i></a>
+          <a href="" ng-if="infer.relatedParameterIds && infer.standardValue!=undefined" ng-click="addStandardization(infer, false, false)" title="Add Standardization" class="btn-xs"><i class="fa fa-fw fa-check text-success"></i></a>
+          <a href="" ng-if="!infer.relatedParameterIds && infer.standardValue!=undefined && infer.isRepeatable" ng-click="addStandardization(infer, true, true)" class="btn-xs"><i class="fa fa-fw fa-retweet text-success"></i></a>
+          <a href="" ng-if="!infer.relatedParameterIds && infer.standardValue!=undefined" ng-click="addStandardization(infer, false, true)" class="btn-xs"><i ng-class="{'fa-check': !infer.isRepeatable, 'fa-plus': infer.isRepeatable}" class="fa fa-fw text-success"></i></a>
           <a href="" ng-click="infer.showStandardization=false" class="btn-xs"><i class="fa fa-fw fa-close text-danger"></i></a>
         </td>
       </tr>
