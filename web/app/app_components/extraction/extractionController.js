@@ -29,7 +29,7 @@ app.controller('ExtractionController', function($scope, extractionService, Extra
         var obj = $scope.findElement(paramId);
         if (obj && _.indexOf($scope.model.skippedParameterIds, paramId.toString()) === -1) {
           var inferred = new ExtractedValue(angular.extend(obj, extraction));
-          if (angular.isUndefined(inferred.relatedParameterIds) && inferred.isSameAsExtracted()) {
+          if (inferred.isSameAsExtracted() && (angular.isUndefined(inferred.relatedParameterIds) || inferred.isRepeatable === false)) {
             $log.info('Skipping extraction as it is same as extracted value', paramId);
             $scope.model.alreadyExtracted++;
           } else {
