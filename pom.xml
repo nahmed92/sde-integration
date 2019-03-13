@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,7 +11,7 @@
 
     <groupId>com.etilize.automation.sde-integration</groupId>
     <artifactId>sde-integration</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>SDE Integration</name>
@@ -26,7 +25,7 @@
         <url>http://git.etilizepak.com/automation/sde</url>
         <connection>scm:git:http://git.etilizepak.com/automation/sde-integration.git</connection>
         <developerConnection>scm:git:http://git.etilizepak.com/automation/sde-integration.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>0.0.1.RELEASE</tag>
     </scm>
 
 </project>
