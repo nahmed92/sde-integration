@@ -10,7 +10,7 @@
 
     <groupId>com.etilize.automation.sde-integration</groupId>
     <artifactId>core</artifactId>
-    <version>0.0.1.RELEASE</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>sde-integration-core</name>
     <description>SDE Integration REST APIs</description>
@@ -75,9 +75,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
-  <scm>
-    <tag>0.0.1.RELEASE</tag>
-  </scm>
 </project>
