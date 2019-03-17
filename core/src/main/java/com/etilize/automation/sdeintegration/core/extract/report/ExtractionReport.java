@@ -45,9 +45,9 @@ import com.etilize.automation.sdeintegration.core.extract.Parameter;
 @Projection(name = "report", types = Extraction.class)
 public interface ExtractionReport {
 
-    Integer getProductId();
+    String getProductId();
 
-    Integer getCategoryId();
+    String getCategoryId();
 
     String getText();
 

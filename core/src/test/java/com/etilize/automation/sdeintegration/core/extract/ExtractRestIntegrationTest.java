@@ -67,16 +67,16 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
         // 1 x Input Tray 100 Sheet
         // 1 x Photo Tray 20 Sheet
         final List<StandardizedParameter> values = Lists.newArrayList(
-                new StandardizedParameter(2230387, "Core i3", null, false),
-                new StandardizedParameter(2230387, "Core i3", null, true),
-                new StandardizedParameter(2229779, "2.6", "GHz", true));
+                new StandardizedParameter("2230387", "Core i3", null, false),
+                new StandardizedParameter("2230387", "Core i3", null, true),
+                new StandardizedParameter("2229779", "2.6", "GHz", true));
         future.set(values);
         Mockito.when(service.extract(Mockito.any(ExtractionRequest.class))).thenReturn(
                 future);
 
         final ObjectMapper mapper = new ObjectMapper();
-        final ExtractionRequest request = new ExtractionRequest(1, "Core i3 2.6GHz",
-                4876, Arrays.asList(123));
+        final ExtractionRequest request = new ExtractionRequest("1", "Core i3 2.6GHz",
+                "4876", Arrays.asList("123"));
 
         final String content = mapper.writeValueAsString(request);
         final MvcResult mvcResult = mockMvc.perform(post("/extract") //
@@ -89,7 +89,8 @@ public class ExtractRestIntegrationTest extends AbstractMongoIntegrationTest {
         this.mockMvc.perform(asyncDispatch(mvcResult)) //
         .andExpect(status().isOk()) //
         .andExpect(jsonPath("$[*]", hasSize(3))) //
-        .andExpect(jsonPath("$[*].parameterId", contains(2230387, 2230387, 2229779))) //
+        .andExpect(
+                jsonPath("$[*].parameterId", contains("2230387", "2230387", "2229779"))) //
         .andExpect(jsonPath("$[*].value", contains("Core i3", "Core i3", "2.6"))) //
         .andExpect(jsonPath("$[*].unit", contains("GHz"))) //
         .andExpect(jsonPath("$[0].standardized", is(false))) //

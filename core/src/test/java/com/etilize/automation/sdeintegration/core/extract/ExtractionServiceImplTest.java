@@ -81,28 +81,29 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     @Test
     public void shouldExtract() throws Exception {
         // given
-        final List<Integer> parameterIds = Lists.newArrayList(123, 456);
-        final Integer categoryId = 4876;
+        final List<String> parameterIds = Lists.newArrayList("123", "456");
+        final String categoryId = "4876";
         final String text = "Core i3 2.6GHZ";
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture1 = new SettableListenableFuture<>();
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture2 = new SettableListenableFuture<>();
         extractionFuture1.set(new ResponseEntity<List<ExtractionParameter>>(
-                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387)),
+                Lists.newArrayList(new ExtractionParameter("Core i3", null, "2230387")),
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, categoryId, 123))).thenReturn(extractionFuture1);
+                        text, categoryId, "123"))).thenReturn(extractionFuture1);
         extractionFuture2.set(new ResponseEntity<List<ExtractionParameter>>(
-                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", 2229779)),
+                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", "2229779")),
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, categoryId, 456))).thenReturn(extractionFuture2);
+                        text, categoryId, "456"))).thenReturn(extractionFuture2);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std1Future = new SettableListenableFuture<>();
         std1Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 HttpStatus.NOT_FOUND));
-        when(standardizationClient.standardize(2230387, "Core i3")).thenReturn(std1Future);
+        when(standardizationClient.standardize("2230387", "Core i3")).thenReturn(
+                std1Future);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std2Future = new SettableListenableFuture<>();
         final ParameterStandardization standardization = new ParameterStandardization();
@@ -112,10 +113,10 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         standardization.setStandardizations(map);
         std2Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 new Resource<ParameterStandardization>(standardization), HttpStatus.OK));
-        when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(std2Future);
+        when(standardizationClient.standardize("2229779", "GHZ")).thenReturn(std2Future);
 
         // when
-        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+        final ExtractionRequest request = new ExtractionRequest("1", text, categoryId,
                 parameterIds);
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 
@@ -131,28 +132,28 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     @Test
     public void shouldRemoveValuesWhosStandardizationIsSentinelValue() throws Exception {
         // given
-        final List<Integer> parameterIds = Lists.newArrayList(123, 456);
-        final Integer categoryId = 4876;
+        final List<String> parameterIds = Lists.newArrayList("123", "456");
+        final String categoryId = "4876";
         final String text = "Core i3 2.6GHZ";
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture1 = new SettableListenableFuture<>();
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture2 = new SettableListenableFuture<>();
         extractionFuture1.set(new ResponseEntity<List<ExtractionParameter>>(
-                Lists.newArrayList(new ExtractionParameter("Core i3", null, 2230387)),
+                Lists.newArrayList(new ExtractionParameter("Core i3", null, "2230387")),
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, categoryId, 123))).thenReturn(extractionFuture1);
+                        text, categoryId, "123"))).thenReturn(extractionFuture1);
         extractionFuture2.set(new ResponseEntity<List<ExtractionParameter>>(
-                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", 2229779)),
+                Lists.newArrayList(new ExtractionParameter("2.6", "GHZ", "2229779")),
                 HttpStatus.OK));
         when(
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
-                        text, categoryId, 456))).thenReturn(extractionFuture2);
+                        text, categoryId, "456"))).thenReturn(extractionFuture2);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> stdNotFound = new SettableListenableFuture<>();
         stdNotFound.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 HttpStatus.NOT_FOUND));
-        when(standardizationClient.standardize(2230387, "Core i3")).thenReturn(
+        when(standardizationClient.standardize("2230387", "Core i3")).thenReturn(
                 stdNotFound);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> sentinel = new SettableListenableFuture<>();
@@ -163,10 +164,10 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         standardization.setStandardizations(map);
         sentinel.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 new Resource<ParameterStandardization>(standardization), HttpStatus.OK));
-        when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(sentinel);
+        when(standardizationClient.standardize("2229779", "GHZ")).thenReturn(sentinel);
 
         // when
-        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+        final ExtractionRequest request = new ExtractionRequest("1", text, categoryId,
                 parameterIds);
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 
@@ -182,8 +183,8 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     public void shouldReturnEmptyResultWhenExtractionServiceReturnsError()
             throws Exception {
         // given
-        final int parameterId = 123;
-        final Integer categoryId = 4876;
+        final String parameterId = "123";
+        final String categoryId = "4876";
         final String text = "Core i3 2.6GHZ";
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture = new SettableListenableFuture<>();
         extractionFuture.set(new ResponseEntity<List<ExtractionParameter>>(
@@ -192,7 +193,7 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
                 extractionClient.extract(new com.etilize.automation.ruta.client.ExtractionRequest(
                         text, categoryId, parameterId))).thenReturn(extractionFuture);
 
-        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+        final ExtractionRequest request = new ExtractionRequest("1", text, categoryId,
                 Arrays.asList(parameterId));
 
         // when
@@ -208,13 +209,13 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
     public void shouldnotReturnErrorWhenStandardizationServiceReturnsError()
             throws Exception {
         // given
-        final int parameterId = 123;
-        final Integer categoryId = 4876;
+        final String parameterId = "123";
+        final String categoryId = "4876";
         final String text = "Core i3 2.6GHZ";
         final SettableListenableFuture<ResponseEntity<List<ExtractionParameter>>> extractionFuture = new SettableListenableFuture<>();
         final List<ExtractionParameter> body = Lists.newArrayList(
-                new ExtractionParameter("Core i3", null, 2230387),
-                new ExtractionParameter("2.6", "GHZ", 2229779));
+                new ExtractionParameter("Core i3", null, "2230387"),
+                new ExtractionParameter("2.6", "GHZ", "2229779"));
         extractionFuture.set(new ResponseEntity<List<ExtractionParameter>>(body,
                 HttpStatus.OK));
         when(
@@ -224,14 +225,15 @@ public class ExtractionServiceImplTest extends AbstractMongoIntegrationTest {
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std1Future = new SettableListenableFuture<>();
         std1Future.set(new ResponseEntity<Resource<ParameterStandardization>>(
                 HttpStatus.INTERNAL_SERVER_ERROR));
-        when(standardizationClient.standardize(2230387, "Core i3")).thenReturn(std1Future);
+        when(standardizationClient.standardize("2230387", "Core i3")).thenReturn(
+                std1Future);
 
         final SettableListenableFuture<ResponseEntity<Resource<ParameterStandardization>>> std2Future = new SettableListenableFuture<>();
         std2Future.setException(new ConnectException());
-        when(standardizationClient.standardize(2229779, "GHZ")).thenReturn(std2Future);
+        when(standardizationClient.standardize("2229779", "GHZ")).thenReturn(std2Future);
 
         // when
-        final ExtractionRequest request = new ExtractionRequest(1, text, categoryId,
+        final ExtractionRequest request = new ExtractionRequest("1", text, categoryId,
                 Arrays.asList(parameterId));
         final ListenableFuture<List<StandardizedParameter>> result = service.extract(request);
 

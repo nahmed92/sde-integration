@@ -6,8 +6,8 @@
                 "$exists": true
             },
             "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
-            "productId": 1,
-            "categoryId": 4876,
+            "productId": "1",
+            "categoryId": "4876",
             "text": "Core i3 2.6GHZ",
             "createdAt": {
                 "$exists": true
@@ -15,7 +15,7 @@
             "parameters":
             [
                 {
-                    "paramId": 2230387,
+                    "paramId": "2230387",
                     "value": "Core i3",
                     "standardization": {
                         "status": "ERROR"
@@ -25,7 +25,7 @@
                     }
                 },
                 {
-                    "paramId": 2229779,
+                    "paramId": "2229779",
                     "value": "2.6",
                     "unit": "GHZ",
                     "standardization": {

@@ -47,7 +47,7 @@ public class ExtractionPojoTest {
 
     @Test
     public void hasToString() {
-        final Extraction extraction = new Extraction(1, 4827, "Core i3 2.6GHz");
+        final Extraction extraction = new Extraction("1", "4827", "Core i3 2.6GHz");
         assertThat(ObjectUtils.identityToString(extraction), not(extraction.toString()));
     }
 }

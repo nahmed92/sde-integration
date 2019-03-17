@@ -32,10 +32,6 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <jmxConfigurator/>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
-
     <logger name="org.springframework.web" level="INFO" />
 
 </configuration>

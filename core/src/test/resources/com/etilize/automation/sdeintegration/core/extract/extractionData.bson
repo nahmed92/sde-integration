@@ -6,8 +6,8 @@
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
             "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
-            "productId": 1,
-            "categoryId": 4876,
+            "productId": "1",
+            "categoryId": "4876",
             "text": "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2",
             "createdAt": {
                 "$date": "2000-03-18T08:04:53.326Z"
@@ -15,7 +15,7 @@
             "parameters":
             [
                 {
-                    "paramId": 2230091,
+                    "paramId": "2230091",
                     "value": "ROHS",
                     "standardization": {
                         "standardization": "ROHS",
@@ -26,7 +26,7 @@
                     }
                 },
                 {
-                    "paramId": 2230090,
+                    "paramId": "2230090",
                     "value": "Green Compliance",
                     "standardization": {
                         "standardization": "Yes",
@@ -37,7 +37,7 @@
                     }
                 },
                 {
-                    "paramId": 2230091,
+                    "paramId": "2230091",
                     "value": "Energy Star",
                     "standardization": {
                         "standardization": "ENERGY STAR",
@@ -48,7 +48,7 @@
                     }
                 },
                 {
-                    "paramId": 2230091,
+                    "paramId": "2230091",
                     "value": "EPEAT Gold",
                     "standardization": {
                         "standardization": "EPEAT Gold",
@@ -65,8 +65,8 @@
                 "$oid": "55095aab3aca9ace762ad5f9"
             },
             "_class": "com.etilize.automation.sdeintegration.core.extract.Extraction",
-            "productId": 1,
-            "categoryId": 4876,
+            "productId": "1",
+            "categoryId": "4876",
             "text": "Product Line: Intel Core i3 i3-4300M (2.6GHz)",
             "createdAt": {
                 "$date": "2025-03-18T10:59:54.974Z"
@@ -74,7 +74,7 @@
             "parameters":
             [
                 {
-                    "paramId": 2230387,
+                    "paramId": "2230387",
                     "value": "Core i3",
                     "standardization": {
                         "status": "NOT_FOUND"
@@ -84,7 +84,7 @@
                     }
                 },
                 {
-                    "paramId": 2230522,
+                    "paramId": "2230522",
                     "value": "i3-4300M",
                     "standardization": {
                         "standardization": "i5-4300M",
@@ -95,7 +95,7 @@
                     }
                 },
                 {
-                    "paramId": 2229779,
+                    "paramId": "2229779",
                     "value": "2.6",
                     "unit": "GHZ",
                     "standardization": {
@@ -108,7 +108,7 @@
                     }
                 },
                 {
-                    "paramId": 2230349,
+                    "paramId": "2230349",
                     "value": "Intel",
                     "standardization": {
                         "status": "ERROR"
