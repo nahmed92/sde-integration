@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 public class Parameter {
 
-    private final Integer paramId;
+    private final String paramId;
 
     private final String value;
 
@@ -59,8 +59,15 @@ public class Parameter {
     @JsonInclude(Include.NON_EMPTY)
     private StandardizedParameter export;
 
+    /**
+     * Constructor
+     *
+     * @param value extracted value
+     * @param unit extracted unit
+     * @param paramId parameter id
+     */
     @PersistenceConstructor
-    public Parameter(final String value, final String unit, final Integer paramId) {
+    public Parameter(final String value, final String unit, final String paramId) {
         this.value = value;
         this.unit = unit;
         this.paramId = paramId;
@@ -86,7 +93,7 @@ public class Parameter {
         return unit;
     }
 
-    public Integer getParamId() {
+    public String getParamId() {
         return paramId;
     }
 

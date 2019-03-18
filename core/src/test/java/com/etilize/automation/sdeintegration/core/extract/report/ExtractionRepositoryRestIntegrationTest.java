@@ -54,7 +54,7 @@ public class ExtractionRepositoryRestIntegrationTest extends AbstractMongoIntegr
         .andExpect(jsonPath("$._embedded.extractions[0].parameters[*]", hasSize(4))) //
         .andExpect(
                 jsonPath("$._embedded.extractions[*].parameters[*].paramId",
-                        containsInAnyOrder(2230387, 2230522, 2229779, 2230349))) //
+                        containsInAnyOrder("2230387", "2230522", "2229779", "2230349"))) //
         .andExpect(
                 jsonPath("$._embedded.extractions[*].parameters[*].value",
                         containsInAnyOrder("Core i3", "i5-4300M", "2.6", "Intel"))) //

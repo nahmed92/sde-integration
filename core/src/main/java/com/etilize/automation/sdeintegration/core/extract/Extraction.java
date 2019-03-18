@@ -54,9 +54,9 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
 
     private static final long serialVersionUID = -5697261697275007175L;
 
-    private final Integer productId;
+    private final String productId;
 
-    private final Integer categoryId;
+    private final String categoryId;
 
     private final String text;
 
@@ -64,20 +64,27 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
 
     private List<Parameter> parameters = new ArrayList<>();
 
+    /**
+     * Constructor
+     *
+     * @param productId product id
+     * @param categoryId category id
+     * @param text text to do extraction from
+     */
     @JsonCreator
-    public Extraction(@JsonProperty("productId") final Integer productId,
-            @JsonProperty("categoryId") final Integer categoryId,
+    public Extraction(@JsonProperty("productId") final String productId,
+            @JsonProperty("categoryId") final String categoryId,
             @JsonProperty("text") final String text) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.text = text;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 

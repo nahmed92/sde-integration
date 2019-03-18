@@ -44,13 +44,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ExtractionRequest {
 
-    private final Integer productId;
+    private final String productId;
 
     private final String text;
 
-    private final Integer categoryId;
+    private final String categoryId;
 
-    private final List<Integer> parameterIds;
+    private final List<String> parameterIds;
 
     /**
      * Constructor for {@link ExtractionRequest}
@@ -61,17 +61,17 @@ public class ExtractionRequest {
      * @param parameterIds must not be {@literal null}
      */
     @JsonCreator
-    public ExtractionRequest(@JsonProperty("productId") final Integer productId,
+    public ExtractionRequest(@JsonProperty("productId") final String productId,
             @JsonProperty("text") final String text,
-            @JsonProperty("categoryId") final Integer categoryId,
-            @JsonProperty("parameterIds") final List<Integer> parameterIds) {
+            @JsonProperty("categoryId") final String categoryId,
+            @JsonProperty("parameterIds") final List<String> parameterIds) {
         this.productId = productId;
         this.text = text;
         this.categoryId = categoryId;
         this.parameterIds = parameterIds;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
@@ -79,11 +79,11 @@ public class ExtractionRequest {
         return text;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public List<Integer> getParameterIds() {
+    public List<String> getParameterIds() {
         return parameterIds;
     }
 

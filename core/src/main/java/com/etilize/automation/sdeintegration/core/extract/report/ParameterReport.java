@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Projection(name = "report", types = Parameter.class)
 public interface ParameterReport {
 
-    Integer getParamId();
+    String getParamId();
 
     @Value("#{target.export.value}")
     String getValue();

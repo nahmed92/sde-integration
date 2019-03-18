@@ -72,6 +72,13 @@ public class ExtractionServiceImpl implements ExtractionService {
 
     private final StandardizationServiceClient standardizationClient;
 
+    /**
+     * Constructor
+     *
+     * @param repo {@link ExtractionRepository} instance
+     * @param extractionClient {@link ExtractionServiceClient} instance
+     * @param standardizationClient {@link StandardizationServiceClient} instance
+     */
     @Autowired
     public ExtractionServiceImpl(final ExtractionRepository repo,
             final ExtractionServiceClient extractionClient,
@@ -91,7 +98,7 @@ public class ExtractionServiceImpl implements ExtractionService {
                 request.getCategoryId(), request.getText());
         extraction.setCreatedAt(DateTime.now());
         final List<ListenableFuture<List<StandardizedParameter>>> futures = Lists.newArrayList();
-        for (final Integer parameterId : request.getParameterIds()) {
+        for (final String parameterId : request.getParameterIds()) {
             final ListenableFuture<ResponseEntity<List<ExtractionParameter>>> future = toGuavaListenableFuture(extractionClient.extract(buildExtractionRequest(
                     request.getText(), request.getCategoryId(), parameterId)));
             futures.add(Futures.transform(future, new ExtractionResponseHandler(request,
@@ -134,7 +141,7 @@ public class ExtractionServiceImpl implements ExtractionService {
     }
 
     private com.etilize.automation.ruta.client.ExtractionRequest buildExtractionRequest(
-            final String text, final Integer categoryId, final Integer parameterId) {
+            final String text, final String categoryId, final String parameterId) {
         return new com.etilize.automation.ruta.client.ExtractionRequest(text, categoryId,
                 parameterId);
     }
@@ -231,12 +238,12 @@ public class ExtractionServiceImpl implements ExtractionService {
 
         private final String variation;
 
-        private final int productId;
+        private final String productId;
 
         private final ExtractionParameter parameter;
 
         private StandardizationResponseHandler(final Extraction extraction,
-                final String variation, final int productId,
+                final String variation, final String productId,
                 final ExtractionParameter parameter) {
             this.extraction = extraction;
             this.variation = variation;
