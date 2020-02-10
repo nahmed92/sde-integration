@@ -90,4 +90,44 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
                 delete("/extractions/{id}", new ObjectId("55095aab3aca9ace762ad5f9"))) //
         .andExpect(status().isMethodNotAllowed());
     }
+
+    @Test
+    public void shouldFindAllByProductId() throws Exception {
+        mockMvc.perform(
+                get("/extractions/search/findAllByProductId?productId={productId}&projection=extractedParameters",
+                        1)) //
+        .andExpect(status().isOk()) // .
+        .andExpect(jsonPath("$._embedded.extractions[*]", hasSize(2))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].parameters[*]", hasSize(4))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[0].paramId",
+                        is("2230091"))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].parameters[0].value", is("ROHS"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[0].standardization.standardization",
+                        is("ROHS"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[1].paramId",
+                        is("2230090"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[1].value",
+                        is("Green Compliance"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[1].standardization.standardization",
+                        is("Yes"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[2].paramId",
+                        is("2230091"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[2].value",
+                        is("Energy Star"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[2].standardization.standardization",
+                        is("ENERGY STAR"))) //
+        .andExpect(jsonPath("$._embedded.extractions[1].parameters[*]", hasSize(4)));
+
+    }
 }

@@ -31,6 +31,8 @@ package com.etilize.automation.sdeintegration.core.extract;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -63,5 +65,24 @@ public class ExtractionRepositoryIntegrationTest extends AbstractMongoIntegratio
                 "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
         item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
         assertThat(result.getContent(), hasItem(item));
+    }
+
+    @Test
+    public void shouldFindAllByProductId() throws Exception {
+        final List<Extraction> result = repository.findAllByProductId("1");
+        final Extraction item = new Extraction("1", "4876",
+                "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2");
+        item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
+        assertThat(result.get(0).getText(), is(item.getText()));
+        assertThat(result.get(0).getProductId(), is(item.getProductId()));
+        assertThat(result.get(0).getCategoryId(), is(item.getCategoryId()));
+        assertThat(result.get(0).getText(), is(item.getText()));
+        final Extraction item2 = new Extraction("1", "4876",
+                "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
+        item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
+        assertThat(result.get(1).getText(), is(item2.getText()));
+        assertThat(result.get(1).getProductId(), is(item2.getProductId()));
+        assertThat(result.get(1).getCategoryId(), is(item2.getCategoryId()));
+        assertThat(result.get(1).getText(), is(item2.getText()));
     }
 }
