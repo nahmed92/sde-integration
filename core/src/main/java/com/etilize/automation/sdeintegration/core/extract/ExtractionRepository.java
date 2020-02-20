@@ -28,6 +28,8 @@
 
 package com.etilize.automation.sdeintegration.core.extract;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
@@ -50,13 +52,13 @@ public interface ExtractionRepository extends MongoRepository<Extraction, Object
      * Returns a {@link Page} of {@link Extraction} objects that are create on or after
      * the given createdAt date
      *
-     * @param createdAt
-     * @param pageable
-     * @return
+     * @param createdAt creation Date {@link Date}
+     * @param pageable {@link Pageable}
+     * @return {@link Page<Extraction>}
      */
     Page<Extraction> findAllByCreatedAtIsGreaterThanEqual(
-            @Param("createdAt") @DateTimeFormat(iso = ISO.DATE_TIME) final DateTime createdAt,
-            final Pageable pageable);
+            @Param("createdAt") @DateTimeFormat(iso = ISO.DATE_TIME) DateTime createdAt,
+            Pageable pageable);
 
     /*
      * (non-Javadoc)
@@ -75,5 +77,13 @@ public interface ExtractionRepository extends MongoRepository<Extraction, Object
     @RestResource(exported = false)
     @Override
     void delete(final Extraction entity);
+
+    /**
+     * Returns List of {@link Extraction} objects by ProductId
+     *
+     * @param productId productId for which extracted data is required
+     * @return {@link List<Extraction>}
+     */
+    List<Extraction> findAllByProductId(@Param("productId") String productId);
 
 }

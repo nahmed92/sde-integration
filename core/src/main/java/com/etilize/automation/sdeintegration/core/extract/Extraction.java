@@ -37,6 +37,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.etilize.commons.mongo.AbstractMongoEntity;
@@ -54,6 +55,7 @@ public class Extraction extends AbstractMongoEntity<ObjectId> {
 
     private static final long serialVersionUID = -5697261697275007175L;
 
+    @Indexed
     private final String productId;
 
     private final String categoryId;
