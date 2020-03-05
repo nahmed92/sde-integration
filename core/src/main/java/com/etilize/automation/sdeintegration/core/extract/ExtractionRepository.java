@@ -34,6 +34,7 @@ import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -82,8 +83,9 @@ public interface ExtractionRepository extends MongoRepository<Extraction, Object
      * Returns List of {@link Extraction} objects by ProductId
      *
      * @param productId productId for which extracted data is required
+     * @param sort {@link Sort}
      * @return {@link List<Extraction>}
      */
-    List<Extraction> findAllByProductId(@Param("productId") String productId);
+    List<Extraction> findAllByProductId(@Param("productId") String productId, Sort sort);
 
 }

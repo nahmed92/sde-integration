@@ -28,23 +28,35 @@
 
 package com.etilize.automation.sdeintegration.core.extract;
 
-import java.util.List;
-
 import org.springframework.data.rest.core.config.Projection;
 
 /**
- * Extraction Projection interface
+ * Parameter projection for paramId,unit and value
  *
  * @author Nasir Ahmed
  *
  */
-@Projection(name = "extractedParameters", types = { Extraction.class })
-public interface ExtractedParameter {
+@Projection(name = "parameterProjection", types = { Parameter.class })
+public interface ParameterProjection {
 
     /**
-     * Projection attribute of extracted parameters
+     * Projection of {@link String} paramId
      *
-     * @return {@link List<ParameterProjection>}
+     * @return {@link String} paramId
      */
-    List<ParameterProjection> getParameters();
+    String getParamId();
+
+    /**
+     * Projection of {@link String} unit
+     *
+     * @return {@link String} unit
+     */
+    String getUnit();
+
+    /**
+     * Projection of {@link String} value
+     *
+     * @return {@link String} value
+     */
+    String getValue();
 }

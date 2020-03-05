@@ -17,6 +17,7 @@
                 {
                     "paramId": "2230091",
                     "value": "ROHS",
+                    "unit" : "g",
                     "standardization": {
                         "standardization": "ROHS",
                         "status": "FOUND"

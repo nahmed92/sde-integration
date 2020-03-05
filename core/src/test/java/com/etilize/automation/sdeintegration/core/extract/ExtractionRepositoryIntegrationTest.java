@@ -31,6 +31,7 @@ package com.etilize.automation.sdeintegration.core.extract;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -39,6 +40,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.etilize.automation.sdeintegration.core.test.base.AbstractMongoIntegrationTest;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
@@ -68,21 +71,77 @@ public class ExtractionRepositoryIntegrationTest extends AbstractMongoIntegratio
     }
 
     @Test
-    public void shouldFindAllByProductId() throws Exception {
-        final List<Extraction> result = repository.findAllByProductId("1");
+    public void shouldFindAllByProductIdSortByDescCreatedDate() throws Exception {
+        final List<Extraction> result = repository.findAllByProductId("1", new Sort(
+                Direction.DESC, "createdAt"));
         final Extraction item = new Extraction("1", "4876",
-                "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2");
+                "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
         item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
         assertThat(result.get(0).getText(), is(item.getText()));
         assertThat(result.get(0).getProductId(), is(item.getProductId()));
         assertThat(result.get(0).getCategoryId(), is(item.getCategoryId()));
-        assertThat(result.get(0).getText(), is(item.getText()));
+        assertThat(result.get(0).getParameters().get(0).getParamId(), is("2230387"));
+        assertThat(result.get(0).getParameters().get(0).getValue(), is("Core i3"));
+        assertThat(result.get(0).getParameters().get(1).getParamId(), is("2230522"));
+        assertThat(result.get(0).getParameters().get(1).getValue(), is("i3-4300M"));
+        assertThat(result.get(0).getParameters().get(2).getParamId(), is("2229779"));
+        assertThat(result.get(0).getParameters().get(2).getValue(), is("2.6"));
+        assertThat(result.get(0).getParameters().get(3).getParamId(), is("2230349"));
+        assertThat(result.get(0).getParameters().get(3).getValue(), is("Intel"));
+
         final Extraction item2 = new Extraction("1", "4876",
-                "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
-        item.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
+                "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2");
+        item2.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         assertThat(result.get(1).getText(), is(item2.getText()));
         assertThat(result.get(1).getProductId(), is(item2.getProductId()));
         assertThat(result.get(1).getCategoryId(), is(item2.getCategoryId()));
         assertThat(result.get(1).getText(), is(item2.getText()));
+        assertThat(result.get(1).getParameters().get(0).getParamId(), is("2230091"));
+        assertThat(result.get(1).getParameters().get(0).getValue(), is("ROHS"));
+        assertThat(result.get(1).getParameters().get(1).getParamId(), is("2230090"));
+        assertThat(result.get(1).getParameters().get(1).getValue(),
+                is("Green Compliance"));
+        assertThat(result.get(1).getParameters().get(2).getParamId(), is("2230091"));
+        assertThat(result.get(1).getParameters().get(2).getValue(), is("Energy Star"));
+        assertThat(result.get(1).getParameters().get(3).getParamId(), is("2230091"));
+        assertThat(result.get(1).getParameters().get(3).getValue(), is("EPEAT Gold"));
+
     }
+
+    @Test
+    public void shouldFindAllByProductIdSortByAscCreatedDate() throws Exception {
+        final List<Extraction> result = repository.findAllByProductId("1", new Sort(
+                Direction.ASC, "createdAt"));
+        final Extraction item1 = new Extraction("1", "4876",
+                "Green Compliance Certificate/Authority: EPEAT Gold, ROHS, Energy Star 5.2");
+        item1.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        assertThat(result.get(0).getText(), is(item1.getText()));
+        assertThat(result.get(0).getProductId(), is(item1.getProductId()));
+        assertThat(result.get(0).getCategoryId(), is(item1.getCategoryId()));
+        assertThat(result.get(0).getText(), is(item1.getText()));
+        assertThat(result.get(0).getParameters().get(0).getParamId(), is("2230091"));
+        assertThat(result.get(0).getParameters().get(0).getValue(), is("ROHS"));
+        assertThat(result.get(0).getParameters().get(1).getParamId(), is("2230090"));
+        assertThat(result.get(0).getParameters().get(1).getValue(),
+                is("Green Compliance"));
+        assertThat(result.get(0).getParameters().get(2).getParamId(), is("2230091"));
+        assertThat(result.get(0).getParameters().get(2).getValue(), is("Energy Star"));
+        assertThat(result.get(0).getParameters().get(3).getParamId(), is("2230091"));
+        assertThat(result.get(0).getParameters().get(3).getValue(), is("EPEAT Gold"));
+        final Extraction item2 = new Extraction("1", "4876",
+                "Product Line: Intel Core i3 i3-4300M (2.6GHz)");
+        item2.setId(new ObjectId("55095aab3aca9ace762ad5f9"));
+        assertThat(result.get(1).getText(), is(item2.getText()));
+        assertThat(result.get(1).getProductId(), is(item2.getProductId()));
+        assertThat(result.get(1).getCategoryId(), is(item2.getCategoryId()));
+        assertThat(result.get(1).getParameters().get(0).getParamId(), is("2230387"));
+        assertThat(result.get(1).getParameters().get(0).getValue(), is("Core i3"));
+        assertThat(result.get(1).getParameters().get(1).getParamId(), is("2230522"));
+        assertThat(result.get(1).getParameters().get(1).getValue(), is("i3-4300M"));
+        assertThat(result.get(1).getParameters().get(2).getParamId(), is("2229779"));
+        assertThat(result.get(1).getParameters().get(2).getValue(), is("2.6"));
+        assertThat(result.get(1).getParameters().get(3).getParamId(), is("2230349"));
+        assertThat(result.get(1).getParameters().get(3).getValue(), is("Intel"));
+    }
+
 }

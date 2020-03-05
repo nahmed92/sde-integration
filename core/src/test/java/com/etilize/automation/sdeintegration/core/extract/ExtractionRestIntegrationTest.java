@@ -92,21 +92,24 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
     }
 
     @Test
-    public void shouldFindAllByProductId() throws Exception {
+    public void shouldFindAllByProductIdSortByAscCreatedDate() throws Exception {
         mockMvc.perform(
-                get("/extractions/search/findAllByProductId?productId={productId}&projection=extractedParameters",
+                get("/extractions/search/findAllByProductId?productId={productId}&projection=extractedParameters&sort=createdAt,asc",
                         1)) //
         .andExpect(status().isOk()) // .
         .andExpect(jsonPath("$._embedded.extractions[*]", hasSize(2))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].text").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[0].categoryId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[0].productId").doesNotExist()) //
         .andExpect(jsonPath("$._embedded.extractions[0].parameters[*]", hasSize(4))) //
         .andExpect(
                 jsonPath("$._embedded.extractions[0].parameters[0].paramId",
                         is("2230091"))) //
         .andExpect(jsonPath("$._embedded.extractions[0].parameters[0].value", is("ROHS"))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].parameters[0].unit", is("g"))) //
         .andExpect(
                 jsonPath(
-                        "$._embedded.extractions[0].parameters[0].standardization.standardization",
-                        is("ROHS"))) //
+                        "$._embedded.extractions[0].parameters[0].standardization.standardization").doesNotExist()) //
         .andExpect(
                 jsonPath("$._embedded.extractions[0].parameters[1].paramId",
                         is("2230090"))) //
@@ -115,8 +118,7 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
                         is("Green Compliance"))) //
         .andExpect(
                 jsonPath(
-                        "$._embedded.extractions[0].parameters[1].standardization.standardization",
-                        is("Yes"))) //
+                        "$._embedded.extractions[0].parameters[1].standardization.standardization").doesNotExist()) //
         .andExpect(
                 jsonPath("$._embedded.extractions[0].parameters[2].paramId",
                         is("2230091"))) //
@@ -125,9 +127,100 @@ public class ExtractionRestIntegrationTest extends AbstractMongoIntegrationTest 
                         is("Energy Star"))) //
         .andExpect(
                 jsonPath(
-                        "$._embedded.extractions[0].parameters[2].standardization.standardization",
-                        is("ENERGY STAR"))) //
-        .andExpect(jsonPath("$._embedded.extractions[1].parameters[*]", hasSize(4)));
+                        "$._embedded.extractions[0].parameters[2].standardization.standardization").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].text").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].categoryId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].productId").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[0].paramId",
+                        is("2230387"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[0].value", is("Core i3"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[0].standardization.status").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[1].paramId",
+                        is("2230522"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[1].value", is("i3-4300M"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[1].standardization.standardization").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[2].paramId",
+                        is("2229779"))) //
+        .andExpect(jsonPath("$._embedded.extractions[1].parameters[2].value", is("2.6"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[2].standardization.standardization").doesNotExist());
+
+    }
+
+    @Test
+    public void shouldFindAllByProductIdSortByDescCreatedDate() throws Exception {
+        mockMvc.perform(
+                get("/extractions/search/findAllByProductId?productId={productId}&projection=extractedParameters&sort=createdAt,desc",
+                        1)) //
+        .andExpect(status().isOk()) //
+        .andExpect(jsonPath("$._embedded.extractions[*]", hasSize(2))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].text").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[0].categoryId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[0].productId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[0].parameters[*]", hasSize(4))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[0].paramId",
+                        is("2230387"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[0].value", is("Core i3"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[0].standardization.status").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[1].paramId",
+                        is("2230522"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[1].value", is("i3-4300M"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[1].standardization.standardization").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[0].parameters[2].paramId",
+                        is("2229779"))) //
+        .andExpect(jsonPath("$._embedded.extractions[0].parameters[2].value", is("2.6"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[0].parameters[2].standardization.standardization").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].text").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].categoryId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].productId").doesNotExist()) //
+        .andExpect(jsonPath("$._embedded.extractions[1].parameters[*]", hasSize(4))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[0].paramId",
+                        is("2230091"))) //
+        .andExpect(jsonPath("$._embedded.extractions[1].parameters[0].value", is("ROHS"))) //
+        .andExpect(jsonPath("$._embedded.extractions[1].parameters[0].unit", is("g"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[0].standardization.standardization").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[1].paramId",
+                        is("2230090"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[1].value",
+                        is("Green Compliance"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[1].standardization.standardization").doesNotExist()) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[2].paramId",
+                        is("2230091"))) //
+        .andExpect(
+                jsonPath("$._embedded.extractions[1].parameters[2].value",
+                        is("Energy Star"))) //
+        .andExpect(
+                jsonPath(
+                        "$._embedded.extractions[1].parameters[2].standardization.standardization").doesNotExist());
 
     }
 }
